@@ -1,0 +1,24 @@
+<template>
+  <div class="facebook-button">
+    <div class="icon">
+      <i class="fa-brands fa-facebook"></i>
+    </div>
+    <div class="title">
+      <slot/>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+</script>
+
+<style scoped>
+.facebook-button{
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #3c589f;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+}
+</style>

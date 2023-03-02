@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "sourceMap": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node", "express","@types/express","reflect-metadata", "@types/bcrypt"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+  },
+  "ts-node": {
+    // Tell ts-node CLI to install the --loader automatically
+//    "transpileOnly": true,
+    "esm": true
+  },
+//  "include": ["**/*.ts","setup/*.ts"],
+  "exclude": [
+    "node_modules"
+  ]
+}
