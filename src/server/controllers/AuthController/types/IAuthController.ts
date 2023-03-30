@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
+import {IApiRequest} from "../../../types/IApiRequest.js";
+import {IApiResponse} from "../../../types/IApiResponse.js";
 
 export interface IAuthController {
-  register(req: Request, res: Response): Promise<Response>
-  login(req: Request, res: Response): Promise<Response>
+  register(req: IApiRequest, res: IApiResponse): Promise<Response>
+  login(req: IApiRequest, res: IApiResponse): Promise<Response>
 }

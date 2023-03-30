@@ -1,17 +1,23 @@
 export const InterfaceTypes = {
+  middlewares: {
+    ApiResponseMiddleware: Symbol.for('ApiResponseMiddleware'),
+    JWTAuthMiddleware: Symbol.for('JWTAuthMiddleware'),
+  },
   repositories: {
     UserRepository: Symbol.for('UserRepository'),
   },
   controllers: {
-    AuthController: Symbol.for('AuthController')
+    AuthController: Symbol.for('AuthController'),
+    CouponController: Symbol.for('CouponController'),
   },
   models: {
-    UserModel: Symbol.for('UserModel')
+    UserModel: Symbol.for('UserModel'),
   },
   services: {
-    PasswordService: Symbol.for('PasswordService')
+    AuthService: Symbol.for('AuthService'),
+    PasswordService: Symbol.for('PasswordService'),
   },
   databases: {
-    Mongoose: Symbol.for('Mongoose')
+    Mongoose: Symbol.for('Mongoose'),
   }
 };

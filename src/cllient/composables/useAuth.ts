@@ -12,7 +12,7 @@ export function useAuth() {
     await axios.post(`${import.meta.env.VITE_API_HOST}/login`,{
       mail,
       password,
-    })
+    }, {withCredentials: true})
   }
 
   return $$({

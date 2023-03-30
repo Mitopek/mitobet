@@ -8,10 +8,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "express","@types/express","reflect-metadata", "@types/bcrypt"],
+    "types": ["node", "express","@types/express","reflect-metadata", "@types/bcrypt", "@types/cookie-parser"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "ts-node": {
     // Tell ts-node CLI to install the --loader automatically

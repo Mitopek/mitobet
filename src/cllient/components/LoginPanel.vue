@@ -43,8 +43,9 @@ const onRegisterClick = () => {
   router.push({path: '/register'})
 }
 
-const onLoginClick = () => {
-  login(mail, password)
+const onLoginClick = async () => {
+  await login(mail, password)
+  await router.push({path: '/coupons'})
 }
 
 </script>

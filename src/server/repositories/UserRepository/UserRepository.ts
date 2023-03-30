@@ -3,6 +3,7 @@ import {IUserEntity} from "../../models/UserModel/types/IUserEntity.js";
 import {Model} from "mongoose";
 import {InterfaceTypes} from "../../types/InterfaceTypes.js";
 import {IUserRepository} from "./types/IUserRepository.js";
+import {ICreateUserProperties} from "../../models/UserModel/types/ICreateUserProperties.js";
 
 @injectable()
 export class UserRepository implements IUserRepository{
@@ -11,7 +12,7 @@ export class UserRepository implements IUserRepository{
   ) {
   }
 
-  async createUser(user: Partial<IUserEntity>): Promise<IUserEntity> {
+  async createUser(user: ICreateUserProperties): Promise<IUserEntity> {
     return this.userModel.create(user)
   }
 

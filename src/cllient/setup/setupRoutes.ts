@@ -1,6 +1,7 @@
 import MainPage from "../components/pages/MainPage.vue";
 import * as VueRouter from 'vue-router'
 import RegisterPage from "../components/pages/RegisterPage.vue";
+import CouponsPage from "../components/pages/CouponsPage.vue";
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
   {
     path: '/register',
     component: RegisterPage,
+  },
+  {
+    path: '/coupons',
+    component: CouponsPage,
   }
 ]
 
