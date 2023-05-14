@@ -1,6 +1,9 @@
 <template>
- <div class="main-page">
+ <div class="register-page">
     <DefaultLayout>
+      <div class="main-image-container">
+        <div class="image"/>
+      </div>
       <div class="main-items-container">
         <div class="login-panel-wrapper">
           <ModalComponent>
@@ -23,6 +26,22 @@ import RegisterPanel from "../RegisterPanel.vue";
 </script>
 
 <style scoped>
+
+
+.main-image-container{
+  overflow: hidden;
+}
+
+.image{
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  position: relative;
+  /*top: -20vh;*/
+  height: 100vh;
+}
+
 .main-items-container{
   position: absolute;
   top: 0;
@@ -35,15 +54,6 @@ import RegisterPanel from "../RegisterPanel.vue";
 }
 
 .login-panel-wrapper{
-  margin-top: 200px;
-}
-
-.arrow-wrapper {
-  margin-top: auto;
-}
-
-.main-page {
-  width: 100%;
-  height: 1000px;
+  margin-top: 50px;
 }
 </style>

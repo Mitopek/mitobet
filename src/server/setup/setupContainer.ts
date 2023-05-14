@@ -14,6 +14,8 @@ import {JWTAuthMiddleware} from "../middlewares/AuthMiddleware/JWTAuthMiddleware
 import {IAuthMiddleware} from "../middlewares/AuthMiddleware/types/IAuthMiddleware.js";
 import {ICouponController} from "../controllers/CouponController/types/ICouponController.js";
 import {CouponController} from "../controllers/CouponController/CouponController.js";
+import {MailService} from "../services/MailService/MailService.js";
+import {IMailService} from "../services/MailService/types/IMailService.js";
 
 
 export default async function setupContainer() {
@@ -33,6 +35,7 @@ export default async function setupContainer() {
   //SERVICES
   container.bind<IAuthService>(InterfaceTypes.services.AuthService).to(AuthService)
   container.bind<IPasswordService>(InterfaceTypes.services.PasswordService).to(PasswordService)
+  container.bind<IMailService>(InterfaceTypes.services.MailService).to(MailService)
 
   //MONGOOSE
   await setupMongoose(container)

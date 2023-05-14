@@ -14,8 +14,10 @@
           <AnimatedArrowButton/>
         </div>
       </div>
-      <MainTextContent/>
-      <PricesContent/>
+      <div class="content">
+        <MainTextContent/>
+        <PricesContent/>
+      </div>
     </DefaultLayout>
  </div>
 </template>
@@ -32,16 +34,23 @@ import MainTextContent from "../MainTextContent.vue";
 
 <style scoped>
 
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10%;
+}
+
 .main-image-container{
-  height: 80%;
+  height: 75%;
   overflow: hidden;
 }
 
 .image{
   background-image: url('background.jpg');
-  background-size: auto 100%;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: bottom;
   position: relative;
   /*top: -20vh;*/
   height: 100vh;
@@ -63,7 +72,7 @@ import MainTextContent from "../MainTextContent.vue";
 }
 
 .arrow-wrapper {
-  margin-top: auto;
+  margin-top: 40px;
 }
 
 .main-page {

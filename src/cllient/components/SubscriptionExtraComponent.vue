@@ -38,22 +38,19 @@ const props = defineProps<IProps>()
 <style scoped>
 .price{
   word-spacing: -4px;
-  font-weight: 600;
   font-size: 2.2rem;
 }
 
 .price-description{
-  font-weight: 600;
 }
 
 .duration {
-  font-weight: 500;
   font-size: 2.4rem;
 }
 
 .extra-time{
   border-radius: 15px;
-  background-color: rgba(0,150,0,0.7);
+  background-color: rgba(0,150,0,0.5);
   align-self: center;
   padding: 5px 15px;
   justify-self: center;
@@ -69,8 +66,7 @@ const props = defineProps<IProps>()
   padding: 10px;
   border-radius: 1.6rem;
   box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
-  border: rgba(0,150,0,0.7) 3px solid ;
-  background-color: #f9f9f9;
+  background-color: hsla(0deg,0%,10%,.45);
   outline-offset: -2px;
 }
 </style>

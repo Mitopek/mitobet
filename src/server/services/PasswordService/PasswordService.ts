@@ -10,7 +10,18 @@ export class PasswordService implements IPasswordService{
     const salt = await bcrypt.genSalt(this.saltRounds);
     return bcrypt.hash(password, salt);
   }
+
   comparePassword(password: string, hashedPassword: string): Promise<boolean> {
     return bcrypt.compare(password, hashedPassword);
+  }
+
+  validatePassword(password: string): boolean {
+    if(!password) {
+      return false
+    }
+    if(password.length < 8 && password.length <= 32) {
+      return false
+    }
+    return /\d/.test(password);
   }
 }

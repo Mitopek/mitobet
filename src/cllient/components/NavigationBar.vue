@@ -26,8 +26,8 @@ const routes = [
    },
    {
      path: '/',
-     title: 'VIP',
-     iconClass: 'fa-solid fa-store'
+     title: 'Subskrypcja',
+     iconClass: 'fa-solid fa-crown'
    },
    {
      path: '/',
@@ -57,7 +57,7 @@ const routes = [
   justify-content: center;
   gap: 20px;
   height: 50px;
-  background-color: #010005;
+  background-color: hsla(0deg,0%,10%,.90);
 }
 
 .navigation-item{

@@ -16,6 +16,7 @@ export const InterfaceTypes = {
   services: {
     AuthService: Symbol.for('AuthService'),
     PasswordService: Symbol.for('PasswordService'),
+    MailService: Symbol.for('MailService'),
   },
   databases: {
     Mongoose: Symbol.for('Mongoose'),

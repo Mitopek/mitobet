@@ -18,30 +18,28 @@ export class AuthController implements IAuthController {
 
   async register(req: IApiRequest, res: IApiResponse): Promise<Response> {
     const {mail, password} = req.body
-    const hashedPassword = await this.passwordService.hashPassword(password)
-    await this.userRepository.createUser({
-      mail,
-      password: hashedPassword,
-    })
+    try {
+      await this.authService.register(mail, password)
+    } catch (e) {
+      return res.sendFailResponse([e.message], 400)
+    }
     return res.sendSuccessResponse(null)
   }
 
   async login(req: IApiRequest, res: IApiResponse): Promise<Response> {
     const {mail, password} = req.body
-    const user = await this.userRepository.findUserByMail(mail)
-    if(!user) {
-      return res.sendFailResponse('User not found', 404)
-    }
-    const isPasswordValid = await this.passwordService.comparePassword(password, user.password)
-    if(!isPasswordValid) {
-      return res.sendFailResponse('User not found', 404)
+    let user = null
+    try {
+      user = await this.authService.login(mail, password)
+    } catch (e) {
+      return res.sendFailResponse([e.message], 401)
     }
     const token = this.authService.generateToken(user)
     res.cookie('access_token', token, {
-      // httpOnly: true,
+      httpOnly: false,
       maxAge: 1000 * 3600,
-      //secure: true,
-      //sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
     })
     return res.sendSuccessResponse(null)
   }

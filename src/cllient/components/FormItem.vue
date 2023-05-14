@@ -4,6 +4,9 @@
     <div class="input">
       <slot/>
     </div>
+    <div class="error">
+      <span v-if="props.error">{{props.error}}</span>
+    </div>
   </div>
 </template>
 
@@ -15,20 +18,25 @@ const props = defineProps({
     default: '',
     type: String,
   },
-  value: {
+  error: {
     default: '',
     type: String,
   }
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.error{
+  text-align: center;
+  color: #c7c412;
+  font-size: 14px; /* przykładowy rozmiar czcionki */
+  height: 14px;
+}
+
 .form-item{
   width: 100%;
   display: grid;
+  gap: 2px
 }
 
-.title{
-  padding: 3px;
-}
 </style>

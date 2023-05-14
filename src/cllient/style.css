@@ -1,9 +1,10 @@
 @import url('https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500i,900,900i');
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Rubik", sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-size: 16px;
 
   /*color-scheme: light dark;*/
   color: rgba(255, 255, 255, 0.87);
@@ -27,6 +28,14 @@ a:hover {
 body, #app, html {
   margin: 0;
   padding: 0;
+  background-color: #172b3d;
+}
+
+h2{
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0;
+  padding: 5px;
 }
 
 /*body{*/
@@ -35,10 +44,6 @@ body, #app, html {
 /*  background-attachment: fixed;*/
 /*}*/
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
 .card {
   padding: 2em;

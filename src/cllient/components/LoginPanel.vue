@@ -1,6 +1,6 @@
 <template>
   <div class="login-panel">
-    <span class="title">Zaloguj się</span>
+    <h2>Zaloguj się</h2>
     <div class="form">
       <FormItem title="Mail:">
         <InputComponent type="text" v-model="mail"/>
@@ -44,17 +44,18 @@ const onRegisterClick = () => {
 }
 
 const onLoginClick = async () => {
-  await login(mail, password)
+  const response = await login(mail, password)
+  if(!response.success && response?.errors) {
+    return alert(response.errors[0])
+  }
   await router.push({path: '/coupons'})
 }
 
 </script>
 
 <style scoped>
-  .title {
+  h2 {
     text-align: center;
-    font-size: 32px;
-    font-weight: 700;
   }
   .login-panel{
     display: flex;

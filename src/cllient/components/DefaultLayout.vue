@@ -18,10 +18,13 @@ export default {
 
 <style scoped>
 .navigation-bar{
-  position: sticky;
+  position: fixed;
+  width: 100vw;
+  height: 50px;
   z-index: 100;
   top: 0;
 }
+
 
 .default-layout{
   width: 100%;

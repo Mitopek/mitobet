@@ -6,7 +6,6 @@
 interface IProps {
   type: string,
   modelValue: unknown,
-
 }
 interface IEmits {
   (e: 'update:modelValue', value: unknown): void
@@ -18,11 +17,14 @@ const emit = defineEmits<IEmits>()
 <style scoped>
 
 input{
-  border-radius: 15px;
-  padding: 5px;
-  height: 30px;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 16px;
+  height: 36px;
   width: 100%;
   outline: none;
+  border: none;
+  box-sizing: border-box;
 }
 
 </style>

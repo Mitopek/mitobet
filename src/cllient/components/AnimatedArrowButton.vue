@@ -28,6 +28,6 @@
    animation-name: move;
    animation-duration: 3s;
    animation-iteration-count: infinite;
-   font-size: 28px;
+   font-size: 58px;
  }
 </style>

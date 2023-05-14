@@ -15,8 +15,16 @@ export default function setupRoutes(app: Express, container: Container) {
   //TODO DEV ONLY
   app.use(cookieParser())
   app.use(helmet());
-  app.use(cors())
+  app.use(cors({
+    origin: ['http://127.0.0.1:5173','http://localhost:5173'],
+    credentials: true,
+    // exposedHeaders: ['set-cookie'],
+  }))
   app.use(bodyParser.json())
+  // app.options('*', cors({
+  //   origin: '*',
+  //   credentials: true,
+  // }))
 
 
   const apiResponseMiddleware = container.get<IResponseMiddleware>(InterfaceTypes.middlewares.ApiResponseMiddleware)

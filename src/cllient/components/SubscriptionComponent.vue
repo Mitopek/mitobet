@@ -35,12 +35,7 @@ const props = defineProps<IProps>()
 <style scoped>
   .price{
     word-spacing: -4px;
-    font-weight: 600;
     font-size: 1.8rem;
-  }
-
-  .price-description{
-    font-weight: 600;
   }
 
   .duration {
@@ -59,7 +54,7 @@ const props = defineProps<IProps>()
     border-radius: 1.6rem;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;
-    background-color: #f9f9f9;
+    background-color: hsla(0deg,0%,10%,.45);
     outline-offset: -2px;
   }
 </style>
