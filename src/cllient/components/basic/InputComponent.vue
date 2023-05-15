@@ -1,16 +1,18 @@
 <template>
-  <input :type="props.type" :value="props.modelValue" @change="emit('update:modelValue', $event.target.value)">
+  <input :type="props.type" :value="props.modelValue" @input="emit('update:modelValue', $event.target.value)">
 </template>
 
 <script setup lang="ts">
 interface IProps {
-  type: string,
+  type?: string,
   modelValue: unknown,
 }
 interface IEmits {
   (e: 'update:modelValue', value: unknown): void
 }
-const props = defineProps<IProps>()
+const props = withDefaults(defineProps<IProps>(),{
+  type: 'text',
+})
 const emit = defineEmits<IEmits>()
 </script>
 

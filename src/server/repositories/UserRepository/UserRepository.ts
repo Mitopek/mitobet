@@ -21,4 +21,10 @@ export class UserRepository implements IUserRepository{
       mail
     })
   }
+
+  async findUserById(id: IUserEntity['id']): Promise<IUserEntity> {
+    return this.userModel.findOne({
+      _id: id,
+    })
+  }
 }

@@ -16,6 +16,8 @@ import {ICouponController} from "../controllers/CouponController/types/ICouponCo
 import {CouponController} from "../controllers/CouponController/CouponController.js";
 import {MailService} from "../services/MailService/MailService.js";
 import {IMailService} from "../services/MailService/types/IMailService.js";
+import {ICouponRepository} from "../repositories/CouponRepository/types/ICouponRepository.js";
+import {CouponRepository} from "../repositories/CouponRepository/CouponRepository.js";
 
 
 export default async function setupContainer() {
@@ -31,6 +33,8 @@ export default async function setupContainer() {
 
   //REPOSITORIES
   container.bind<IUserRepository>(InterfaceTypes.repositories.UserRepository).to(UserRepository)
+  container.bind<ICouponRepository>(InterfaceTypes.repositories.CouponRepository).to(CouponRepository)
+
 
   //SERVICES
   container.bind<IAuthService>(InterfaceTypes.services.AuthService).to(AuthService)

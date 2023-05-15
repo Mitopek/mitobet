@@ -1,9 +1,6 @@
 <template>
  <div class="main-page">
     <DefaultLayout>
-      <div class="main-image-container">
-        <div class="image"/>
-      </div>
       <div class="main-items-container">
         <div class="login-panel-wrapper">
           <ModalComponent>
@@ -14,9 +11,12 @@
           <AnimatedArrowButton/>
         </div>
       </div>
-      <div class="content">
-        <MainTextContent/>
-        <PricesContent/>
+      <div class="fading-element"/>
+      <div class="content-wrapper">
+        <div class="content">
+          <MainTextContent/>
+          <PricesContent/>
+        </div>
       </div>
     </DefaultLayout>
  </div>
@@ -34,6 +34,16 @@ import MainTextContent from "../MainTextContent.vue";
 
 <style scoped>
 
+.fading-element {
+  height: 5px;
+  background: linear-gradient(to top, rgba(23, 43, 61, 1), rgba(23, 43, 61, 0));
+}
+
+
+.content-wrapper{
+  background-color: #172b3d;
+}
+
 .content{
   display: flex;
   flex-direction: column;
@@ -41,24 +51,7 @@ import MainTextContent from "../MainTextContent.vue";
   margin: 0 10%;
 }
 
-.main-image-container{
-  height: 75%;
-  overflow: hidden;
-}
-
-.image{
-  background-image: url('background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  position: relative;
-  /*top: -20vh;*/
-  height: 100vh;
-}
-
 .main-items-container{
-  position: absolute;
-  top: 0;
   height: 75%;
   width: 100%;
   display: flex;

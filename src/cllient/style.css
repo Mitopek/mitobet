@@ -28,7 +28,11 @@ a:hover {
 body, #app, html {
   margin: 0;
   padding: 0;
-  background-color: #172b3d;
+  background-attachment: fixed;
+  background-image: url('background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 80%;
 }
 
 h2{

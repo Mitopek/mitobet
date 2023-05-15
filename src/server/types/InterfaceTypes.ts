@@ -5,6 +5,7 @@ export const InterfaceTypes = {
   },
   repositories: {
     UserRepository: Symbol.for('UserRepository'),
+    CouponRepository: Symbol.for('CouponRepository')
   },
   controllers: {
     AuthController: Symbol.for('AuthController'),
@@ -12,6 +13,7 @@ export const InterfaceTypes = {
   },
   models: {
     UserModel: Symbol.for('UserModel'),
+    CouponModal: Symbol.for('CouponModal'),
   },
   services: {
     AuthService: Symbol.for('AuthService'),

@@ -2,7 +2,7 @@
   <div class="prices-content">
     <h2>Obstawiaj z nami</h2>
     <div class="text">
-      Znowu postawiłeś kupon z kursem 1.2, ale przeciwnicy, których kurs wynosił 5.0, wygrali mecz? Dlaczego wśród graczy tak popularne jest powiedzenie "Nie graj po kursach"? Odpowiedź jest prosta: fakt, że określony jest niski kurs dla danego zdarzenia, nie gwarantuje pewnej wygranej. Dokładna analiza całego "kontekstu" danego wydarzenia, a w szczególnosci przez profesjonalistów, zwiększa bardzo mocno szanse na ogranie bukmachera i zgarnięcia wygranej. Nasz zespół oferuje naszym klientom właśnie to - przewidywania na poszczególne zdarzenia, poprzedzone dogłębną analizą.
+      Znowu postawiłeś kupon z kursem 1.2, ale przeciwnicy, których kurs wynosił 5.0, wygrali mecz? Dlaczego wśród graczy tak popularne jest powiedzenie "Nie graj po kursach"? Odpowiedź jest prosta: fakt, że określony jest niski kurs dla danego zdarzenia, nie gwarantuje pewnej wygranej. Dokładna analiza całego "kontekstu" danego wydarzenia, a w szczególnosci przez profesjonalistów, zwiększa bardzo mocno szanse na zgarnięcie wygranej. Nasz zespół oferuje naszym klientom właśnie to - przewidywania na poszczególne zdarzenia, poprzedzone dogłębną analizą.
     </div>
   </div>
 </template>

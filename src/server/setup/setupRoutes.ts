@@ -37,5 +37,8 @@ export default function setupRoutes(app: Express, container: Container) {
 
   const couponController = container.get<ICouponController>(InterfaceTypes.controllers.CouponController)
   app.use('/coupons', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  app.use('/coupon', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.get('/coupons', couponController.getCoupons.bind(couponController))
+  app.post('/coupon', couponController.createCoupon.bind(couponController))
+  app.delete('/coupon/:couponId', couponController.deleteCoupon.bind(couponController))
 }

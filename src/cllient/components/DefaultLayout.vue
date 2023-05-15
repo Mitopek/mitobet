@@ -25,10 +25,9 @@ export default {
   top: 0;
 }
 
-
 .default-layout{
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 </style>

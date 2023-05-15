@@ -4,4 +4,5 @@ import {ICreateUserProperties} from "../../../models/UserModel/types/ICreateUser
 export interface IUserRepository {
   createUser(user: ICreateUserProperties): Promise<IUserEntity>
   findUserByMail(mail: IUserEntity['mail']): Promise<IUserEntity>
+  findUserById(id: IUserEntity['id']): Promise<IUserEntity>
 }

@@ -1,0 +1,81 @@
+<template>
+  <div class="coupon-component">
+    <h2>Dodaj kupon</h2>
+    <div v-if="!isPreviewing" class="creator">
+      Czas rozpoczęcia:
+      <InputComponent v-model="startDate" type="date"/>
+      Adres url zdjęcia:
+      <InputComponent v-model="imageUrl"/>
+      Opis (opcjonalne):
+      <InputComponent v-model="description"/>
+    </div>
+    <div v-else>
+      <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description"/>
+    </div>
+    <div class="buttons-container">
+      <ButtonComponent @click="isPreviewing=true" v-if="!isPreviewing">Przejdź do podglądu</ButtonComponent>
+      <ButtonComponent @click="isPreviewing=false" v-else>Wróć do edycji</ButtonComponent>
+      <ButtonComponent @click="onSave" v-if="isPreviewing">Dodaj kupon</ButtonComponent>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import InputComponent from "./basic/InputComponent.vue";
+import {$ref, $} from "vue/macros";
+import CouponComponent from "./CouponComponent.vue";
+import ButtonComponent from "./basic/ButtonComponent.vue";
+import {useCoupons} from "../composables/useCoupons.js";
+
+interface Emits {
+  (e: 'created'): void
+}
+const emit = defineEmits<Emits>()
+
+
+const {createCoupon} = $(useCoupons())
+
+let startDate = $ref(new Date())
+let imageUrl = $ref('')
+let description = $ref('')
+
+let isPreviewing = $ref(false)
+
+const clearData = () => {
+  isPreviewing = false
+  startDate = new Date()
+  imageUrl = ''
+  description = ''
+}
+
+const onSave = async () => {
+  if(!imageUrl || !startDate) {
+    return
+  }
+  await createCoupon(imageUrl, startDate, description)
+  clearData()
+  emit('created')
+}
+
+</script>
+
+<style scoped>
+.coupon-component{
+  padding: 10px;
+  background-color: hsla(208deg,46%,12%,.9);
+  border-radius: 10px;
+}
+
+.creator{
+  display: flex;
+  flex-flow: column;
+  gap: 4px;
+}
+
+.buttons-container{
+  padding: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+</style>

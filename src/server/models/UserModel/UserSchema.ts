@@ -9,4 +9,12 @@ export const UserSchema = new Schema<IUserEntity>({
     type: Schema.Types.String,
     required: true,
   },
+  isAdmin: {
+    type: Schema.Types.Boolean,
+    required: true,
+  },
+  subscriptionExpiresAt: {
+    type: Schema.Types.Date,
+    required: false,
+  },
 })

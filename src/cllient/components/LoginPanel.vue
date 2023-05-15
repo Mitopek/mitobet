@@ -3,10 +3,10 @@
     <h2>Zaloguj się</h2>
     <div class="form">
       <FormItem title="Mail:">
-        <InputComponent type="text" v-model="mail"/>
+        <InputComponent type="text" v-model="mail" @keydown.enter="onLoginClick"/>
       </FormItem>
       <FormItem title="Hasło:">
-        <InputComponent type="password" v-model="password"/>
+        <InputComponent type="password" v-model="password" @keydown.enter="onLoginClick"/>
       </FormItem>
       <div class="actions-buttons">
         <ButtonComponent @click="onRegisterClick">

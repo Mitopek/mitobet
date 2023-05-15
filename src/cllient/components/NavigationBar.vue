@@ -1,8 +1,8 @@
 <template>
   <div class="navigation-bar">
-    <div class="logo-container">
-      <img src="/logo.jpg" alt="logo" class="logo"/>
-    </div>
+<!--    <div class="logo-container">-->
+<!--      <img src="/logo.jpg" alt="logo" class="logo"/>-->
+<!--    </div>-->
     <div class="navigation-item" v-for="route in routes" @click="router.push(route.path)">
       <i :class="route.iconClass"></i>
       <span>{{route.title}}</span>
@@ -57,7 +57,7 @@ const routes = [
   justify-content: center;
   gap: 20px;
   height: 50px;
-  background-color: hsla(0deg,0%,10%,.90);
+  background-color: hsla(208deg,46%,12%,.9);
 }
 
 .navigation-item{

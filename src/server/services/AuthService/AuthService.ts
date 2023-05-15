@@ -18,7 +18,8 @@ export class AuthService implements IAuthService {
 
   generateToken(user: IUserEntity): string {
     return jwt.sign({
-      userId: user.id
+      userId: user.id,
+      isAdmin: user.isAdmin,
     }, process.env.JWT_KEY, {
       expiresIn: '1h'
     })
@@ -39,6 +40,7 @@ export class AuthService implements IAuthService {
     await this.userRepository.createUser({
       mail,
       password: hashedPassword,
+      isAdmin: false,
     })
   }
 

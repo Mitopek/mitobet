@@ -1,9 +1,16 @@
 import axios, {AxiosError} from 'axios'
 import {$$} from 'vue/macros'
+import UniversalCookie from "universal-cookie";
 
 interface Response {
   success: boolean;
   errors?: string[];
+  payload: {
+    user: {
+      mail: string,
+      isAdmin: boolean,
+    }
+  }
 }
 
 export function useAuth() {
@@ -27,6 +34,9 @@ export function useAuth() {
         mail,
         password,
       }, {withCredentials: true})
+      const cookies = new UniversalCookie()
+      cookies.set('is_admin', response.data.payload.user.isAdmin)
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {

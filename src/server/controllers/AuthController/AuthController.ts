@@ -35,12 +35,20 @@ export class AuthController implements IAuthController {
       return res.sendFailResponse([e.message], 401)
     }
     const token = this.authService.generateToken(user)
+    //TODO flags itp
     res.cookie('access_token', token, {
       httpOnly: false,
       maxAge: 1000 * 3600,
       secure: true,
       sameSite: 'none',
     })
-    return res.sendSuccessResponse(null)
+    console.info(user?.isAdmin)
+    return res.sendSuccessResponse({
+      user: {
+        mail: user.mail,
+        subscriptionExpiresAt: user?.subscriptionExpiresAt || null,
+        isAdmin: user.isAdmin,
+      }
+    })
   }
 }

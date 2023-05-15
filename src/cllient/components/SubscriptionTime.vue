@@ -26,7 +26,7 @@ const expiresTime = $computed(() => {
   }
   const diff = props.expiresAt.getTime() - Date.now();
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
   // const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   // const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
