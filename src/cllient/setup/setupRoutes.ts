@@ -1,21 +1,40 @@
-import MainPage from "../components/pages/MainPage.vue";
+import HomePage from "../components/pages/HomePage.vue";
 import * as VueRouter from 'vue-router'
 import RegisterPage from "../components/pages/RegisterPage.vue";
 import CouponsPage from "../components/pages/CouponsPage.vue";
+import MainView from "../components/views/MainView.vue";
+import NotificationsPage from "../components/pages/NotificationsPage.vue";
+import {RouterName} from "../enum/RouterName.js";
+
+//TODO When refresh page 0.1 sec image loaded on top and white body
 
 const routes = [
   {
     path: '/',
-    component: MainPage,
+    name: RouterName.Home,
+    component: import('../components/pages/HomePage.vue'),
   },
   {
     path: '/register',
-    component: RegisterPage,
+    name: RouterName.Register,
+    component: () => import('../components/pages/RegisterPage.vue'),
   },
   {
-    path: '/coupons',
-    component: CouponsPage,
-  }
+    path: '/me',
+    component: () => import('../components/views/MainView.vue'),
+    children: [
+      {
+        path: '',
+        name: RouterName.Coupons,
+        component: () => import('../components/pages/CouponsPage.vue'),
+      },
+      {
+        path: '/notifications',
+        name: RouterName.Notifications,
+        component: () => import('../components/pages/NotificationsPage.vue'),
+      },
+    ]
+  },
 ]
 
 export const router = VueRouter.createRouter({

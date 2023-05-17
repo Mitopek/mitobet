@@ -45,8 +45,12 @@ const emit = defineEmits<Emits>()
 <style scoped>
 
 .coupon-component{
+  background-color: hsla(208deg,46%,12%,.9);
+  border-radius: 10px;
+  padding: 15px;
   display: flex;
-  max-width: 460px;
+  max-width: 490px;
+  box-sizing: border-box;
   flex-flow: column;
   justify-content: center;
 }

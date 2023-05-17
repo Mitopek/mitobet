@@ -19,15 +19,11 @@
    }
  }
 
- .animated-arrow-button{
-   cursor: pointer;
- }
-
  .icon-wrapper{
    position: relative;
    animation-name: move;
    animation-duration: 3s;
    animation-iteration-count: infinite;
-   font-size: 58px;
+   font-size: 68px;
  }
 </style>

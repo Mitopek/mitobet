@@ -14,7 +14,7 @@
     </div>
     <div>
       <ButtonComponent>
-        Kup teraz
+        <i class="fa-solid fa-cart-shopping"></i> Kup teraz
       </ButtonComponent>
     </div>
     <div class="descriptions" v-for="description in props.descriptions">

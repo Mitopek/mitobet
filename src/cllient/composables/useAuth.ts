@@ -35,6 +35,7 @@ export function useAuth() {
         password,
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
+      cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
       return response.data

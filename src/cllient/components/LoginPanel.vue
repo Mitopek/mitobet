@@ -33,6 +33,7 @@ import {$ref, $} from "vue/macros";
 import FacebookButton from "./basic/FacebookButton.vue";
 import GoogleButton from "./basic/GoogleButton.vue";
 import {useAuth} from "../composables/useAuth.js";
+import {RouterName} from "../enum/RouterName.js";
 const {login} = $(useAuth())
 
 const router = useRouter()
@@ -48,7 +49,7 @@ const onLoginClick = async () => {
   if(!response.success && response?.errors) {
     return alert(response.errors[0])
   }
-  await router.push({path: '/coupons'})
+  await router.push({name: RouterName.Coupons})
 }
 
 </script>

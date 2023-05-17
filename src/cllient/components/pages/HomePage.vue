@@ -1,6 +1,6 @@
 <template>
  <div class="main-page">
-    <DefaultLayout>
+    <DefaultLayout showNavigationBar>
       <div class="main-items-container">
         <div class="login-panel-wrapper">
           <ModalComponent>
@@ -65,11 +65,10 @@ import MainTextContent from "../MainTextContent.vue";
 }
 
 .arrow-wrapper {
-  margin-top: 40px;
+  margin: 10px 0 30px 0;
 }
 
 .main-page {
   width: 100%;
-  height: 1000px;
 }
 </style>

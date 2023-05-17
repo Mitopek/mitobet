@@ -1,6 +1,6 @@
 <template>
  <div class="register-page">
-    <DefaultLayout>
+    <DefaultLayout showNavigationBar>
       <div class="main-items-container">
         <div class="login-panel-wrapper">
           <ModalComponent>

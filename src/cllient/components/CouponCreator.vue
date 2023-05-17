@@ -1,5 +1,5 @@
 <template>
-  <div class="coupon-component">
+  <div class="coupon-creator">
     <h2>Dodaj kupon</h2>
     <div v-if="!isPreviewing" class="creator">
       Czas rozpoczęcia:
@@ -7,7 +7,7 @@
       Adres url zdjęcia:
       <InputComponent v-model="imageUrl"/>
       Opis (opcjonalne):
-      <InputComponent v-model="description"/>
+      <TextareaComponent v-model="description"/>
     </div>
     <div v-else>
       <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description"/>
@@ -26,6 +26,7 @@ import {$ref, $} from "vue/macros";
 import CouponComponent from "./CouponComponent.vue";
 import ButtonComponent from "./basic/ButtonComponent.vue";
 import {useCoupons} from "../composables/useCoupons.js";
+import TextareaComponent from "./basic/TextareaComponent.vue";
 
 interface Emits {
   (e: 'created'): void
@@ -60,7 +61,9 @@ const onSave = async () => {
 </script>
 
 <style scoped>
-.coupon-component{
+.coupon-creator{
+  box-sizing: border-box;
+  max-width: 490px;
   padding: 10px;
   background-color: hsla(208deg,46%,12%,.9);
   border-radius: 10px;
@@ -73,7 +76,7 @@ const onSave = async () => {
 }
 
 .buttons-container{
-  padding: 10px;
+  padding: 10px 0 0 0;
   display: flex;
   gap: 5px;
 }

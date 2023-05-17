@@ -12,6 +12,9 @@
         <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput"/>
       </FormItem>
       <div class="actions-buttons">
+        <ButtonComponent @click="router.push('/')">
+          Wróć do strony głownej
+        </ButtonComponent>
         <ButtonComponent @click="onRegisterClick">
           Zarejestruj
         </ButtonComponent>
@@ -114,7 +117,6 @@ const onRegisterClick = async () => {
     return alert(response.errors[0])
   }
   await router.push({path: '/'})
-
 }
 
 </script>
