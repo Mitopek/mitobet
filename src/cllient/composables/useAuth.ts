@@ -35,6 +35,7 @@ export function useAuth() {
         password,
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
+      console.info(cookies.get('access_token'))
       cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
@@ -46,8 +47,25 @@ export function useAuth() {
     }
   }
 
+  //TODO types every where, and res.cookies flags
+  const logout = async (): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/logout`,{},{withCredentials: true})
+      const cookies = new UniversalCookie()
+      cookies.remove('mail')
+      cookies.remove('is_admin')
+      cookies.remove('subscription_expires_at')
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
   return $$({
     register,
-    login
+    login,
+    logout,
   })
 }

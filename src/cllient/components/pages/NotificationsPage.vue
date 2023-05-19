@@ -1,16 +1,6 @@
 <template>
-  <div class="coupons-page">
-    <CouponCreator v-if="isAdmin" @created="fetchCoupons"/>
-    <div v-if="coupons">
-      <CouponComponent
-          class="coupon"
-          v-for="coupon in coupons"
-          :startDate="coupon.startDate"
-          :description="coupon.description"
-          :imageUrl="coupon.imageUrl"
-          @delete="onDelete(coupon._id)"
-      />
-    </div>
+  <div class="notifications-page">
+    Brak nowych powiadomień.
   </div>
 </template>
 
@@ -19,6 +9,11 @@ import {useCoupons} from "../../composables/useCoupons.js";
 import {onMounted} from "vue";
 import {$, $ref} from 'vue/macros'
 import UniversalCookie from 'universal-cookie'
+import CouponComponent from "../CouponComponent.vue";
+import CouponCreator from "../CouponCreator.vue";
+import {ICouponEntity} from "../../../server/models/CouponModel/types/ICouponEntity.js";
+import {useRouter} from "vue-router";
+import {RouterName} from "../../enum/RouterName.js";
 
 const router = useRouter()
 let isAdmin = $ref(false)
@@ -26,11 +21,11 @@ let subscriptionExpiresAt = $ref<Date | null>(null)
 let coupons = $ref<ICouponEntity[] | null>(null)
 
 const {getCoupons, deleteCoupon} = $(useCoupons())
-//TODO map responses, _id
+//TODO map responses, _id  , check validation of all html page
 onMounted(async () => {
   const cookies = new UniversalCookie()
   if(!cookies.get('mail')) {
-    await router.push({path: '/'})
+    await router.push({name: RouterName.Home})
   }
   isAdmin = cookies.get('is_admin') || false
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
@@ -45,70 +40,12 @@ const onDelete = async (couponId: string) => {
   await deleteCoupon(couponId)
   await fetchCoupons()
 }
-
-import DefaultLayout from "../DefaultLayout.vue";
-import CouponsOptions from "../CouponsOptions.vue";
-import SubscriptionTime from "../SubscriptionTime.vue";
-import CouponComponent from "../CouponComponent.vue";
-import CouponCreator from "../CouponCreator.vue";
-import {ICouponEntity} from "../../../server/models/CouponModel/types/ICouponEntity.js";
-import {useRouter} from "vue-router";
 </script>
 
 <style scoped>
-
-.coupon{
-  margin: 15px 0;
+.notifications-page{
+  padding: 15px;
 }
 
-.content-wrapper{
-  width: 100%;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.main-container{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-}
-
-.subscription-time-wrapper{
-  padding: 15px 0 0 15px;
-}
-
-.content{
-  padding: 30px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 70%;
-}
-
-.options{
-
-}
-
-.left-panel{
-  border-radius: 10px 0 0 10px;
-  background-color: hsla(208deg,46%,12%,.9);
-  border: hsla(208deg,46%,12%,.9) 5px solid;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.panel{
-  box-sizing: border-box;
-  margin: 1% 0;
-  border-radius: 15px;
-  border: hsla(208deg,46%,12%,.9) 5px solid;
-  background-color: #172b3d;
-  grid-template-columns: minmax(0, 20%) minmax(0, 80%);
-  display: grid;
-  width: 70%;
-  min-height: 90vh;
-}
 
 </style>

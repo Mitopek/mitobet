@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: 50px;
+  height: 60px;
   z-index: 100;
   top: 0;
 

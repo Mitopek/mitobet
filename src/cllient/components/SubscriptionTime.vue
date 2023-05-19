@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-
+//TODO fontawesome icons?? wtf
 import {$computed} from "vue/macros";
 
 interface Props {

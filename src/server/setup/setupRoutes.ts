@@ -34,6 +34,7 @@ export default function setupRoutes(app: Express, container: Container) {
   const authController = container.get<IAuthController>(InterfaceTypes.controllers.AuthController)
   app.post('/register', authController.register.bind(authController))
   app.post('/login', authController.login.bind(authController))
+  app.post('/logout', authController.logout.bind(authController))
 
   const couponController = container.get<ICouponController>(InterfaceTypes.controllers.CouponController)
   app.use('/coupons', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))

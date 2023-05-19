@@ -9,7 +9,7 @@
 
 <style scoped>
   .modal-component{
-    background-color: hsla(208deg,46%,12%,.9);
+    background: #0000009e;
     box-sizing: border-box;
     padding: 20px 60px;
     width: 550px;

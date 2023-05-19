@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="logo-container">
-      <img src="/logo-transparent.png" alt="logo" class="logo"/>
+      <img src="/logo-big.png" alt="logo" class="logo"/>
     </div>
     <div class="right-panel">
       <div class="profile-container">
@@ -42,7 +42,7 @@ const routes = [
 <style scoped>
 .logo-container {
   max-width: 90%;
-  max-height: 50px;
+  max-height: 60px;
 }
 
 .profile-container{
@@ -52,8 +52,10 @@ const routes = [
 }
 
 .logo {
-  height: 95%;
-  /*border-radius: 50%;*/
+  margin-top: 10px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #0000009e;
 }
 
 .left-panel{
@@ -79,10 +81,10 @@ const routes = [
   grid-template-columns: 1fr auto 1fr;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 0 64px rgba(0,0,0,.3);
-  background-color: hsla(208deg,46%,12%,.9);
-  border-bottom: 2px solid #172b3d;
-  border-left: 2px solid #172b3d;
-  border-right: 2px solid #172b3d;
+  background-color: #0000009e;
+  border-bottom: 2px solid #0000009e;
+  border-left: 2px solid #0000009e;
+  border-right: 2px solid #0000009e;
 }
 
 .navigation-item{

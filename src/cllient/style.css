@@ -28,6 +28,7 @@ a:hover {
 body, #app, html {
   margin: 0;
   padding: 0;
+  background-attachment: fixed;
   background-image: url('background.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -45,7 +46,7 @@ body, #app, html {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: hsla(208deg,46%,12%,.9);
+  background: #0000009e;
   padding: 10px;
 }
 

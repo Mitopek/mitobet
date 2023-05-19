@@ -1,7 +1,7 @@
 <template>
   <div class="coupon-creator">
     <h2>Dodaj kupon</h2>
-    <div v-if="!isPreviewing" class="creator">
+    <div v-if="!isPreviewing" class="form">
       Czas rozpoczęcia:
       <InputComponent v-model="startDate" type="date"/>
       Adres url zdjęcia:
@@ -10,7 +10,7 @@
       <TextareaComponent v-model="description"/>
     </div>
     <div v-else>
-      <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description"/>
+      <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description" :canDelete="false"/>
     </div>
     <div class="buttons-container">
       <ButtonComponent @click="isPreviewing=true" v-if="!isPreviewing">Przejdź do podglądu</ButtonComponent>
@@ -65,11 +65,10 @@ const onSave = async () => {
   box-sizing: border-box;
   max-width: 490px;
   padding: 10px;
-  background-color: hsla(208deg,46%,12%,.9);
   border-radius: 10px;
 }
 
-.creator{
+.form{
   display: flex;
   flex-flow: column;
   gap: 4px;

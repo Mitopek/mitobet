@@ -14,7 +14,7 @@
 button{
   height: 36px;
   border-radius: 10px;
-  background-color: #747bff;
+  background-color: #202020;
   color: #f9f9f9;
   outline: none;
   border: none;

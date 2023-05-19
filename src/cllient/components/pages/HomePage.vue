@@ -11,7 +11,6 @@
           <AnimatedArrowButton/>
         </div>
       </div>
-      <div class="fading-element"/>
       <div class="content-wrapper">
         <div class="content">
           <MainTextContent/>
@@ -34,21 +33,16 @@ import MainTextContent from "../MainTextContent.vue";
 
 <style scoped>
 
-.fading-element {
-  height: 5px;
-  background: linear-gradient(to top, rgba(23, 43, 61, 1), rgba(23, 43, 61, 0));
-}
-
-
 .content-wrapper{
-  background-color: #172b3d;
+  background: #0000009e;
 }
 
 .content{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 10%;
+  margin: 0 17%;
+  padding: 40px 0;
 }
 
 .main-items-container{
@@ -65,7 +59,7 @@ import MainTextContent from "../MainTextContent.vue";
 }
 
 .arrow-wrapper {
-  margin: 10px 0 30px 0;
+  margin: 0 0 30px 0;
 }
 
 .main-page {

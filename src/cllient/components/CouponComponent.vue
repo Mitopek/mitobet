@@ -10,7 +10,7 @@
     <div class="buttons-container">
       <ButtonComponent @click="toggleDelete = false" v-if="toggleDelete">Anuluj</ButtonComponent>
       <ButtonComponent @click="emit('delete')" v-if="toggleDelete">Tak, usuń</ButtonComponent>
-      <ButtonComponent @click="toggleDelete = true" v-else>Usuń</ButtonComponent>
+      <ButtonComponent @click="toggleDelete = true" v-else-if="props.canDelete">Usuń</ButtonComponent>
     </div>
   </div>
 </template>
@@ -45,11 +45,11 @@ const emit = defineEmits<Emits>()
 <style scoped>
 
 .coupon-component{
-  background-color: hsla(208deg,46%,12%,.9);
+  background-color: #0000009e;
   border-radius: 10px;
   padding: 15px;
   display: flex;
-  max-width: 490px;
+  max-width: 100%;
   box-sizing: border-box;
   flex-flow: column;
   justify-content: center;

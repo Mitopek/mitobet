@@ -54,7 +54,7 @@ const props = defineProps<IProps>()
     border-radius: 1.6rem;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;
-    background-color: hsla(0deg,0%,10%,.45);
+    background-color:  #0000009e;
     outline-offset: -2px;
   }
 </style>

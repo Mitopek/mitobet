@@ -1,15 +1,16 @@
 <template>
  <div class="coupons-page">
-    <CouponCreator v-if="isAdmin" @created="fetchCoupons"/>
+<!--    <CouponCreator v-if="isAdmin" @created="fetchCoupons"/>-->
     <div v-if="coupons" class="coupons-container">
-      <CouponComponent
-        class="coupon"
-        v-for="coupon in coupons"
-        :startDate="coupon.startDate"
-        :description="coupon.description"
-        :imageUrl="coupon.imageUrl"
-        @delete="onDelete(coupon._id)"
-      />
+      <div class="coupon-wrapper" v-for="coupon in coupons">
+        <CouponComponent
+          :startDate="coupon.startDate"
+          :description="coupon.description"
+          :imageUrl="coupon.imageUrl"
+          :canDelete="isAdmin"
+          @delete="onDelete(coupon._id)"
+        />
+      </div>
     </div>
  </div>
 </template>
@@ -31,7 +32,7 @@ let subscriptionExpiresAt = $ref<Date | null>(null)
 let coupons = $ref<ICouponEntity[] | null>(null)
 
 const {getCoupons, deleteCoupon} = $(useCoupons())
-//TODO map responses, _id
+//TODO map responses, _id  , check validation of all html page
 onMounted(async () => {
   const cookies = new UniversalCookie()
   if(!cookies.get('mail')) {
@@ -53,19 +54,11 @@ const onDelete = async (couponId: string) => {
 </script>
 
 <style scoped>
-
-.coupons-page{
-  display: flex;
-  background-color: #EA4335;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .coupons-container{
-background-color: #172b3d;
+  max-width: 490px;
 }
 
-.coupon{
+.coupon-wrapper{
   margin: 15px 0;
 }
 

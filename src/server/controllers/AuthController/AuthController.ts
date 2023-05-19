@@ -42,7 +42,6 @@ export class AuthController implements IAuthController {
       secure: true,
       sameSite: 'none',
     })
-    console.info(user?.isAdmin)
     return res.sendSuccessResponse({
       user: {
         mail: user.mail,
@@ -50,5 +49,15 @@ export class AuthController implements IAuthController {
         isAdmin: user.isAdmin,
       }
     })
+  }
+
+  async logout(req: IApiRequest, res: IApiResponse): Promise<Response> {
+    res.clearCookie('access_token', {
+      httpOnly: false,
+      maxAge: 1000 * 3600,
+      secure: true,
+      sameSite: 'none',
+    })
+    return res.sendSuccessResponse(null)
   }
 }

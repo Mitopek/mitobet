@@ -29,7 +29,7 @@ const routes = [
         component: () => import('../components/pages/CouponsPage.vue'),
       },
       {
-        path: '/notifications',
+        path: 'notifications',
         name: RouterName.Notifications,
         component: () => import('../components/pages/NotificationsPage.vue'),
       },
