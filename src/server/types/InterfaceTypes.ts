@@ -10,6 +10,8 @@ export const InterfaceTypes = {
   controllers: {
     AuthController: Symbol.for('AuthController'),
     CouponController: Symbol.for('CouponController'),
+    AIController: Symbol.for('AIController'),
+    SportController: Symbol.for('SportController'),
   },
   models: {
     UserModel: Symbol.for('UserModel'),

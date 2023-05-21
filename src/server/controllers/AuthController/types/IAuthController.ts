@@ -4,6 +4,7 @@ import {IApiResponse} from "../../../types/IApiResponse.js";
 
 export interface IAuthController {
   register(req: IApiRequest, res: IApiResponse): Promise<Response>
+  changePassword(req: IApiRequest, res: IApiResponse): Promise<Response>
   login(req: IApiRequest, res: IApiResponse): Promise<Response>
   logout(req: IApiRequest, res: IApiResponse): Promise<Response>
 }

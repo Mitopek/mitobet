@@ -11,14 +11,14 @@ export class JWTAuthMiddleware implements IAuthMiddleware {
     const {access_token: accessToken} = req.cookies
     console.info(req.cookies)
     if(!accessToken) {
-      res.sendFailResponse('Authenticated failed', 401)
+      res.sendFailResponse(['Authenticated failed'], 401)
       return
     }
     try {
       req.authenticationData = await jwt.verify(accessToken, process.env.JWT_KEY) as IApiRequest['authenticationData']
       next()
     } catch (e) {
-      res.sendFailResponse('Authenticated failed', 401)
+      res.sendFailResponse(['Authenticated failed'], 401)
     }
   }
 }

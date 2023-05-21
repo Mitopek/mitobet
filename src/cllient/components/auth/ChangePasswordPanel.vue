@@ -1,9 +1,9 @@
 <template>
   <div class="login-panel">
-    <span class="title">Rejestracja</span>
+    <span class="title">Zmień hasło</span>
     <div class="form">
-      <FormItem title="Mail:" :error="validateErrors.mail">
-        <InputComponent type="text" v-model="mail" @change="onMailInput"/>
+      <FormItem title="Hasło:">
+        <InputComponent type="password" v-model="oldPassword"/>
       </FormItem>
       <FormItem title="Hasło:" :error="validateErrors.password">
         <InputComponent type="password" v-model="password" @change="onPasswordInput"/>
@@ -12,46 +12,36 @@
         <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput"/>
       </FormItem>
       <div class="actions-buttons">
-        <ButtonComponent @click="router.push('/')">
-          Wróć do strony głownej
-        </ButtonComponent>
-        <ButtonComponent @click="onRegisterClick">
-          Zarejestruj
+        <ButtonComponent @click="onSubmit">
+          Zmień hasło
         </ButtonComponent>
       </div>
+      <div v-if="isSuccess" class="success-wrapper">Hasło zostało zmienione</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import InputComponent from "./basic/InputComponent.vue";
-import FormItem from "./FormItem.vue";
-import ButtonComponent from "./basic/ButtonComponent.vue";
+import InputComponent from "../basic/InputComponent.vue";
+import FormItem from "../FormItem.vue";
+import ButtonComponent from "../basic/ButtonComponent.vue";
 import {$ref, $} from "vue/macros";
-import {useAuth} from "../composables/useAuth";
+import {useAuth} from "../../composables/useAuth.js";
 import {useRouter} from "vue-router";
-const {register} = $(useAuth())
+const {changePassword} = $(useAuth())
 
 const router = useRouter()
-const mail = $ref<string>('')
+
+const oldPassword = $ref<string>('')
 const password = $ref<string>('')
 const repeatedPassword = $ref<string>('')
+
+let isSuccess = $ref(null)
+
 const validateErrors = $ref({
-  mail: '',
   password: '',
   repeatedPassword: '',
 })
-
-const onMailInput = () => {
-  try {
-    validateErrors["mail"] = ''
-    validateMail()
-  } catch (e) {
-    if (e instanceof Error) {
-      validateErrors["mail"] = e.message;
-    }
-  }
-}
 
 const onPasswordInput = () => {
   try {
@@ -76,17 +66,6 @@ const onRepeatedPasswordInput = () => {
   }
 }
 
-const validateMail = () => {
-  if(!mail) {
-    throw new Error('Wypełnij mail.')
-  }
-  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if(!mailRegex.test(mail)) {
-    throw new Error('Nieprawidłowy mail.')
-  }
-  return mailRegex.test(mail)
-}
-
 const validatePassword = () => {
   if(!password) {
     throw new Error('Wypełnij hasło.')
@@ -105,18 +84,18 @@ const validateRepeatedPassword = () => {
   }
 }
 
-const onRegisterClick = async () => {
-  if(!mail || !password || !repeatedPassword) {
+const onSubmit = async () => {
+  if(!oldPassword || !password || !repeatedPassword) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   if(Object.values(validateErrors).some(value => value)) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
-  const response = await register(mail, password)
+  const response = await changePassword(oldPassword, password)
   if(!response.success && response?.errors) {
     return alert(response.errors[0])
   }
-  await router.push({path: '/'})
+  isSuccess = true
 }
 
 </script>
@@ -145,5 +124,11 @@ const onRegisterClick = async () => {
     display: flex;
     justify-content: center;
     gap: 8px;
+  }
+
+  .success-wrapper{
+    width: 100%;
+    text-align: center;
+    color: #038f03;
   }
 </style>

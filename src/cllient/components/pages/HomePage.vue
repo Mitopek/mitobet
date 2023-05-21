@@ -24,7 +24,7 @@
 <script setup lang="ts">
 
 import DefaultLayout from "../DefaultLayout.vue";
-import LoginPanel from "../LoginPanel.vue";
+import LoginPanel from "../auth/LoginPanel.vue";
 import AnimatedArrowButton from "../AnimatedArrowButton.vue";
 import PricesContent from "../SubscriptionsContent.vue";
 import ModalComponent from "../basic/ModalComponent.vue";

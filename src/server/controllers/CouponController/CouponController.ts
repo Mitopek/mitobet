@@ -6,6 +6,9 @@ import {Request, Response} from "express";
 import {IApiRequest} from "../../types/IApiRequest.js";
 import {IApiResponse} from "../../types/IApiResponse.js";
 import {ICouponRepository} from "../../repositories/CouponRepository/types/ICouponRepository.js";
+import { Configuration, OpenAIApi } from "openai";
+import {sports} from "../../services/OddsService/enum/Sports.js";
+
 
 @injectable()
 export class CouponController implements ICouponController {

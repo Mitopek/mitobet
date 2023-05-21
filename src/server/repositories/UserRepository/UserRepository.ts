@@ -27,4 +27,12 @@ export class UserRepository implements IUserRepository{
       _id: id,
     })
   }
+
+  async updateUserById(id: IUserEntity['id'], user: Partial<IUserEntity>): Promise<void> {
+    await this.userModel.updateOne({
+      _id: id,
+    }, {
+      $set: user,
+    })
+  }
 }

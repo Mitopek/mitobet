@@ -44,6 +44,22 @@ export class AuthService implements IAuthService {
     })
   }
 
+  async changePassword(userId: string, oldPassword: string, password: string): Promise<void> {
+    const user = await this.userRepository.findUserById(userId)
+    const isPasswordValid = await this.passwordService.comparePassword(oldPassword, user.password)
+    if(!isPasswordValid) {
+      throw new Error('Nieprawidłowe dane logowania.')
+    }
+    if(!this.passwordService.validatePassword(password)) {
+      throw new Error('Nieprawidłowe hasło.')
+    }
+    console.info(password)
+    const hashedPassword = await this.passwordService.hashPassword(password)
+    await this.userRepository.updateUserById(user.id, {
+      password: hashedPassword,
+    })
+  }
+
   async login(mail: string, password: string): Promise<IUserEntity> {
     const user = await this.userRepository.findUserByMail(mail)
     if(!user) {

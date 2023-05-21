@@ -18,6 +18,10 @@ import {MailService} from "../services/MailService/MailService.js";
 import {IMailService} from "../services/MailService/types/IMailService.js";
 import {ICouponRepository} from "../repositories/CouponRepository/types/ICouponRepository.js";
 import {CouponRepository} from "../repositories/CouponRepository/CouponRepository.js";
+import {IAIController} from "../controllers/AIController/types/IAIController.js";
+import {AIController} from "../controllers/AIController/AIController.js";
+import {SportController} from "../controllers/SportController/SportController.js";
+import {ISportController} from "../controllers/SportController/types/ISportController.js";
 
 
 export default async function setupContainer() {
@@ -30,6 +34,8 @@ export default async function setupContainer() {
   //CONTROLLERS
   container.bind<IAuthController>(InterfaceTypes.controllers.AuthController).to(AuthController)
   container.bind<ICouponController>(InterfaceTypes.controllers.CouponController).to(CouponController)
+  container.bind<IAIController>(InterfaceTypes.controllers.AIController).to(AIController)
+  container.bind<ISportController>(InterfaceTypes.controllers.SportController).to(SportController)
 
   //REPOSITORIES
   container.bind<IUserRepository>(InterfaceTypes.repositories.UserRepository).to(UserRepository)

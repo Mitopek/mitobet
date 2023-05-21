@@ -25,19 +25,19 @@ import SubcriptionItemFactory from "./factories/SubcriptionItemFactory.vue";
 
 const subscriptionItems = $ref([{
     title: '1 miesiąc',
-    pricePerMonth: 119.99,
+    pricePerMonth: 89.99,
     descriptions: ['Płatność za jeden miesiąc.'],
     type: SubscriptionComponentType.Normal
   },
   {
     title: '12 miesięcy',
-    pricePerMonth: 79.99,
+    pricePerMonth: 69.99,
     descriptions: ['Płatność jeden raz za wszystkie 12 miesięcy.', 'Dodatkowe 3 miesiące gratis.'],
     type: SubscriptionComponentType.Extra
   },
   {
     title: '6 miesięcy',
-    pricePerMonth: 99.99,
+    pricePerMonth: 79.99,
     descriptions: ['Płatność jeden raz za wszystkie 6 miesięcy.'],
     type: SubscriptionComponentType.Normal
   },

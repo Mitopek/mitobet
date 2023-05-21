@@ -28,6 +28,20 @@ export function useAuth() {
     }
   }
 
+  const changePassword = async (oldPassword: string, password: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/change-password`, {
+        oldPassword,
+        password,
+      }, {withCredentials: true})
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
   const login = async (mail: string, password: string): Promise<Response> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/login`, {
@@ -65,6 +79,7 @@ export function useAuth() {
 
   return $$({
     register,
+    changePassword,
     login,
     logout,
   })

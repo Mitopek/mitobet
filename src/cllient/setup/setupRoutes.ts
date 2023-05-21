@@ -24,13 +24,28 @@ const routes = [
     component: () => import('../components/views/MainView.vue'),
     children: [
       {
-        path: '',
+        path: 'ai',
+        name: RouterName.AI,
+        component: () => import('../components/pages/AIPage.vue'),
+      },
+      {
+        path: '/coupons',
         name: RouterName.Coupons,
         component: () => import('../components/pages/CouponsPage.vue'),
       },
       {
         path: 'notifications',
         name: RouterName.Notifications,
+        component: () => import('../components/pages/NotificationsPage.vue'),
+      },
+      {
+        path: 'settings',
+        name: RouterName.Settings,
+        component: () => import('../components/pages/SettingsPage.vue'),
+      },
+      {
+        path: 'subscription',
+        name: RouterName.Subscription,
         component: () => import('../components/pages/NotificationsPage.vue'),
       },
     ]

@@ -5,4 +5,5 @@ export interface IUserRepository {
   createUser(user: ICreateUserProperties): Promise<IUserEntity>
   findUserByMail(mail: IUserEntity['mail']): Promise<IUserEntity>
   findUserById(id: IUserEntity['id']): Promise<IUserEntity>
+  updateUserById(id: IUserEntity['id'], user: Partial<IUserEntity>): Promise<void>
 }

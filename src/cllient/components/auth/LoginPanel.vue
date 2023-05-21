@@ -25,15 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import InputComponent from "./basic/InputComponent.vue";
-import FormItem from "./FormItem.vue";
-import ButtonComponent from "./basic/ButtonComponent.vue";
+import InputComponent from "../basic/InputComponent.vue";
+import FormItem from "../FormItem.vue";
+import ButtonComponent from "../basic/ButtonComponent.vue";
 import {useRouter} from "vue-router";
 import {$ref, $} from "vue/macros";
-import FacebookButton from "./basic/FacebookButton.vue";
-import GoogleButton from "./basic/GoogleButton.vue";
-import {useAuth} from "../composables/useAuth.js";
-import {RouterName} from "../enum/RouterName.js";
+import FacebookButton from "../basic/FacebookButton.vue";
+import GoogleButton from "../basic/GoogleButton.vue";
+import {useAuth} from "../../composables/useAuth.js";
+import {RouterName} from "../../enum/RouterName.js";
 const {login} = $(useAuth())
 
 const router = useRouter()

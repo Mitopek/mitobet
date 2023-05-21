@@ -67,7 +67,9 @@ const onLogout = async () => {
 }
 
 .main-container{
-  height: 100vh;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
 }
@@ -96,14 +98,12 @@ const onLogout = async () => {
 
 .panel {
   box-sizing: border-box;
-  margin: 1% 0;
   border-radius: 15px;
   border: 5px solid #040404e6;
   background-color: #0000009e;
   display: grid;
-  grid-template-columns: minmax(0, 23%) minmax(0, 77%);
-  width: 70%;
-  min-height: 90vh;
+  grid-template-columns: minmax(0, 15%) minmax(0, 77%);
+  width: 100%;
 }
 
 @media screen and (max-width: 800px) {

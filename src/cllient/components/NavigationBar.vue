@@ -82,9 +82,9 @@ const routes = [
   border-radius: 0 0 10px 10px;
   box-shadow: 0 0 64px rgba(0,0,0,.3);
   background-color: #0000009e;
-  border-bottom: 2px solid #0000009e;
-  border-left: 2px solid #0000009e;
-  border-right: 2px solid #0000009e;
+  border-bottom: 1px solid #0000009e;
+  border-left: 1px solid #0000009e;
+  border-right: 1px solid #0000009e;
 }
 
 .navigation-item{

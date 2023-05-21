@@ -10,6 +10,8 @@ import cors from "cors";
 import helmet from "helmet";
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
+import {IAIController} from "../controllers/AIController/types/IAIController.js";
+import {ISportController} from "../controllers/SportController/types/ISportController.js";
 
 export default function setupRoutes(app: Express, container: Container) {
   //TODO DEV ONLY
@@ -31,8 +33,11 @@ export default function setupRoutes(app: Express, container: Container) {
   const jwtAuthMiddleware = container.get<IAuthMiddleware>(InterfaceTypes.middlewares.JWTAuthMiddleware)
   app.use(apiResponseMiddleware.handler.bind(apiResponseMiddleware))
 
+  //TODO: me route !!
   const authController = container.get<IAuthController>(InterfaceTypes.controllers.AuthController)
+  app.use('/change-password', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.post('/register', authController.register.bind(authController))
+  app.post('/change-password', authController.changePassword.bind(authController))
   app.post('/login', authController.login.bind(authController))
   app.post('/logout', authController.logout.bind(authController))
 
@@ -42,4 +47,12 @@ export default function setupRoutes(app: Express, container: Container) {
   app.get('/coupons', couponController.getCoupons.bind(couponController))
   app.post('/coupon', couponController.createCoupon.bind(couponController))
   app.delete('/coupon/:couponId', couponController.deleteCoupon.bind(couponController))
+
+  const aiController = container.get<IAIController>(InterfaceTypes.controllers.AIController)
+  app.use('/ai', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  app.post('/ai', aiController.sendMessage.bind(aiController))
+
+
+  const sportController = container.get<ISportController>(InterfaceTypes.controllers.SportController)
+  app.get('/sports', sportController.getSportDisciplines.bind(sportController))
 }

@@ -1,4 +1,5 @@
 export enum RouterName {
+  AI = 'ai',
   Home = 'home',
   Register = 'register',
   Coupons = 'coupons',

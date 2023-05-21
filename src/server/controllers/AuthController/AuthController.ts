@@ -26,6 +26,17 @@ export class AuthController implements IAuthController {
     return res.sendSuccessResponse(null)
   }
 
+  async changePassword(req: IApiRequest, res: IApiResponse): Promise<Response> {
+    const {oldPassword, password} = req.body
+    const userId = req.authenticationData.userId
+    try {
+      await this.authService.changePassword(userId, oldPassword, password)
+    } catch (e) {
+      return res.sendFailResponse([e.message], 400)
+    }
+    return res.sendSuccessResponse(null)
+  }
+
   async login(req: IApiRequest, res: IApiResponse): Promise<Response> {
     const {mail, password} = req.body
     let user = null
