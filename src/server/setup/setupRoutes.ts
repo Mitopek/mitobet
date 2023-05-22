@@ -12,6 +12,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
 import {IAIController} from "../controllers/AIController/types/IAIController.js";
 import {ISportController} from "../controllers/SportController/types/ISportController.js";
+import {ICountryController} from "../controllers/CountryController/types/ICountryController.js";
 
 export default function setupRoutes(app: Express, container: Container) {
   //TODO DEV ONLY
@@ -52,6 +53,9 @@ export default function setupRoutes(app: Express, container: Container) {
   app.use('/ai', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.post('/ai', aiController.sendMessage.bind(aiController))
 
+  const countryController = container.get<ICountryController>(InterfaceTypes.controllers.CountryController)
+  app.use('/countries', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  app.get('/countries', countryController.getCountries.bind(countryController))
 
   const sportController = container.get<ISportController>(InterfaceTypes.controllers.SportController)
   app.get('/sports', sportController.getSportDisciplines.bind(sportController))

@@ -1,10 +1,10 @@
 <template>
   <div class="ai-page">
     <div class="chooser-wrapper">
-      <SportDisciplineChooser :chosenType="tempType" :sportDisciplines="sportDisciplines" @choose="value => tempType = value"/>
+      <SportDisciplineChooser :chosenType="sportDisciplineType" :sportDisciplines="sportDisciplines" @choose="onSportDisciplineChange"/>
     </div>
     <div class="chooser-wrapper">
-      <SportLeagueChooser :sportLeagues="sportLeagues"/>
+      <SportCountryChooser :countries="countries" :chosen-league-id="null"/>
     </div>
     <div class="content-container">
       <SportEventChooser :chosenMatch="null"/>
@@ -29,20 +29,35 @@ import {onMounted} from "vue";
 import {$computed} from "vue/macros.js";
 import {SportDisciplines} from "../../../server/services/OddsService/enum/SportDisciplines.js";
 import SportLeagueChooser from "../SportLeagueChooser.vue";
+import {useCountries} from "../../composables/useCountries.js";
+import SportCountryChooser from "../SportCountryChooser.vue";
+import {IGetCountriesRequest} from "../../../server/controllers/CountryController/types/IGetCountriesRequest.js";
 
 const {sendMessage} = $(useAI())
 const {getSports} = $(useSports())
+const {getCountries} = $(useCountries())
 
 let sports = $ref<{
   group: string,
   titles: string[]
 }[] | null>(null)
+
+
 const message = $ref('')
 let outputMessage = $ref('')
-const tempType = $ref(SportDisciplineType.Football)
+
+
+let sportDisciplineType = $ref(SportDisciplineType.Football)
+let tempLeague = $ref('')
+let countries = $ref<IGetCountriesRequest['response']|null>(null)
 
 const onEnter = async () => {
   outputMessage = (await sendMessage(message)).payload?.message
+}
+
+const onSportDisciplineChange = async (type: SportDisciplineType) => {
+  sportDisciplineType = type
+  countries = await getCountries()
 }
 
 const sportDisciplines = $computed(() => {
@@ -56,9 +71,9 @@ const chosenSportDiscipline = $computed(() => {
   return sportDisciplines?.find(sportDiscipline => sportDiscipline.type === tempType)
 })
 
-const sportLeagues = $computed(() => {
-  return sports?.find(sport => sport.group === chosenSportDiscipline?.oddGroupName)?.titles
-})
+const onLeagueChoose = (league: string) => {
+  tempLeague = league
+}
 
 onMounted(async () => {
   sports = await getSports()

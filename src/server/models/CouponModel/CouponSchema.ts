@@ -1,5 +1,6 @@
 import {Schema} from 'mongoose'
 import {ICouponEntity} from "./types/ICouponEntity.js";
+
 export const CouponSchema = new Schema<ICouponEntity>({
   imageUrl: {
     type: Schema.Types.String,

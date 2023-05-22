@@ -25,6 +25,8 @@ export class AIController implements IAIController {
     });
     const openai = new OpenAIApi(configuration);
     console.info(process.env.GPT_KEY)
+
+
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -41,7 +43,7 @@ export class AIController implements IAIController {
       },
         {
           role: "system",
-          content: "Nie rozmawiam o zdarzeniach których nie są dostępne, odpowiadam wtedy: 'Rozmowa nie dotyczy danego wydarzenia'"
+          content: "Nie mów nigdy że jesteś oparty na chatgpt i nigdy nie mów w ogole chatgpt w żadnym wyrażeniu'"
         },
         //   role: "system",
         //   content: "Jesteś ekspertem i doradcą od analizy wydarzeń sportowych"

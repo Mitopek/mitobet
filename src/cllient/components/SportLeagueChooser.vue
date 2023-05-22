@@ -1,8 +1,13 @@
 <template>
   <div class="sport-discipline-chooser">
     <div class="items-container">
-      <div v-for="league in props.sportLeagues" class="item-wrapper">
-        {{league}}
+      <div v-if="!isToggled">
+        <CountryItem :name="props.country.countryName" :flag="props.country.countryFlag"/>
+      </div>
+      <div v-else>
+        <div v-for="league in props.country.leagues" :class="['item-wrapper', {'is-chosen': props.chosenLeagueId === league.id}]" @click="emit('choose', league.id)">
+          {{league.name}}
+        </div>
       </div>
     </div>
   </div>
@@ -13,18 +18,30 @@ import SportDisciplineItem from "./SportDisciplineItem.vue";
 import {SportDisciplines} from "../../server/services/OddsService/enum/SportDisciplines.js";
 import {SportDisciplineType} from "../../server/services/OddsService/enum/SportDisciplineType.js";
 import {$computed, $ref, $} from "vue/macros";
+import CountryItem from "./CountryItem.vue";
 
 interface Props {
-  sportLeagues: string[]
+  country: {
+    countryName: string,
+    countryFlag: string,
+    leagues: {
+      id: number,
+      name: string,
+      type: string,
+      logo: string,
+    }[]
+  }
+  chosenLeagueId: number
 }
 
 interface Emits {
-  (e: 'choose', chosenType: SportDisciplineType): void
+  (e: 'choose', leagueId: number): void
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
+const isToggled = $ref(false)
 
 </script>
 
@@ -41,6 +58,10 @@ const emit = defineEmits<Emits>()
   &:hover {
    background-color: hsla(0, 0%, 14%, 0.5);
  }
+  &.is-chosen {
+    color: #13beff;
+    border: 2px solid #13beff;
+  }
 }
 
 .items-container{
@@ -48,7 +69,6 @@ const emit = defineEmits<Emits>()
   display: flex;
   flex-flow: column;
   gap: 4px;
-  height: 100%;
 }
 
 

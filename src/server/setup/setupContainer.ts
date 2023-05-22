@@ -22,6 +22,12 @@ import {IAIController} from "../controllers/AIController/types/IAIController.js"
 import {AIController} from "../controllers/AIController/AIController.js";
 import {SportController} from "../controllers/SportController/SportController.js";
 import {ISportController} from "../controllers/SportController/types/ISportController.js";
+import {CountryRepository} from "../repositories/CountryRepository/CountryRepository.js";
+import {ICountryRepository} from "../repositories/CountryRepository/types/ICountryRepository.js";
+import {CountryController} from "../controllers/CountryController/CountryController.js";
+import {ICountryController} from "../controllers/CountryController/types/ICountryController.js";
+import {LeagueRepository} from "../repositories/LeagueRepository/LeagueRepository.js";
+import {ILeagueRepository} from "../repositories/LeagueRepository/types/ILeagueRepository.js";
 
 
 export default async function setupContainer() {
@@ -36,11 +42,13 @@ export default async function setupContainer() {
   container.bind<ICouponController>(InterfaceTypes.controllers.CouponController).to(CouponController)
   container.bind<IAIController>(InterfaceTypes.controllers.AIController).to(AIController)
   container.bind<ISportController>(InterfaceTypes.controllers.SportController).to(SportController)
+  container.bind<ICountryController>(InterfaceTypes.controllers.CountryController).to(CountryController)
 
   //REPOSITORIES
   container.bind<IUserRepository>(InterfaceTypes.repositories.UserRepository).to(UserRepository)
   container.bind<ICouponRepository>(InterfaceTypes.repositories.CouponRepository).to(CouponRepository)
-
+  container.bind<ICountryRepository>(InterfaceTypes.repositories.CountryRepository).to(CountryRepository)
+  container.bind<ILeagueRepository>(InterfaceTypes.repositories.LeagueRepository).to(LeagueRepository)
 
   //SERVICES
   container.bind<IAuthService>(InterfaceTypes.services.AuthService).to(AuthService)
@@ -49,7 +57,6 @@ export default async function setupContainer() {
 
   //MONGOOSE
   await setupMongoose(container)
-
 
   return container
 }
