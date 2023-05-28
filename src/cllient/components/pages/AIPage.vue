@@ -4,13 +4,13 @@
       <SportDisciplineChooser :chosenType="sportDisciplineType" :sportDisciplines="sportDisciplines" @choose="onSportDisciplineChange"/>
     </div>
     <div class="chooser-wrapper">
-      <SportCountryChooser :countries="countries" :chosen-league-id="null"/>
+      <SportLeagueChooser :fixtures="fixtures" :chosenLeagueName="leagueName" @choose="onLeagueChange" @search="onSearch"/>
     </div>
     <div class="content-container">
-      <SportEventChooser :chosenMatch="null"/>
-      <InputComponent v-model="message"/>
-      <ButtonComponent @click="onEnter">Wyslij</ButtonComponent>
-      {{outputMessage}}
+      <SportEventChooser v-if="leagueMatches" :matches="leagueMatches"/>
+<!--      <InputComponent v-model="message"/>-->
+<!--      <ButtonComponent @click="onEnter">Wyslij</ButtonComponent>-->
+<!--      {{outputMessage}}-->
     </div>
   </div>
 </template>
@@ -26,16 +26,15 @@ import SportEventChooser from "../SportEventChooser.vue";
 import {SportDisciplineType} from "../../../server/services/OddsService/enum/SportDisciplineType.js";
 import {useSports} from "../../composables/useSports.js";
 import {onMounted} from "vue";
-import {$computed} from "vue/macros.js";
+import {$computed} from "vue/macros";
 import {SportDisciplines} from "../../../server/services/OddsService/enum/SportDisciplines.js";
 import SportLeagueChooser from "../SportLeagueChooser.vue";
-import {useCountries} from "../../composables/useCountries.js";
-import SportCountryChooser from "../SportCountryChooser.vue";
-import {IGetCountriesRequest} from "../../../server/controllers/CountryController/types/IGetCountriesRequest.js";
+import {useFixtures} from "../../composables/useFixtures.js";
+import {IGetFixturesRequest} from "../../../server/controllers/FixtureController/types/IGetFixturesRequest.js";
 
 const {sendMessage} = $(useAI())
 const {getSports} = $(useSports())
-const {getCountries} = $(useCountries())
+const {getFixtures} = $(useFixtures())
 
 let sports = $ref<{
   group: string,
@@ -45,19 +44,31 @@ let sports = $ref<{
 
 const message = $ref('')
 let outputMessage = $ref('')
+let search = $ref('')
 
 
 let sportDisciplineType = $ref(SportDisciplineType.Football)
-let tempLeague = $ref('')
-let countries = $ref<IGetCountriesRequest['response']|null>(null)
+let leagueName = $ref('')
+
+let fixtures = $ref<IGetFixturesRequest['response']['fixtures']|null>(null)
 
 const onEnter = async () => {
   outputMessage = (await sendMessage(message)).payload?.message
 }
 
+const onSearch = (value: string) => {
+  search = value
+  leagueName = ''
+}
+
+const onLeagueChange = (value: string) => {
+  search = ''
+  leagueName = value
+}
+
 const onSportDisciplineChange = async (type: SportDisciplineType) => {
   sportDisciplineType = type
-  countries = await getCountries()
+  fixtures = await getFixtures()
 }
 
 const sportDisciplines = $computed(() => {
@@ -67,13 +78,35 @@ const sportDisciplines = $computed(() => {
   return SportDisciplines.filter(discipline => sports?.find(sport => sport.group === discipline.oddGroupName))
 })
 
-const chosenSportDiscipline = $computed(() => {
-  return sportDisciplines?.find(sportDiscipline => sportDiscipline.type === tempType)
+const leagueMatches = $computed(() => {
+  if(!fixtures) {
+    return null
+  }
+  if(search) {
+    const matches = fixtures.flatMap(fixture => fixture.leagues.flatMap(league => league.matches))
+    return matches.filter(match => [match.away_name, match.home_name].some(item => item.toLowerCase().includes(search.toLowerCase()))).sort((matchA, matchB) => {
+      return matchA.date_unix - matchB.date_unix
+    })
+  }
+  if(!leagueName) {
+    return null
+  }
+  for(const fixture of fixtures) {
+    const matches = fixture.leagues.find(league => league.name === leagueName)?.matches
+    if(matches) {
+      return matches
+    }
+  }
+  return null
 })
 
-const onLeagueChoose = (league: string) => {
-  tempLeague = league
-}
+// const chosenSportDiscipline = $computed(() => {
+//   return sportDisciplines?.find(sportDiscipline => sportDiscipline.type === tempType)
+// })
+//
+// const onLeagueChoose = (league: string) => {
+//   tempLeague = league
+// }
 
 onMounted(async () => {
   sports = await getSports()
@@ -83,7 +116,7 @@ onMounted(async () => {
 
 <style scoped>
 .ai-page{
-  grid-template-columns: 130px 240px 1fr;
+  grid-template-columns: 130px 300px 1fr;
   display: grid;
   height: 100%;
   width: 100%;

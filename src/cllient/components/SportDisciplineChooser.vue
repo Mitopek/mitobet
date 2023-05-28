@@ -36,7 +36,6 @@ const emit = defineEmits<Emits>()
 <style scoped>
 
 .sport-discipline-chooser{
-  border-right: 2px solid #0000009e;
   height: 100%;
 }
 

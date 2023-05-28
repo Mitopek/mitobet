@@ -5,6 +5,7 @@ import {Response} from "express";
 import {inject, injectable} from "inversify";
 import {InterfaceTypes} from "../../types/InterfaceTypes.js";
 import {ILeagueRepository} from "../../repositories/LeagueRepository/types/ILeagueRepository.js";
+import {IGetCountriesRequest} from "./types/IGetCountriesRequest.js";
 
 @injectable()
 export class CountryController implements ICountryController {
@@ -24,10 +25,14 @@ export class CountryController implements ICountryController {
     const countries = uniqueCountries.map(country => {
       return {
         ...country,
-        leagues: leagues.filter(league => league.country.name === country.countryName)
+        leagues: leagues.filter(league => league.country.name === country.countryName).map(league => {
+          return {
+            ...league.league
+          }
+        })
       }
     })
-    return res.sendSuccessResponse({
+    return res.sendSuccessResponse<IGetCountriesRequest['response']>({
       countries,
     })
   }

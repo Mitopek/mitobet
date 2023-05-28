@@ -10,6 +10,8 @@ import {ICountryEntity} from "../models/CountryModel/types/ICountryEntity.js";
 import {CountrySchema} from "../models/CountryModel/CountrySchema.js";
 import {ILeagueEntity} from "../models/LeagueModel/types/ILeagueEntity.js";
 import {LeagueSchema} from "../models/LeagueModel/LeagueSchema.js";
+import {IMatchEntity} from "../models/MatchModel/types/IMatchEntity.js";
+import {MatchSchema} from "../models/MatchModel/MatchSchema.js";
 
 export default async function setupMongoose(container: Container) {
   const mongooseClient = await mongoose.connect(process.env.MONGO_URL);
@@ -30,5 +32,9 @@ export default async function setupMongoose(container: Container) {
   container.bind<Model<ILeagueEntity>>(InterfaceTypes.models.LeagueModel).toDynamicValue((context: interfaces.Context) => {
     const mongooseClient = context.container.get<typeof mongoose>(InterfaceTypes.databases.Mongoose)
     return mongooseClient.model('League', LeagueSchema)
+  })
+  container.bind<Model<IMatchEntity>>(InterfaceTypes.models.MatchModal).toDynamicValue((context: interfaces.Context) => {
+    const mongooseClient = context.container.get<typeof mongoose>(InterfaceTypes.databases.Mongoose)
+    return mongooseClient.model('Match', MatchSchema)
   })
 }

@@ -1,47 +1,55 @@
 <template>
-  <div class="sport-discipline-chooser">
+  <div class="sport-league-chooser">
+    <div class="search-wrapper">
+      <InputComponent placeholder="Wyszukaj mecz" @change="value => emit('search', value)"/>
+    </div>
     <div class="items-container">
-      <div v-if="!isToggled">
-        <CountryItem :name="props.country.countryName" :flag="props.country.countryFlag"/>
-      </div>
-      <div v-else>
-        <div v-for="league in props.country.leagues" :class="['item-wrapper', {'is-chosen': props.chosenLeagueId === league.id}]" @click="emit('choose', league.id)">
-          {{league.name}}
-        </div>
-      </div>
+      <CountryLeagueChooser v-for="fixture in props.fixtures" :fixture="fixture" :chosenLeagueName="chosenLeagueName" @choose="value => chosenLeagueName = value"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import SportDisciplineItem from "./SportDisciplineItem.vue";
-import {SportDisciplines} from "../../server/services/OddsService/enum/SportDisciplines.js";
-import {SportDisciplineType} from "../../server/services/OddsService/enum/SportDisciplineType.js";
-import {$computed, $ref, $} from "vue/macros";
-import CountryItem from "./CountryItem.vue";
+import {$computed, $ref} from "vue/macros";
+import CountryLeagueChooser from "./CountryLeagueChooser.vue";
+import {IMappedMatch} from "../../server/adapters/MatchAdapter/types/IMappedMatch.js";
+import InputComponent from "./basic/InputComponent.vue";
 
 interface Props {
-  country: {
-    countryName: string,
-    countryFlag: string,
-    leagues: {
-      id: number,
+  fixtures: {
+    country: {
       name: string,
-      type: string,
-      logo: string,
+      code: string,
+      flag: string,
+    }
+    leagues: {
+      name: string,
+      image: string,
+      matches: IMappedMatch[]
     }[]
-  }
-  chosenLeagueId: number
+  }[] | null
+  chosenLeagueName: string,
 }
 
 interface Emits {
-  (e: 'choose', leagueId: number): void
+  (e: 'choose', chosenLeagueName: string): void
+  (e: 'search', value: string): void
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const isToggled = $ref(false)
+const search = $ref('')
+
+const chosenLeagueName = $computed({
+  get() {
+    return props.chosenLeagueName
+  },
+  set(value){
+    emit('choose', value)
+  }
+})
+
 
 </script>
 
@@ -64,14 +72,15 @@ const isToggled = $ref(false)
   }
 }
 
+.search-wrapper{
+  padding: 12px;
+}
+
 .items-container{
   padding: 12px;
   display: flex;
   flex-flow: column;
   gap: 4px;
 }
-
-
-
 
 </style>

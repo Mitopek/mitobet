@@ -13,6 +13,7 @@ import cookieParser from 'cookie-parser'
 import {IAIController} from "../controllers/AIController/types/IAIController.js";
 import {ISportController} from "../controllers/SportController/types/ISportController.js";
 import {ICountryController} from "../controllers/CountryController/types/ICountryController.js";
+import {IFixtureController} from "../controllers/FixtureController/types/IFixtureController.js";
 
 export default function setupRoutes(app: Express, container: Container) {
   //TODO DEV ONLY
@@ -56,6 +57,10 @@ export default function setupRoutes(app: Express, container: Container) {
   const countryController = container.get<ICountryController>(InterfaceTypes.controllers.CountryController)
   app.use('/countries', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.get('/countries', countryController.getCountries.bind(countryController))
+
+  const fixtureController = container.get<IFixtureController>(InterfaceTypes.controllers.FixtureController)
+  app.use('/fixtures', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  app.get('/fixtures', fixtureController.getFixtures.bind(fixtureController))
 
   const sportController = container.get<ISportController>(InterfaceTypes.controllers.SportController)
   app.get('/sports', sportController.getSportDisciplines.bind(sportController))

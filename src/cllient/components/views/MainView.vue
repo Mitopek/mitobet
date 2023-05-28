@@ -89,7 +89,7 @@ const onLogout = async () => {
   border-radius: 10px 0 0 10px;
   background-color: #0000009e;
   border-left: #040404e6 5px solid;
-  border-right: #040404e6 5px solid;
+  /*border-right: #040404e6 2px solid;*/
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
