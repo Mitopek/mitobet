@@ -15,6 +15,11 @@ const routes = [
     component: import('../components/pages/HomePage.vue'),
   },
   {
+    path: '/events',
+    name: RouterName.Events,
+    component: () => import('../components/pages/EventsPage.vue'),
+  },
+  {
     path: '/register',
     name: RouterName.Register,
     component: () => import('../components/pages/RegisterPage.vue'),

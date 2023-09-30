@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="button-wrapper">
-        <ButtonComponent>Wybierz</ButtonComponent>
+        <ButtonComponent>AI analyze</ButtonComponent>
       </div>
     </div>
   </div>
@@ -64,13 +64,17 @@ const startTime = $computed(() => {
   const time = format(matchDate, 'HH:mm')
   return `${date} ${time}`
 })
+
+//TODO matches on center vertical
 </script>
 
 <style scoped>
+
+
 .match-item{
   padding: 8px 12px 18px 12px;
   border-radius: 10px;
-  background-color: #0000009e;
+  background-color: #131311;
   display: flex;
   flex-direction: column;
 }

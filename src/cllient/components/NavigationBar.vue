@@ -76,12 +76,12 @@ const routes = [
   padding: 0 20px;
   color: #f9f9f9;
   width: 90%;
-  font-size: 18px;
+  font-size: 14px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 0 64px rgba(0,0,0,.3);
-  background-color: #0000009e;
+  background-color: #131311;
   border-bottom: 1px solid #0000009e;
   border-left: 1px solid #0000009e;
   border-right: 1px solid #0000009e;

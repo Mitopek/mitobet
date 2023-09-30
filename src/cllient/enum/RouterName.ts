@@ -6,4 +6,5 @@ export enum RouterName {
   Notifications = 'notifications',
   Settings = 'settings',
   Subscription = 'subscription',
+  Events = 'events',
 }

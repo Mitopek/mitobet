@@ -26,7 +26,6 @@ import InputComponent from "./basic/InputComponent.vue";
 import {$ref, $} from "vue/macros";
 import {IMappedMatch} from "../../server/adapters/MatchAdapter/types/IMappedMatch.js";
 import MatchItem from "./MatchItem.vue";
-import {$computed} from "vue/macros.js";
 import {format} from "date-fns";
 
 interface Props {

@@ -6,11 +6,24 @@ import {
 import {InterfaceTypes} from "../types/InterfaceTypes.js";
 
 export default async function executeOnStartupTasks(container: Container) {
+  const syncFootyStatsToDatabaseService = container.get<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService)
   // new CronJob(
-  //   '0 2 * * *',
-  //
+  //   '0 2,14 * * *',
+  //   async function() {
+  //     await syncFutureMatches(syncFootyStatsToDatabaseService)
+  //   },
+  //   null,
+  //   null,
+  //   'Europe/Warsaw'
   // )
-  // const syncFootyStatsToDatabaseService = container.get<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService)
-  // await syncFootyStatsToDatabaseService.syncMatchesOfTheDay(new Date())
+  await syncFutureMatches(syncFootyStatsToDatabaseService)
+}
+
+async function syncFutureMatches(syncFootyStatsToDatabaseService: ISyncFootyStatsToDatabaseService) {
+  // const date = new Date();
+  // for (let i = 0; i < 7; i++) {
+  //   await syncFootyStatsToDatabaseService.syncMatchesOfTheDay(date);
+  //   date.setDate(date.getDate() + 1);
+  // }
 
 }

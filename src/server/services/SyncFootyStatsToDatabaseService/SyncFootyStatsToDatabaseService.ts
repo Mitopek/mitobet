@@ -16,6 +16,8 @@ export class SyncFootyStatsToDatabaseService implements ISyncFootyStatsToDatabas
   ) {
   }
 
+
+  //TODO CATCH ERRORS
   async syncMatchesOfTheDay(date: Date): Promise<void> {
     const leagues = await this.footyStatsApiService.getLeagueList()
     const dayMatches = await this.footyStatsApiAdapter.getMatchesByDate(date)
@@ -25,34 +27,100 @@ export class SyncFootyStatsToDatabaseService implements ISyncFootyStatsToDatabas
         return (prev.year > current.year) ? prev : current;
       })
       const seasonId = maxYearSeason?.id
-      console.info(seasonId)
       if(!seasonId) {
         console.error('No season found')
         continue
       }
       const seasonMatches = await this.footyStatsApiService.getLeagueMatchesBySeasonId(seasonId)
       const seasonDayMatches = dayMatches.filter(match => seasonMatches.some(seasonMatch => seasonMatch.id === match.id))
-      if(!seasonDayMatches?.length) {
+      if(!seasonMatches?.length) {
+        console.info(`No matches for league ${league.name}, season: ${maxYearSeason.year}`)
         continue
       }
+      await this.delay(this.timeout);
       for(const match of seasonDayMatches) {
-        await this.delay(this.timeout);
-        let matchWithDetails = await this.footyStatsApiAdapter.getMatchWithDetails(match.id)
-        const matchWithAllDetails = {
+        const mappedMatch = {
+          externalId: match.id,
+          homeId: match.homeID,
+          awayId: match.awayID,
+          season: match.season,
+          status: match.status,
+          date_unix: match.date_unix,
+          home_name: match.home_name,
+          away_name: match.away_name,
+          home_image: match.home_image,
+          away_image: match.away_image,
           leagueName: league.name,
           leagueImage: league.image,
           countryName: league.country,
-          externalId: matchWithDetails.id,
           seasonId,
-          ...matchWithDetails,
-          id: undefined as string,
         }
-        await this.matchRepository.createMatch(matchWithAllDetails)
-        console.info(`Match with id ${matchWithAllDetails.externalId} created`)
+        const matchInDatabase = await this.matchRepository.findMatchByExternalId(match.id)
+        if(matchInDatabase) {
+          await this.matchRepository.updateMatchByExternalId(match.id, mappedMatch)
+          console.info(`Match with externalId ${mappedMatch.externalId} updated`)
+        } else {
+          await this.matchRepository.createMatch(mappedMatch)
+          console.info(`Match with externalId ${mappedMatch.externalId} created`)
+        }
       }
     }
     console.info(`Synchronize matches of the day done.`)
   }
+
+
+  // async syncMatchesOfTheDay(date: Date): Promise<void> {
+  //   const leagues = await this.footyStatsApiService.getLeagueList()
+  //   const dayMatches = await this.footyStatsApiAdapter.getMatchesByDate(date)
+  //   for(const league of leagues) {
+  //     console.info(`League ${league.name} started`)
+  //     const maxYearSeason = league.season.reduce((prev, current) => {
+  //       return (prev.year > current.year) ? prev : current;
+  //     })
+  //     const seasonId = maxYearSeason?.id
+  //     if(!seasonId) {
+  //       console.error('No season found')
+  //       continue
+  //     }
+  //     const seasonMatches = await this.footyStatsApiService.getLeagueMatchesBySeasonId(seasonId)
+  //     const seasonDayMatches = dayMatches.filter(match => seasonMatches.some(seasonMatch => seasonMatch.id === match.id))
+  //     if(!seasonMatches?.length) {
+  //       console.info(`No matches for league ${league.name}, season: ${maxYearSeason.year}`)
+  //       continue
+  //     }
+  //     await this.delay(this.timeout);
+  //     for(const match of seasonDayMatches) {
+  //       const mappedMatch = {
+  //         externalId: match.id,
+  //         homeId: match.homeID,
+  //         awayId: match.awayID,
+  //         season: match.season,
+  //         status: match.status,
+  //         date_unix: match.date_unix,
+  //         home_name: match.home_name,
+  //         away_name: match.away_name,
+  //         home_image: match.home_image,
+  //         away_image: match.away_image,
+  //         leagueName: league.name,
+  //         leagueImage: league.image,
+  //         countryName: league.country,
+  //         seasonId,
+  //       }
+  //       const matchInDatabase = await this.matchRepository.findMatchByExternalId(match.id)
+  //       if(matchInDatabase) {
+  //         await this.matchRepository.updateMatchByExternalId(match.id, mappedMatch)
+  //         console.info(`Match with externalId ${mappedMatch.externalId} updated`)
+  //       } else {
+  //         await this.matchRepository.createMatch(mappedMatch)
+  //         console.info(`Match with externalId ${mappedMatch.externalId} created`)
+  //       }
+  //     }
+  //   }
+  //   console.info(`Synchronize matches of the day done.`)
+  // }
+
+
+
 
   private async delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));

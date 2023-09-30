@@ -4,6 +4,21 @@ export interface IFootyStatsMatch {
   awayID: number;
   season: string;
   status: string;
+  date_unix: number,
+  home_name: string,
+  away_name: string,
+  home_image: string;
+  away_image: string;
+}
+
+
+
+export interface IFootyStatsMatch {
+  id: number;
+  homeID: number;
+  awayID: number;
+  season: string;
+  status: string;
   roundID: number;
   game_week: number;
   revised_game_week: number;

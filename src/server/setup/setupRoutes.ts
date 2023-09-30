@@ -55,11 +55,11 @@ export default function setupRoutes(app: Express, container: Container) {
   app.post('/ai', aiController.sendMessage.bind(aiController))
 
   const countryController = container.get<ICountryController>(InterfaceTypes.controllers.CountryController)
-  app.use('/countries', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  // app.use('/countries', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.get('/countries', countryController.getCountries.bind(countryController))
 
   const fixtureController = container.get<IFixtureController>(InterfaceTypes.controllers.FixtureController)
-  app.use('/fixtures', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  // app.use('/fixtures', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   app.get('/fixtures', fixtureController.getFixtures.bind(fixtureController))
 
   const sportController = container.get<ISportController>(InterfaceTypes.controllers.SportController)
