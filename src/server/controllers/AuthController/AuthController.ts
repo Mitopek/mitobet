@@ -7,6 +7,7 @@ import {IPasswordService} from "../../services/PasswordService/types/IPasswordSe
 import {IAuthService} from "../../services/AuthService/types/IAuthService.js";
 import {IApiRequest} from "../../types/IApiRequest.js";
 import {IApiResponse} from "../../types/IApiResponse.js";
+import {LoginType} from "../../services/AuthService/enum/LoginType.js";
 
 @injectable()
 export class AuthController implements IAuthController {
@@ -38,10 +39,19 @@ export class AuthController implements IAuthController {
   }
 
   async login(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {mail, password} = req.body
+    const {mail, password, facebookCode, googleCode, type} = req.body
     let user = null
     try {
-      user = await this.authService.login(mail, password)
+      if(type === LoginType.LOCAL) {
+        user = await this.authService.login(type, {
+          mail,
+          password,
+        })
+      } else if(type === LoginType.FACEBOOK) {
+        user = await this.authService.login(type, {
+          code: facebookCode,
+        })
+      }
     } catch (e) {
       return res.sendFailResponse([e.message], 401)
     }

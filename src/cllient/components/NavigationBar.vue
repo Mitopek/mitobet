@@ -24,7 +24,7 @@ const routes = [
    {
      path: '/',
      title: 'Strona głowna',
-     iconClass: 'fa-solid fa-house-blank'
+     iconClass: 'fa-solid fa-house'
    },
    {
      path: '/register',

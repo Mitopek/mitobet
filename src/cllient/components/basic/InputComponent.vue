@@ -29,7 +29,7 @@ const emit = defineEmits<IEmits>()
 <style scoped>
 
 input{
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0 10px;
   font-size: 16px;
   height: 36px;

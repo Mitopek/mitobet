@@ -41,6 +41,7 @@ export default function setupRoutes(app: Express, container: Container) {
   app.post('/register', authController.register.bind(authController))
   app.post('/change-password', authController.changePassword.bind(authController))
   app.post('/login', authController.login.bind(authController))
+  app.post('/facebook-login', authController.login.bind(authController))
   app.post('/logout', authController.logout.bind(authController))
 
   const couponController = container.get<ICouponController>(InterfaceTypes.controllers.CouponController)

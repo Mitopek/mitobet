@@ -1,13 +1,12 @@
 <template>
   <div class="coupons-options">
-    <RouteOption :to="RouterName.AI" :icon-class="null" title="🧠 Typuj z AI"/>
-    <RouteOption :to="RouterName.Coupons" icon-class="fa-solid fa-memo" title="Najbliższe kupony"/>
+    <RouteOption :to="RouterName.Coupons" icon-class="fa-solid fa-rectangle-list" title="Najbliższe kupony"/>
     <RouteOption :to="RouterName.Notifications" icon-class="fa-solid fa-bell" title="Powiadomienia"/>
     <div class="separator"/>
     <RouteOption :to="RouterName.Settings" icon-class="fa-solid fa-user" title="Konto"/>
     <RouteOption :to="RouterName.Subscription" icon-class="fa-solid fa-crown" title="Subskrypcja"/>
     <div class="separator"/>
-    <div class="logout" @click="emit('logout')"><div class="icon-wrapper"><i class="fa-solid fa-arrow-up-left-from-circle"/></div> Wyloguj</div>
+    <div class="logout" @click="emit('logout')"><div class="icon-wrapper"><i class="fa-solid fa-right-from-bracket"/></div> Wyloguj</div>
   </div>
 </template>
 
@@ -43,6 +42,7 @@ const emit = defineEmits<Emits>()
   align-items: center;
   transition: background-color .3s ease;
   justify-content: center;
+  color: #d34747;
   &:hover {
     font-weight: 500;
     background-color: hsla(0, 0%, 18%, 0.5);

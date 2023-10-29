@@ -29,6 +29,26 @@ import AnimatedArrowButton from "../AnimatedArrowButton.vue";
 import PricesContent from "../SubscriptionsContent.vue";
 import ModalComponent from "../basic/ModalComponent.vue";
 import MainTextContent from "../MainTextContent.vue";
+import {onMounted} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {useAuth} from "../../composables/useAuth";
+import {$ref, $} from "vue/macros";
+import {RouterName} from "../../enum/RouterName";
+const route = useRoute()
+const router = useRouter()
+const {loginByFacebook} = $(useAuth())
+
+onMounted(async () => {
+  const code = route.query.code
+  console.info(code)
+  if(code) {
+    const response = await loginByFacebook(code as string)
+    if(!response.success && response?.errors) {
+      return alert(response.errors[0])
+    }
+    await router.push({name: RouterName.Coupons})
+  }
+})
 </script>
 
 <style scoped>

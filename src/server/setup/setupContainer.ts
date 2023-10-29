@@ -1,5 +1,5 @@
 import {AuthController} from "../controllers/AuthController/AuthController.js";
-import {Container} from "inversify";
+import {Container, interfaces} from "inversify";
 import {InterfaceTypes} from "../types/InterfaceTypes.js";
 import {IAuthController} from "../controllers/AuthController/types/IAuthController.js";
 import {UserRepository} from "../repositories/UserRepository/UserRepository.js";
@@ -44,6 +44,10 @@ import {MatchAdapter} from "../adapters/MatchAdapter/MatchAdapter.js";
 import {IMatchAdapter} from "../adapters/MatchAdapter/types/IMatchAdapter.js";
 import {FixtureController} from "../controllers/FixtureController/FixtureController.js";
 import {IFixtureController} from "../controllers/FixtureController/types/IFixtureController.js";
+import {ILoginStrategy} from "../services/AuthService/ILoginStrategy.js";
+import {FacebookLoginStrategy} from "../services/AuthService/strategies/FacebookLoginStrategy.js";
+import {LocalLoginStrategy} from "../services/AuthService/strategies/LocalLoginStrategy.js";
+import {LoginType} from "../services/AuthService/enum/LoginType.js";
 
 
 export default async function setupContainer() {
@@ -78,6 +82,20 @@ export default async function setupContainer() {
   //ADAPTERS
   container.bind<IFootyStatsApiAdapter>(InterfaceTypes.adapters.FootyStatsApiAdapter).to(FootyStatsApiAdapter)
   container.bind<IMatchAdapter>(InterfaceTypes.adapters.MatchAdapter).to(MatchAdapter)
+
+  //STRATEGIES
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(LocalLoginStrategy).whenTargetNamed(LoginType.LOCAL)
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(FacebookLoginStrategy).whenTargetNamed(LoginType.FACEBOOK)
+
+  //FACTORIES
+  container.bind<interfaces.Factory<ILoginStrategy>>(InterfaceTypes.factories.ILoginStrategyFactory).toFactory<ILoginStrategy>((context) => {
+    return (type: LoginType) => {
+      if(context.container.isBoundNamed(InterfaceTypes.strategies.ILoginStrategy, type)) {
+        return context.container.getNamed<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy, type)
+      }
+      return null
+    }
+  })
 
   //MONGOOSE
   await setupMongoose(container)

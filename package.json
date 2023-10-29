@@ -26,6 +26,7 @@
     "mongoose": "^7.0.0",
     "openai": "^3.2.1",
     "pinia": "^2.0.32",
+    "query-string": "^8.1.0",
     "reflect-metadata": "^0.1.13",
     "universal-cookie": "^4.0.4",
     "vue": "^3.2.45",

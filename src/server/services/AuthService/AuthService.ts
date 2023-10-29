@@ -6,6 +6,9 @@ import {InterfaceTypes} from "../../types/InterfaceTypes.js";
 import {IMailService} from "../MailService/types/IMailService.js";
 import {IPasswordService} from "../PasswordService/types/IPasswordService.js";
 import {IUserRepository} from "../../repositories/UserRepository/types/IUserRepository.js";
+import {ILoginStrategy} from "./ILoginStrategy";
+import {LoginType} from "./enum/LoginType.js";
+import {ILoginPayloadMap} from "./types/ILoginPayloadMap";
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -13,6 +16,8 @@ export class AuthService implements IAuthService {
     @inject(InterfaceTypes.services.MailService) private mailService: IMailService,
     @inject(InterfaceTypes.services.PasswordService) private passwordService: IPasswordService,
     @inject(InterfaceTypes.repositories.UserRepository) private userRepository: IUserRepository,
+    @inject(InterfaceTypes.factories.ILoginStrategyFactory) private loginStrategyFactory: (type: LoginType) => ILoginStrategy,
+
   ) {
   }
 
@@ -60,15 +65,8 @@ export class AuthService implements IAuthService {
     })
   }
 
-  async login(mail: string, password: string): Promise<IUserEntity> {
-    const user = await this.userRepository.findUserByMail(mail)
-    if(!user) {
-      throw new Error('Nieprawidłowe dane logowania.')
-    }
-    const isPasswordValid = await this.passwordService.comparePassword(password, user.password)
-    if(!isPasswordValid) {
-      throw new Error('Nieprawidłowe dane logowania.')
-    }
-    return user
+  async login(type: LoginType, payload: ILoginPayloadMap[LoginType]): Promise<IUserEntity> {
+    const strategy = this.loginStrategyFactory(type)
+    return strategy.login(type, payload)
   }
 }

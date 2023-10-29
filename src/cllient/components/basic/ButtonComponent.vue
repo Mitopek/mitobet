@@ -25,8 +25,8 @@
 
 button{
   height: 36px;
-  border-radius: 10px;
-  background-color: #2182e3;
+  border-radius: 4px;
+  background-color: #0b5daf;
   color: #f9f9f9;
   outline: none;
   border: none;
@@ -34,7 +34,7 @@ button{
   cursor: pointer;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background-color: #3497fb;
+    background-color: #1a8dff;
   }
 }
 

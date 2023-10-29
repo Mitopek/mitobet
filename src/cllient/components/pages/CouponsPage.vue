@@ -1,6 +1,6 @@
 <template>
  <div class="coupons-page">
-<!--    <CouponCreator v-if="isAdmin" @created="fetchCoupons"/>-->
+    <CouponCreator v-if="isAdmin" @created="fetchCoupons"/>
     <div v-if="coupons" class="coupons-container">
       <div class="coupon-wrapper" v-for="coupon in coupons">
         <CouponComponent

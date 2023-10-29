@@ -7,7 +7,7 @@ export const UserSchema = new Schema<IUserEntity>({
   },
   password: {
     type: Schema.Types.String,
-    required: true,
+    required: false,
   },
   isAdmin: {
     type: Schema.Types.Boolean,

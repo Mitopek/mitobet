@@ -20,5 +20,12 @@
   padding: 8px;
   display: flex;
   gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.icon{
+  font-size: 18px;
 }
 </style>

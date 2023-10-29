@@ -1,6 +1,7 @@
 import axios, {AxiosError} from 'axios'
 import {$$} from 'vue/macros'
 import UniversalCookie from "universal-cookie";
+import {LoginType} from "../../server/services/AuthService/enum/LoginType";
 
 interface Response {
   success: boolean;
@@ -47,6 +48,26 @@ export function useAuth() {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/login`, {
         mail,
         password,
+        type: LoginType.LOCAL
+      }, {withCredentials: true})
+      const cookies = new UniversalCookie()
+      console.info(cookies.get('access_token'))
+      cookies.set('mail', response.data.payload.user.mail)
+      cookies.set('is_admin', response.data.payload.user.isAdmin)
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
+  const loginByFacebook = async (code: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/login`, {
+        facebookCode: code,
+        type: LoginType.FACEBOOK
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
       console.info(cookies.get('access_token'))
@@ -81,6 +102,7 @@ export function useAuth() {
     register,
     changePassword,
     login,
+    loginByFacebook,
     logout,
   })
 }

@@ -1,8 +1,10 @@
 import {IUserEntity} from "../../../models/UserModel/types/IUserEntity.js";
+import {LoginType} from "../enum/LoginType.js";
+import {ILoginPayloadMap} from "./ILoginPayloadMap";
 
 export interface IAuthService {
   generateToken(user: IUserEntity): string
   changePassword(userId: string, oldPassword: string, password: string): Promise<void>
   register(mail: string, password: string): Promise<void>
-  login(mail: string, password: string): Promise<IUserEntity>
+  login(type: LoginType, payload: ILoginPayloadMap[LoginType]): Promise<IUserEntity>
 }

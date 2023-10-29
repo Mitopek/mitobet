@@ -17,12 +17,8 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
 }
 
 body, #app, html {
@@ -41,7 +37,7 @@ body, #app, html {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #343434;
 }
 
 ::-webkit-scrollbar-thumb {

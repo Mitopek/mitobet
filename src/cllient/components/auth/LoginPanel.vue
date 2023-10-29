@@ -17,7 +17,9 @@
         </ButtonComponent>
       </div>
       <div class="application-buttons">
-      <FacebookButton>Logowanie przez Facebooka</FacebookButton>
+        <a :href="facebookLink">
+          <FacebookButton>Logowanie przez Facebook</FacebookButton>
+        </a>
       <GoogleButton>Logowanie przez Google</GoogleButton>
       </div>
     </div>
@@ -29,11 +31,13 @@ import InputComponent from "../basic/InputComponent.vue";
 import FormItem from "../FormItem.vue";
 import ButtonComponent from "../basic/ButtonComponent.vue";
 import {useRouter} from "vue-router";
-import {$ref, $} from "vue/macros";
+import {$ref, $, $computed} from "vue/macros";
 import FacebookButton from "../basic/FacebookButton.vue";
 import GoogleButton from "../basic/GoogleButton.vue";
 import {useAuth} from "../../composables/useAuth.js";
 import {RouterName} from "../../enum/RouterName.js";
+import axios from "axios";
+import queryString from "query-string";
 const {login} = $(useAuth())
 
 const router = useRouter()
@@ -52,6 +56,16 @@ const onLoginClick = async () => {
   await router.push({name: RouterName.Coupons})
 }
 
+const facebookLink = $computed( () => {
+  const query = queryString.stringify({
+    client_id: '4363140387243775',
+    redirect_uri: 'http://localhost:5173/',
+    response_type: 'code',
+    scope: 'email',
+  })
+  return `https://www.facebook.com/v18.0/dialog/oauth?${query}`;
+})
+
 </script>
 
 <style scoped>
@@ -67,21 +81,24 @@ const onLoginClick = async () => {
   .form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 5px;
   }
 
   .actions-buttons{
-    width: 100%;
-    padding: 10px 5px;
+    width: 90%;
+    padding: 10px 4px 20px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 8px;
+    box-sizing: border-box;
   }
 
   .application-buttons{
-    margin-top: 15px;
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
   }
 </style>

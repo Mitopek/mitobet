@@ -37,6 +37,12 @@ export const InterfaceTypes = {
     FootyStatsApiAdapter: Symbol.for('FootyStatsApiAdapter'),
     MatchAdapter: Symbol.for('MatchAdapter'),
   },
+  strategies: {
+    ILoginStrategy: Symbol.for('ILoginStrategy'),
+  },
+  factories: {
+    ILoginStrategyFactory: Symbol.for('ILoginStrategyFactory'),
+  },
   databases: {
     Mongoose: Symbol.for('Mongoose'),
   }
