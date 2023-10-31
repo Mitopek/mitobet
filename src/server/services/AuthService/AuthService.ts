@@ -46,6 +46,7 @@ export class AuthService implements IAuthService {
       mail,
       password: hashedPassword,
       isAdmin: false,
+      loginType: LoginType.LOCAL,
     })
   }
 

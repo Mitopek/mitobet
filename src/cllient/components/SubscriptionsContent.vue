@@ -46,7 +46,8 @@ const subscriptionItems = $ref([{
 
 <style scoped>
 .prices-content{
-  text-align: center;
+  margin-top: 20px;
+  text-align: left;
 }
 
 .text{

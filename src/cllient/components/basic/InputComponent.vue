@@ -1,17 +1,10 @@
-<template>
-  <input
-    :type="props.type"
-    :value="props.modelValue"
-    @input="emit('update:modelValue', $event.target.value)"
-    @change="emit('change', $event.target.value)"
-    :placeholder="props.placeholder"
-  />
-</template>
-
 <script setup lang="ts">
+import {$computed} from "vue/macros";
+
 interface IProps {
   type?: string,
   modelValue?: string,
+  iconClass?: string,
   placeholder?: '',
 }
 interface IEmits {
@@ -22,14 +15,52 @@ const props = withDefaults(defineProps<IProps>(),{
   type: 'text',
   placeholder: '',
   modelValue: '',
+  iconClass: null,
 })
 const emit = defineEmits<IEmits>()
+
+const inputAdditionalStyle = $computed(() => {
+  if(props.iconClass) {
+    return {
+      paddingLeft: '8px',
+    }
+  }
+})
 </script>
 
-<style scoped>
+<template>
+  <div class="input-component">
+    <i :class="props.iconClass" v-if="props.iconClass"/>
+    <input
+        :type="props.type"
+        :value="props.modelValue"
+        @input="emit('update:modelValue', $event.target.value)"
+        @change="emit('change', $event.target.value)"
+        :placeholder="props.placeholder"
+        :style="inputAdditionalStyle"
+    />
+  </div>
+</template>
+
+
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
+
+.input-component{
+  background: map-get(variables.$colors, surfaceHigh);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 36px;
+  color: white;
+  padding: 12px;
+  box-sizing: border-box;
+  width: 100%;
+}
 
 input{
-  border-radius: 4px;
   padding: 0 10px;
   font-size: 16px;
   height: 36px;
@@ -37,6 +68,8 @@ input{
   outline: none;
   border: none;
   box-sizing: border-box;
+  background: map-get(variables.$colors, surfaceHigh);
+  color: white;
 }
 
 </style>

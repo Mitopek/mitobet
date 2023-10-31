@@ -7,12 +7,12 @@
 <script setup lang="ts">
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
   .modal-component{
-    background: #0000009e;
+    background: map-get(variables.$colors, surfaceLow);
     box-sizing: border-box;
     padding: 20px 60px;
     width: 550px;
-    border-radius: 25px;
   }
 </style>

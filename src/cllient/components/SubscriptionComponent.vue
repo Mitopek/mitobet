@@ -9,7 +9,7 @@
     <div class="price-description">
       za miesiąc
     </div>
-    <div>
+    <div class="button-wrapper">
       <ButtonComponent>
         <i class="fa-solid fa-cart-shopping"></i> Kup teraz
       </ButtonComponent>
@@ -32,7 +32,8 @@ const props = defineProps<IProps>()
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../variables.scss' as variables;
   .price{
     word-spacing: -4px;
     font-size: 1.8rem;
@@ -43,7 +44,13 @@ const props = defineProps<IProps>()
     font-size: 2.2rem;
   }
 
+  .button-wrapper{
+    display: flex;
+    justify-content: center;
+  }
+
   .vip-price-component{
+    text-align: center;
     grid-template-rows: 75px 40px 30px 65px auto;
     display: grid;
     height: 300px;
@@ -54,7 +61,7 @@ const props = defineProps<IProps>()
     border-radius: 1.6rem;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;
-    background-color:  #0000009e;
+    background-color:  map-get(variables.$colors, surfaceLowest);
     outline-offset: -2px;
   }
 </style>

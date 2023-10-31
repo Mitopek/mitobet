@@ -82,6 +82,24 @@ export function useAuth() {
     }
   }
 
+  const loginByGoogle = async (code: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/login`, {
+        googleCode: code,
+        type: LoginType.GOOGLE
+      }, {withCredentials: true})
+      const cookies = new UniversalCookie()
+      cookies.set('mail', response.data.payload.user.mail)
+      cookies.set('is_admin', response.data.payload.user.isAdmin)
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
   //TODO types every where, and res.cookies flags
   const logout = async (): Promise<Response> => {
     try {
@@ -103,6 +121,7 @@ export function useAuth() {
     changePassword,
     login,
     loginByFacebook,
+    loginByGoogle,
     logout,
   })
 }

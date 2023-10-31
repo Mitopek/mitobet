@@ -22,51 +22,36 @@
 </template>
 
 <script setup lang="ts">
-
 import DefaultLayout from "../DefaultLayout.vue";
 import LoginPanel from "../auth/LoginPanel.vue";
 import AnimatedArrowButton from "../AnimatedArrowButton.vue";
 import PricesContent from "../SubscriptionsContent.vue";
 import ModalComponent from "../basic/ModalComponent.vue";
 import MainTextContent from "../MainTextContent.vue";
-import {onMounted} from "vue";
-import {useRoute, useRouter} from "vue-router";
-import {useAuth} from "../../composables/useAuth";
-import {$ref, $} from "vue/macros";
-import {RouterName} from "../../enum/RouterName";
-const route = useRoute()
-const router = useRouter()
-const {loginByFacebook} = $(useAuth())
 
-onMounted(async () => {
-  const code = route.query.code
-  console.info(code)
-  if(code) {
-    const response = await loginByFacebook(code as string)
-    if(!response.success && response?.errors) {
-      return alert(response.errors[0])
-    }
-    await router.push({name: RouterName.Coupons})
-  }
-})
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
 
 .content-wrapper{
-  background: #0000009e;
+  background: map-get(variables.$colors, surface);
+  display: flex;
+  padding: 60px 40px;
+  justify-content: center;
 }
 
 .content{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 17%;
-  padding: 40px 0;
+  width: 80%;
+  padding: 40px;
+  border-radius: 8px;
+  background: map-get(variables.$colors, surfaceLow);
 }
 
 .main-items-container{
-  height: 75%;
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -1,18 +1,18 @@
 <template>
   <div class="login-panel">
-    <span class="title">Rejestracja</span>
+    <h2>Rejestracja</h2>
     <div class="form">
       <FormItem title="Mail:" :error="validateErrors.mail">
-        <InputComponent type="text" v-model="mail" @change="onMailInput"/>
+        <InputComponent type="text" v-model="mail" @change="onMailInput" iconClass="fa-solid fa-user"/>
       </FormItem>
       <FormItem title="Hasło:" :error="validateErrors.password">
-        <InputComponent type="password" v-model="password" @change="onPasswordInput"/>
+        <InputComponent type="password" v-model="password" @change="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <FormItem title="Potwórz hasło:" :error="validateErrors.repeatedPassword">
-        <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput"/>
+        <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <div class="actions-buttons">
-        <ButtonComponent @click="router.push('/')">
+        <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
         </ButtonComponent>
         <ButtonComponent @click="onRegisterClick">
@@ -130,6 +130,7 @@ const onRegisterClick = async () => {
   .login-panel{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2px;
   }
 

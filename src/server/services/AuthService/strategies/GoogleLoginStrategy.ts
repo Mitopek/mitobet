@@ -9,30 +9,34 @@ import {IAuthService} from "../types/IAuthService.js";
 import axios from "axios";
 
 @injectable()
-export class FacebookLoginStrategy implements ILoginStrategy {
+export class GoogleLoginStrategy implements ILoginStrategy {
   constructor(
     @inject(InterfaceTypes.repositories.UserRepository) private userRepository: IUserRepository,
     @inject(InterfaceTypes.services.AuthService) private authService: IAuthService,
   ) {}
 
-  async login(type: LoginType.FACEBOOK, payload: ILoginPayloadMap[LoginType.FACEBOOK]): Promise<IUserEntity> {
+  async login(type: LoginType.GOOGLE, payload: ILoginPayloadMap[LoginType.GOOGLE]): Promise<IUserEntity> {
     const {code} = payload
     if(!code) {
       throw new Error('Code is required')
     }
     let user = null
     try {
-      const response = await axios.post('https://graph.facebook.com/v14.0/oauth/access_token', {
-        client_id: process.env.FACEBOOK_APP_ID,
-        client_secret: process.env.FACEBOOK_SECRET,
-        redirect_uri: 'http://localhost:5173/',
+      const response = await axios.post('https://oauth2.googleapis.com/token', {
+        client_id: process.env.GOOGLE_APP_ID,
+        client_secret: process.env.GOOGLE_SECRET_KEY,
+        redirect_uri: process.env.GOOGLE_REDIRECT_URL,
         code,
+        grant_type: 'authorization_code',
+      }, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
       })
-      const {access_token} = response.data
-      const userResponse = await axios.get('https://graph.facebook.com/me', {
-        params: {
-          fields: 'id,email,picture', // TODO PICTURES
-          access_token,
+      const {access_token, id_token} = response.data
+      const userResponse = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`, {
+        headers: {
+          Authorization: `Bearer ${id_token}`,
         }
       })
       const mail = userResponse.data.email
@@ -42,7 +46,7 @@ export class FacebookLoginStrategy implements ILoginStrategy {
           mail,
           password: null,
           isAdmin: false,
-          loginType: LoginType.FACEBOOK,
+          loginType: LoginType.GOOGLE,
         })
       }
     } catch (e) {

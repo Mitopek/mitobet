@@ -6,12 +6,12 @@
       </div>
       <div class="text">
         <div class="title"><h2>Mitobet - obstawiaj inaczej</h2></div>
-        Znowu postawiłeś kupon z kursem 1.2, ale to przeciwnicy na których kurs był 5.0, wygrali mecz? Nie bez powodu popularne jest powiedzenie "Nie graj po kursach". Niestety niski kurs dla danego zdarzenia, nigdy nie oznacza pewnej wygranej. Odpowiednia analiza całego "kontekstu" danego wydarzenia jest tak na prawdę głównym czynnikiem zwiększającym ci szanse na zgarnięcie wygranej. Mitobet oferuje właśnie to - przewidywania na poszczególne zdarzenia, poprzedzone:
-        <br/>
+        Znowu postawiłeś kupon z niskim kursem, ale to przeciwnicy wygrali mecz? Nie bez powodu popularne jest powiedzenie "Nie graj po kursach". Niestety niski kurs dla danego zdarzenia, nigdy nie oznacza pewnej wygranej. Odpowiednia analiza całego "kontekstu" danego wydarzenia jest tak na prawdę głównym czynnikiem zwiększającym ci szanse na zgarnięcie wygranej. Mitobet oferuje przewidywania na poszczególne zdarzenia, poprzedzone:
+        <br/><br/>
         <div class="list">
           &#x2022; doświadczeniem,<br/>
-          &#x2022; dogłębną analizą,<br/>
-          &#x2022; użyciem odpowiednich narzędzi w tym opartych na AI (sztucznej inteligencji).
+          &#x2022; odpowiednią analizą,<br/>
+          &#x2022; użyciem pomocnych narzędzi, w tym opartych na AI.
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ const subscriptionItems = $ref([{
 
 .title{
   width: 100%;
-  text-align: center;
+  text-align: left;
   padding: 5px;
 }
 

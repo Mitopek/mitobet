@@ -48,6 +48,7 @@ import {ILoginStrategy} from "../services/AuthService/ILoginStrategy.js";
 import {FacebookLoginStrategy} from "../services/AuthService/strategies/FacebookLoginStrategy.js";
 import {LocalLoginStrategy} from "../services/AuthService/strategies/LocalLoginStrategy.js";
 import {LoginType} from "../services/AuthService/enum/LoginType.js";
+import {GoogleLoginStrategy} from "../services/AuthService/strategies/GoogleLoginStrategy.js";
 
 
 export default async function setupContainer() {
@@ -86,6 +87,7 @@ export default async function setupContainer() {
   //STRATEGIES
   container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(LocalLoginStrategy).whenTargetNamed(LoginType.LOCAL)
   container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(FacebookLoginStrategy).whenTargetNamed(LoginType.FACEBOOK)
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(GoogleLoginStrategy).whenTargetNamed(LoginType.GOOGLE)
 
   //FACTORIES
   container.bind<interfaces.Factory<ILoginStrategy>>(InterfaceTypes.factories.ILoginStrategyFactory).toFactory<ILoginStrategy>((context) => {

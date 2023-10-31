@@ -13,6 +13,10 @@ export const UserSchema = new Schema<IUserEntity>({
     type: Schema.Types.Boolean,
     required: true,
   },
+  loginType: {
+    type: Schema.Types.String,
+    required: true,
+  }
   subscriptionExpiresAt: {
     type: Schema.Types.Date,
     required: false,

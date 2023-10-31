@@ -4,6 +4,7 @@ import {Model} from "mongoose";
 import {InterfaceTypes} from "../../types/InterfaceTypes.js";
 import {IUserRepository} from "./types/IUserRepository.js";
 import {ICreateUserProperties} from "../../models/UserModel/types/ICreateUserProperties.js";
+import {LoginType} from "../../services/AuthService/enum/LoginType";
 
 @injectable()
 export class UserRepository implements IUserRepository{
@@ -21,6 +22,14 @@ export class UserRepository implements IUserRepository{
       mail
     })
   }
+
+  async findUserByMailAndLoginType(mail: IUserEntity['mail'], loginType: LoginType): Promise<IUserEntity> {
+    return this.userModel.findOne({
+      mail,
+      loginType,
+    })
+  }
+
 
   async findUserById(id: IUserEntity['id']): Promise<IUserEntity> {
     return this.userModel.findOne({

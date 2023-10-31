@@ -21,7 +21,7 @@ export class LocalLoginStrategy implements ILoginStrategy {
     if(!mail || !password) {
       throw new Error('Brak wymaganych danych logowania.')
     }
-    const user = await this.userRepository.findUserByMail(mail)
+    const user = await this.userRepository.findUserByMailAndLoginType(mail, type)
     if(!user) {
       throw new Error('Nieprawidłowe dane logowania.')
     }

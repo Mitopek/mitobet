@@ -51,9 +51,16 @@ export class AuthController implements IAuthController {
         user = await this.authService.login(type, {
           code: facebookCode,
         })
+      } else if(type === LoginType.GOOGLE) {
+        user = await this.authService.login(type, {
+          code: googleCode,
+        })
       }
     } catch (e) {
       return res.sendFailResponse([e.message], 401)
+    }
+    if(!user) {
+      return res.sendFailResponse(['Nieprawidłowe dane logowania.'], 401)
     }
     const token = this.authService.generateToken(user)
     //TODO flags itp

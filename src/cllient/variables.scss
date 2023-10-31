@@ -1,5 +1,12 @@
 $colors: (
-  fontColor: #1111
+  surfaceHigh: #121212,
+  surface: #212121,
+  surfaceLow: #2b2b2b,
+  surfaceLowest: #3b3b3b,
+  surfaceAlpha:  #0000009e,
+  primary: #3aab15,
+  primaryDark: #2e8c11,
+  primaryDarknest: #1e6c11,
+  secondary: #3b3b3b,
+  secondaryDark: #2b2b2b,
 )
-
-mixin-exists()
