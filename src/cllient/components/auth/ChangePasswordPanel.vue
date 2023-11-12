@@ -1,15 +1,17 @@
 <template>
   <div class="login-panel">
-    <span class="title">Zmień hasło</span>
+    <div class="header-wrapper">
+      <h2>Zmień hasło</h2>
+    </div>
     <div class="form">
-      <FormItem title="Hasło:">
-        <InputComponent type="password" v-model="oldPassword"/>
+      <FormItem title="Stare hasło:">
+        <InputComponent type="password" v-model="oldPassword" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <FormItem title="Hasło:" :error="validateErrors.password">
-        <InputComponent type="password" v-model="password" @change="onPasswordInput"/>
+        <InputComponent type="password" v-model="password" @change="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <FormItem title="Potwórz hasło:" :error="validateErrors.repeatedPassword">
-        <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput"/>
+        <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <div class="actions-buttons">
         <ButtonComponent @click="onSubmit">
@@ -101,10 +103,9 @@ const onSubmit = async () => {
 </script>
 
 <style scoped>
-  .title {
+  .header-wrapper {
+    width: 100%;
     text-align: center;
-    font-size: 32px;
-    font-weight: 700;
   }
   .login-panel{
     display: flex;

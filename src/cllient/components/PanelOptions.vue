@@ -3,8 +3,8 @@
     <RouteOption :to="RouterName.Coupons" icon-class="fa-solid fa-rectangle-list" title="Najbliższe kupony"/>
     <RouteOption :to="RouterName.Notifications" icon-class="fa-solid fa-bell" title="Powiadomienia"/>
     <div class="separator"/>
+    <RouteOption :to="RouterName.Subscription" icon-class="fa-solid fa-crown" title="Subskrybcja" color="#3aab15"/>
     <RouteOption :to="RouterName.Settings" icon-class="fa-solid fa-user" title="Konto"/>
-    <RouteOption :to="RouterName.Subscription" icon-class="fa-solid fa-crown" title="Subskrypcja"/>
     <div class="separator"/>
     <div class="logout" @click="emit('logout')"><div class="icon-wrapper"><i class="fa-solid fa-right-from-bracket"/></div> Wyloguj</div>
   </div>

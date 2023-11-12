@@ -3,8 +3,8 @@
     <div class="duration">
       {{props.title}}
     </div>
-    <div class="extra-time">
-      + 3 MIESIĄCE GRATIS
+    <div class="extra-time" v-if="bonus">
+      {{ bonus }}
     </div>
     <div class="price">
       {{props.pricePerMonth}} zł
@@ -13,8 +13,8 @@
       za miesiąc
     </div>
     <div class="button-wrapper">
-      <ButtonComponent>
-        <i class="fa-solid fa-cart-shopping"></i> Kup teraz
+      <ButtonComponent @click="emit('click')">
+        <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
       </ButtonComponent>
     </div>
     <div class="descriptions" v-for="description in props.descriptions">
@@ -30,8 +30,17 @@ interface IProps{
   title: string,
   pricePerMonth: number,
   descriptions: string[]
+  bonus?: string
 }
-const props = defineProps<IProps>()
+const props = withDefaults(defineProps<IProps>(), {
+  bonus: null
+})
+
+interface Emits {
+  (e: 'click'): void
+}
+
+const emit = defineEmits<Emits>()
 
 </script>
 

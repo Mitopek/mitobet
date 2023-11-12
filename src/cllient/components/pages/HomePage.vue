@@ -1,7 +1,7 @@
 <template>
  <div class="main-page">
     <DefaultLayout showNavigationBar>
-      <div class="main-items-container">
+      <div class="main-items-container" ref="mainContainerRef">
         <div class="login-panel-wrapper">
           <Transition
               name="item-transition"
@@ -13,13 +13,13 @@
           </Transition>
         </div>
         <div class="arrow-wrapper">
-          <AnimatedArrowButton/>
+          <AnimatedArrowButton @click="onArrowClick"/>
         </div>
       </div>
-      <div class="content-wrapper">
+      <div class="content-wrapper" ref="contentRef">
         <div class="content">
           <MainTextContent/>
-          <PricesContent/>
+          <PricesContent @click="onBuyClick"/>
         </div>
       </div>
     </DefaultLayout>
@@ -33,6 +33,18 @@ import AnimatedArrowButton from "../AnimatedArrowButton.vue";
 import PricesContent from "../SubscriptionsContent.vue";
 import ModalComponent from "../basic/ModalComponent.vue";
 import MainTextContent from "../MainTextContent.vue";
+import {$ref} from "vue/macros";
+
+const mainContainerRef = $ref(null)
+const contentRef = $ref(null)
+
+const onBuyClick = () => {
+  mainContainerRef.scrollIntoView({behavior: 'smooth'})
+}
+
+const onArrowClick = () => {
+  contentRef.scrollIntoView({behavior: 'smooth'})
+}
 
 </script>
 

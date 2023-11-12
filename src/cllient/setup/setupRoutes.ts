@@ -61,7 +61,7 @@ const routes = [
       {
         path: 'subscription',
         name: RouterName.Subscription,
-        component: () => import('../components/pages/NotificationsPage.vue'),
+        component: () => import('../components/pages/SubscriptionPage.vue'),
       },
     ]
   },

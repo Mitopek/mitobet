@@ -1,8 +1,8 @@
 <template>
   <div class="subscription-time">
     <i class="fa-solid fa-timer"></i>
-    <span v-if="!isActive" class="text-no-subscription"> Brak subskrypcji</span>
-    <span v-else> Wygaśnięcie subskrypcji:<br/><span  class="text-subscription">{{expiresTime}}</span></span>
+    <span v-if="!isActive" class="text-no-subscription"> Brak subskrybcji</span>
+    <span v-else> Wygaśnięcie subskrybcji:<br/><span  class="text-subscription">{{expiresTime}}</span></span>
   </div>
 </template>
 
@@ -45,6 +45,6 @@ const expiresTime = $computed(() => {
 }
 
 .text-no-subscription{
-  color: #7a0713;
+  color: #d34747;;
 }
 </style>

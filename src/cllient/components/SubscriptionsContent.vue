@@ -1,6 +1,6 @@
 <template>
   <div class="prices-content">
-    <h2>Subskrypcja</h2>
+    <h2>Subskrybcja</h2>
     <div class="text">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
@@ -10,7 +10,10 @@
             :title="subscription.title"
             :pricePerMonth="subscription.pricePerMonth"
             :descriptions="subscription.descriptions"
-            :type="subscription.type"
+            :type="subscription.defaultType"
+            :bonus="subscription?.bonus"
+            :price="subscription.price"
+            @click="emit('click')"
         />
       </div>
     </div>
@@ -18,30 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import VipPriceComponent from "./SubscriptionComponent.vue";
-import {$ref} from "vue/macros";
-import {SubscriptionComponentType} from "../enum/SubscriptionComponentType";
 import SubcriptionItemFactory from "./factories/SubcriptionItemFactory.vue";
+import {subscriptionItems} from "../constants/SubsriptionItems.js";
 
-const subscriptionItems = $ref([{
-    title: '1 miesiąc',
-    pricePerMonth: 89.99,
-    descriptions: ['Płatność za jeden miesiąc.'],
-    type: SubscriptionComponentType.Normal
-  },
-  {
-    title: '12 miesięcy',
-    pricePerMonth: 69.99,
-    descriptions: ['Płatność jeden raz za wszystkie 12 miesięcy.', 'Dodatkowe 3 miesiące gratis.'],
-    type: SubscriptionComponentType.Extra
-  },
-  {
-    title: '6 miesięcy',
-    pricePerMonth: 79.99,
-    descriptions: ['Płatność jeden raz za wszystkie 6 miesięcy.'],
-    type: SubscriptionComponentType.Normal
-  },
-])
+interface Emits {
+  (e: 'click'): void
+}
+
+const emit = defineEmits<Emits>()
 </script>
 
 <style scoped>

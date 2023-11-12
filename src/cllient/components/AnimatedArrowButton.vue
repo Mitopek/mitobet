@@ -25,5 +25,6 @@
    animation-duration: 2000ms;
    animation-iteration-count: infinite;
    font-size: 80px;
+   cursor: pointer;
  }
 </style>

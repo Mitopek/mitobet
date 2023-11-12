@@ -70,7 +70,7 @@ const onLogout = async () => {
 
 .main-container{
   height: 100%;
-  padding: 40px;
+  padding: 40px 7%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -88,7 +88,6 @@ const onLogout = async () => {
 }
 
 .left-panel{
-  border-radius: 10px 0 0 10px;
   background-color: map-get(variables.$colors, surfaceLow);
   /*border-right: #040404e6 2px solid;*/
   display: flex;
@@ -99,7 +98,6 @@ const onLogout = async () => {
 
 .panel {
   box-sizing: border-box;
-  border-radius: 15px;
   border: 2px solid map-get(variables.$colors, surface);
   background-color: #0000009e;
   display: grid;

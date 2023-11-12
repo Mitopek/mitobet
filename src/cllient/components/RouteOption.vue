@@ -1,7 +1,7 @@
 <template>
   <div>
     <RouterLink :to="{name: props.to}">
-      <div :class="['route-option',{'is-current':isCurrentRoute}]">
+      <div :class="['route-option',{'is-current':isCurrentRoute}]" :style="additionalStyle">
           <div class="icon-wrapper"><i :class="props.iconClass"/></div> {{props.title}}
       </div>
     </RouterLink>
@@ -17,13 +17,22 @@ interface Props {
   iconClass: string
   to: RouterName
   title: string
+  color?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  color: '#f9f9f9'
+})
 const router = useRoute()
 
 const isCurrentRoute = $computed(() => {
   return router.name === props.to
+})
+
+const additionalStyle = $computed(() => {
+  return {
+    color: props.color
+  }
 })
 
 </script>
@@ -33,7 +42,6 @@ const isCurrentRoute = $computed(() => {
   padding: 4px 10px;
   cursor: pointer;
   display: grid;
-  color: #f9f9f9;
   font-weight: 400;
   grid-template-columns: 30px 1fr;
   align-items: center;
