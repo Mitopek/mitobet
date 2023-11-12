@@ -66,6 +66,9 @@ const onSave = async () => {
   max-width: 490px;
   padding: 10px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form{

@@ -16,10 +16,10 @@ const props = withDefaults(defineProps<IProps>(), {
 const emit = defineEmits<IEmits>()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
 
 textarea{
-  border-radius: 10px;
   padding: 10px;
   font-size: 16px;
   width: 100%;
@@ -27,6 +27,8 @@ textarea{
   border: none;
   box-sizing: border-box;
   resize: none;
+  background: map-get(variables.$colors, surfaceHigh);
+  color: white;
 }
 
 </style>

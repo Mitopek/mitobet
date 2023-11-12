@@ -38,7 +38,7 @@ onMounted(async () => {
   if(!cookies.get('mail')) {
     await router.push({name: RouterName.Home})
   }
-  isAdmin = cookies.get('is_admin') || false
+  isAdmin = cookies.get('is_admin') === 'true' || false
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
   await fetchCoupons()
 })
