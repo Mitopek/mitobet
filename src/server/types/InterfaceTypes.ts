@@ -9,6 +9,7 @@ export const InterfaceTypes = {
     CountryRepository: Symbol.for('CountryRepository'),
     LeagueRepository: Symbol.for('LeagueRepository'),
     MatchRepository: Symbol.for('MatchRepository'),
+    VerificationRepository: Symbol.for('VerificationRepository'),
   },
   controllers: {
     AuthController: Symbol.for('AuthController'),
@@ -16,6 +17,7 @@ export const InterfaceTypes = {
     AIController: Symbol.for('AIController'),
     SportController: Symbol.for('SportController'),
     CountryController: Symbol.for('CountryController'),
+    VerificationController: Symbol.for('VerificationController'),
     LeagueController: Symbol.for('LeagueController'),
     FixtureController: Symbol.for('FixtureController'),
   },
@@ -25,13 +27,15 @@ export const InterfaceTypes = {
     CountryModel: Symbol.for('CountryModel'),
     LeagueModel: Symbol.for('LeagueModel'),
     MatchModal: Symbol.for('MatchModal'),
+    VerificationModel: Symbol.for('VerificationModel'),
   },
   services: {
     AuthService: Symbol.for('AuthService'),
     PasswordService: Symbol.for('PasswordService'),
     MailService: Symbol.for('MailService'),
     FootyStatsApiService: Symbol.for('FootyStatsApiService'),
-    SyncFootyStatsToDatabaseService: Symbol.for('SyncFootyStatsToDatabaseService')
+    SyncFootyStatsToDatabaseService: Symbol.for('SyncFootyStatsToDatabaseService'),
+    VerificationService: Symbol.for('VerificationService'),
   },
   adapters: {
     FootyStatsApiAdapter: Symbol.for('FootyStatsApiAdapter'),

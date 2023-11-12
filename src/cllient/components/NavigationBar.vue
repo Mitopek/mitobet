@@ -77,7 +77,7 @@ const routes = [
 .navigation-bar{
   padding: 0 20px;
   color: #f9f9f9;
-  width: 90%;
+  width: 80%;
   font-size: 14px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -94,5 +94,9 @@ const routes = [
   align-items: center;
   cursor: pointer;
   padding: 4px 8px;
+  &:hover{
+    transition: all 0.2s ease-in-out;
+    color: map-get(variables.$colors, primary);
+  }
 }
 </style>

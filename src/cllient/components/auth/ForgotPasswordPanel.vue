@@ -1,22 +1,19 @@
 <template>
   <div class="login-panel">
-    <h2>Rejestracja</h2>
+    <h2>Reset hasła</h2>
     <div class="form">
+      <div class="description">
+        Jeśli podany mail istnieje w bazie danych zostanie wysłany link do resetu hasła.
+      </div>
       <FormItem title="Mail:" :error="validateErrors.mail">
-        <InputComponent type="text" v-model="mail" @input="onMailInput" iconClass="fa-solid fa-user"/>
-      </FormItem>
-      <FormItem title="Hasło:" :error="validateErrors.password">
-        <InputComponent type="password" v-model="password" @input="onPasswordInput" iconClass="fa-solid fa-lock"/>
-      </FormItem>
-      <FormItem title="Potwórz hasło:" :error="validateErrors.repeatedPassword">
-        <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
+        <InputComponent type="text" v-model="mail" @change="onMailInput" iconClass="fa-solid fa-user"/>
       </FormItem>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
         </ButtonComponent>
-        <ButtonComponent @click="onRegisterClick" :isLoading="isLoading">
-          Zarejestruj się
+        <ButtonComponent :isLoading="isLoading" @click="onSubmit">
+          Wyślij
         </ButtonComponent>
       </div>
     </div>
@@ -28,9 +25,8 @@ import InputComponent from "../basic/InputComponent.vue";
 import FormItem from "../FormItem.vue";
 import ButtonComponent from "../basic/ButtonComponent.vue";
 import {$ref, $} from "vue/macros";
-import {useAuth} from "../../composables/useAuth.js";
 import {useRouter} from "vue-router";
-const {register} = $(useAuth())
+import {useAuth} from "../../composables/useAuth.js";
 
 interface Emits {
   (e: 'submit'): void
@@ -40,13 +36,10 @@ const emit = defineEmits<Emits>()
 
 const router = useRouter()
 const mail = $ref<string>('')
-const password = $ref<string>('')
-const repeatedPassword = $ref<string>('')
 const validateErrors = $ref({
   mail: '',
-  password: '',
-  repeatedPassword: '',
 })
+const {forgotPassword} = $(useAuth())
 let isLoading = $ref(false)
 
 const onMailInput = () => {
@@ -56,29 +49,6 @@ const onMailInput = () => {
   } catch (e) {
     if (e instanceof Error) {
       validateErrors["mail"] = e.message;
-    }
-  }
-}
-
-const onPasswordInput = () => {
-  try {
-    validateErrors["password"] = ''
-    validatePassword()
-  } catch (e) {
-    if (e instanceof Error) {
-      validateErrors["password"] = e.message;
-    }
-  }
-  onRepeatedPasswordInput()
-}
-
-const onRepeatedPasswordInput = () => {
-  try {
-    validateErrors["repeatedPassword"] = ''
-    validateRepeatedPassword()
-  } catch (e) {
-    if (e instanceof Error) {
-      validateErrors["repeatedPassword"] = e.message;
     }
   }
 }
@@ -94,33 +64,16 @@ const validateMail = () => {
   return mailRegex.test(mail)
 }
 
-const validatePassword = () => {
-  if(!password) {
-    throw new Error('Wypełnij hasło.')
-  }
-  if(password.length < 8 && password.length <= 32) {
-    throw new Error('Hasło musi mieć od 8 do 32 znaków.')
-  }
-  if(!/\d/.test(password)) {
-    throw new Error('Hasło musi zawierać co najmniej jedną cyfrę.')
-  }
-}
 
-const validateRepeatedPassword = () => {
-  if(password !== repeatedPassword) {
-    throw new Error('Hasła nie są takie same.')
-  }
-}
-
-const onRegisterClick = async () => {
-  if(!mail || !password || !repeatedPassword) {
+const onSubmit = async () => {
+  if(!mail) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   if(Object.values(validateErrors).some(value => value)) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   isLoading = true
-  const response = await register(mail, password)
+  const response = await forgotPassword(mail)
   if(!response.success && response?.errors) {
     isLoading = false
     return alert(response.errors[0])
@@ -132,15 +85,15 @@ const onRegisterClick = async () => {
 </script>
 
 <style scoped>
-.description{
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
   .title {
     text-align: center;
     font-size: 32px;
     font-weight: 700;
+  }
+  .description{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
   }
   .login-panel{
     display: flex;

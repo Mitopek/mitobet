@@ -16,9 +16,13 @@ export const UserSchema = new Schema<IUserEntity>({
   loginType: {
     type: Schema.Types.String,
     required: true,
-  }
+  },
   subscriptionExpiresAt: {
     type: Schema.Types.Date,
     required: false,
   },
+  verificationId: {
+    type: Schema.Types.String,
+    required: false,
+  }
 })

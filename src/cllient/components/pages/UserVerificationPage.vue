@@ -1,25 +1,16 @@
 <template>
- <div class="main-page">
+ <div class="register-page">
     <DefaultLayout showNavigationBar>
       <div class="main-items-container">
-        <div class="login-panel-wrapper">
+        <div class="register-panel-wrapper">
           <Transition
               name="item-transition"
               appear
           >
             <ModalComponent>
-              <LoginPanel/>
+              <UserVerificationPanel/>
             </ModalComponent>
           </Transition>
-        </div>
-        <div class="arrow-wrapper">
-          <AnimatedArrowButton/>
-        </div>
-      </div>
-      <div class="content-wrapper">
-        <div class="content">
-          <MainTextContent/>
-          <PricesContent/>
         </div>
       </div>
     </DefaultLayout>
@@ -27,13 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import DefaultLayout from "../DefaultLayout.vue";
-import LoginPanel from "../auth/LoginPanel.vue";
-import AnimatedArrowButton from "../AnimatedArrowButton.vue";
-import PricesContent from "../SubscriptionsContent.vue";
-import ModalComponent from "../basic/ModalComponent.vue";
-import MainTextContent from "../MainTextContent.vue";
 
+import DefaultLayout from "../DefaultLayout.vue";
+import ModalComponent from "../basic/ModalComponent.vue";
+import ResetPasswordPanel from "../auth/ResetPasswordPanel.vue";
+import UserVerificationPanel from "../auth/UserVerificationPanel.vue";
 </script>
 
 <style scoped lang="scss">
@@ -57,41 +46,22 @@ import MainTextContent from "../MainTextContent.vue";
   }
 }
 
-.content-wrapper{
-  background: map-get(variables.$colors, surface);
-  display: flex;
-  padding: 60px 40px;
-  justify-content: center;
-}
-
-.content{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 80%;
-  padding: 40px;
-  border-radius: 8px;
-  background: map-get(variables.$colors, surfaceLow);
-}
-
 .main-items-container{
+  height: 100vh;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.login-panel-wrapper{
-  margin-top: 100px;
+.register-panel-wrapper{
+  position: absolute;
+  top: 150px;
+  margin-top: 50px;
 }
 
-.arrow-wrapper {
-  margin: 40px 0 30px 0;
-}
-
-.main-page {
+.register-page {
   width: 100%;
 }
 </style>

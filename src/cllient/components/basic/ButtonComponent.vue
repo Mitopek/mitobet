@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import LoadingComponent from "./LoadingComponent.vue";
+import {$computed} from "vue/macros";
 
 interface Props {
   isLoading?: boolean
   iconClass?: string
+  isDisabled?: boolean
   type?: 'primary' | 'secondary' | 'danger'
 }
 
@@ -11,6 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
   iconClass: null,
   type: 'primary',
   isLoading: false,
+  isDisabled: false,
 })
 
 const textStyle = $computed(() => {
@@ -25,7 +28,7 @@ const textStyle = $computed(() => {
 </script>
 
 <template>
-  <div :class="['button-component', {'is-primary': type === 'primary', 'is-secondary': type === 'secondary'}]">
+  <div :class="['button-component', {'is-primary': type === 'primary', 'is-secondary': type === 'secondary', 'is-disabled': props.isDisabled}]">
     <i v-if="props.iconClass" :class="props.iconClass"/>
     <div class="loading-wrapper" v-if="props.isLoading">
       <LoadingComponent/>
@@ -68,6 +71,11 @@ const textStyle = $computed(() => {
       transition: all 0.2s ease-in-out;
       background: map-get(variables.$colors, secondaryDark);
     }
+  }
+  &.is-disabled{
+    background: #ccc;
+    color: #f9f9f9;
+    cursor: not-allowed;
   }
 }
 

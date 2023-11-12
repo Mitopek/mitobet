@@ -24,7 +24,7 @@
       <div class="bottom-panel">
         <div class="checkbox-wrapper"><CheckboxComponent :value="true"/> <span class="text">Zapamiętaj mnie</span></div>
         <div class="forget-text-wrapper">
-          <span class="register-text" @click="onRegisterClick">Nie pamietasz hasla?</span>
+          <span class="register-text" @click="onPasswordForgotClick">Nie pamietasz hasla?</span>
         </div>
       </div>
       <div class="actions-buttons">
@@ -63,6 +63,10 @@ const password = $ref<string>('')
 let isLoading = $ref<boolean>(false)
 const onRegisterClick = () => {
   router.push({path: '/register'})
+}
+
+const onPasswordForgotClick = () => {
+  router.push({path: '/forgot-password'})
 }
 
 const onLoginClick = async () => {

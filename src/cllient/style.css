@@ -21,14 +21,21 @@ a {
   text-decoration: inherit; /* no underline */
 }
 
-body, #app, html {
-  margin: 0;
-  padding: 0;
+html {
+  overflow-y: scroll;
+}
+
+body {
   background-attachment: fixed;
   background-image: url('http://127.0.0.1:5173/background.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 80%;
+}
+
+body, #app, html {
+  margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -47,7 +54,7 @@ body, #app, html {
 }
 
 h2{
-  font-weight: 600;
+  font-weight: 500;
   font-size: 28px;
   margin: 0;
   padding: 5px;

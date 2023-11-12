@@ -8,7 +8,9 @@ import {IPasswordService} from "../PasswordService/types/IPasswordService.js";
 import {IUserRepository} from "../../repositories/UserRepository/types/IUserRepository.js";
 import {ILoginStrategy} from "./ILoginStrategy";
 import {LoginType} from "./enum/LoginType.js";
-import {ILoginPayloadMap} from "./types/ILoginPayloadMap";
+import {ILoginPayloadMap} from "./types/ILoginPayloadMap.js";
+import {IVerificationService} from "../VerificationService/types/IVerificationService.js";
+import {IVerificationRepository} from "../../repositories/VerificationRepository/types/IVerificationRepository.js";
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -17,7 +19,8 @@ export class AuthService implements IAuthService {
     @inject(InterfaceTypes.services.PasswordService) private passwordService: IPasswordService,
     @inject(InterfaceTypes.repositories.UserRepository) private userRepository: IUserRepository,
     @inject(InterfaceTypes.factories.ILoginStrategyFactory) private loginStrategyFactory: (type: LoginType) => ILoginStrategy,
-
+    @inject(InterfaceTypes.services.VerificationService) private verificationService: IVerificationService,
+    @inject(InterfaceTypes.repositories.VerificationRepository) private verificationRepository: IVerificationRepository,
   ) {
   }
 
@@ -42,12 +45,13 @@ export class AuthService implements IAuthService {
       throw new Error('Podany mail jest już używany.')
     }
     const hashedPassword = await this.passwordService.hashPassword(password)
-    await this.userRepository.createUser({
+    const createdUser = await this.userRepository.createUser({
       mail,
       password: hashedPassword,
       isAdmin: false,
       loginType: LoginType.LOCAL,
     })
+    await this.verificationService.sendVerificationMail(createdUser.id)
   }
 
   async changePassword(userId: string, oldPassword: string, password: string): Promise<void> {
@@ -59,9 +63,33 @@ export class AuthService implements IAuthService {
     if(!this.passwordService.validatePassword(password)) {
       throw new Error('Nieprawidłowe hasło.')
     }
-    console.info(password)
     const hashedPassword = await this.passwordService.hashPassword(password)
     await this.userRepository.updateUserById(user.id, {
+      password: hashedPassword,
+    })
+  }
+
+  async forgotPassword(mail: string): Promise<void> {
+    const user = await this.userRepository.findUserByMail(mail)
+    if(!user || user.loginType !== LoginType.LOCAL) {
+      return
+    }
+    await this.verificationService.sendResetPasswordMail(user.id)
+  }
+
+  async resetPassword(password: string, secret: string): Promise<void> {
+    if(!this.passwordService.validatePassword(password)) {
+      throw new Error('Nieprawidłowe hasło.')
+    }
+    const verification = await this.verificationRepository.findVerificationBySecret(secret)
+    if(!verification || verification.fulfilledAt) {
+      throw new Error('Nieprawidłowy link.')
+    }
+    if(verification.expiresAt < new Date()) {
+      throw new Error('Link wygasł.')
+    }
+    const hashedPassword = await this.passwordService.hashPassword(password)
+    await this.userRepository.updateUserById(verification.userId, {
       password: hashedPassword,
     })
   }

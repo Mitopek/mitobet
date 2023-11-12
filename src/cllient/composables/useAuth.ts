@@ -29,6 +29,46 @@ export function useAuth() {
     }
   }
 
+  const verifyUser = async (secret: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/verification/fulfill`, {
+        secret,
+      })
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
+  const forgotPassword = async (mail: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/forgot-password`, {
+        mail,
+      })
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
+  const resetPassword = async (secret: string, password: string): Promise<Response> => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/reset-password`, {
+        secret,
+        password,
+      })
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
   const changePassword = async (oldPassword: string, password: string): Promise<Response> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/change-password`, {
@@ -70,7 +110,6 @@ export function useAuth() {
         type: LoginType.FACEBOOK
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
-      console.info(cookies.get('access_token'))
       cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
@@ -120,8 +159,11 @@ export function useAuth() {
     register,
     changePassword,
     login,
+    forgotPassword,
     loginByFacebook,
     loginByGoogle,
+    resetPassword,
     logout,
+    verifyUser,
   })
 }

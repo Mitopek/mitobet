@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 import {UserSchema} from "../models/UserModel/UserSchema.js";
-import {Container, inject, injectable, interfaces} from "inversify";
+import {Container, interfaces} from "inversify";
 import {IUserEntity} from "../models/UserModel/types/IUserEntity.js";
 import {Model} from "mongoose";
 import {InterfaceTypes} from "../types/InterfaceTypes.js";
@@ -12,6 +12,8 @@ import {ILeagueEntity} from "../models/LeagueModel/types/ILeagueEntity.js";
 import {LeagueSchema} from "../models/LeagueModel/LeagueSchema.js";
 import {IMatchEntity} from "../models/MatchModel/types/IMatchEntity.js";
 import {MatchSchema} from "../models/MatchModel/MatchSchema.js";
+import {VerificationSchema} from "../models/VerificationModel/VerificationSchema.js";
+import {IVerificationEntity} from "../models/VerificationModel/types/IVerificationEntity.js";
 
 export default async function setupMongoose(container: Container) {
   const mongooseClient = await mongoose.connect(process.env.MONGO_URL);
@@ -36,5 +38,9 @@ export default async function setupMongoose(container: Container) {
   container.bind<Model<IMatchEntity>>(InterfaceTypes.models.MatchModal).toDynamicValue((context: interfaces.Context) => {
     const mongooseClient = context.container.get<typeof mongoose>(InterfaceTypes.databases.Mongoose)
     return mongooseClient.model('Match', MatchSchema)
+  })
+  container.bind<Model<IVerificationEntity>>(InterfaceTypes.models.VerificationModel).toDynamicValue((context: interfaces.Context) => {
+    const mongooseClient = context.container.get<typeof mongoose>(InterfaceTypes.databases.Mongoose)
+    return mongooseClient.model('Verification', VerificationSchema)
   })
 }

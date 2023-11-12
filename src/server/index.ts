@@ -10,7 +10,7 @@ const app = express();
 const container = await setupContainer()
 
 setupRoutes(app, container)
-const port = process.env.PORT
+const port = process.env.API_PORT
 app.listen(port, () => console.info('listening', port))
 
 await executeOnStartupTasks(container)

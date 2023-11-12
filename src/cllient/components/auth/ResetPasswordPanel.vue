@@ -1,10 +1,7 @@
 <template>
   <div class="login-panel">
-    <h2>Rejestracja</h2>
+    <h2>Reset hasła</h2>
     <div class="form">
-      <FormItem title="Mail:" :error="validateErrors.mail">
-        <InputComponent type="text" v-model="mail" @input="onMailInput" iconClass="fa-solid fa-user"/>
-      </FormItem>
       <FormItem title="Hasło:" :error="validateErrors.password">
         <InputComponent type="password" v-model="password" @input="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
@@ -12,11 +9,8 @@
         <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <div class="actions-buttons">
-        <ButtonComponent @click="router.push('/')" type="secondary">
-          Wróć do strony głownej
-        </ButtonComponent>
-        <ButtonComponent @click="onRegisterClick" :isLoading="isLoading">
-          Zarejestruj się
+        <ButtonComponent @click="onSubmit" :isLoading="isLoading">
+          Zresetuj hasło
         </ButtonComponent>
       </div>
     </div>
@@ -29,8 +23,9 @@ import FormItem from "../FormItem.vue";
 import ButtonComponent from "../basic/ButtonComponent.vue";
 import {$ref, $} from "vue/macros";
 import {useAuth} from "../../composables/useAuth.js";
-import {useRouter} from "vue-router";
-const {register} = $(useAuth())
+import {useRoute, useRouter} from "vue-router";
+import {onMounted} from "vue";
+const {resetPassword} = $(useAuth())
 
 interface Emits {
   (e: 'submit'): void
@@ -39,26 +34,19 @@ interface Emits {
 const emit = defineEmits<Emits>()
 
 const router = useRouter()
-const mail = $ref<string>('')
+const route = useRoute()
 const password = $ref<string>('')
 const repeatedPassword = $ref<string>('')
 const validateErrors = $ref({
-  mail: '',
   password: '',
   repeatedPassword: '',
 })
 let isLoading = $ref(false)
+let secret = $ref('')
 
-const onMailInput = () => {
-  try {
-    validateErrors["mail"] = ''
-    validateMail()
-  } catch (e) {
-    if (e instanceof Error) {
-      validateErrors["mail"] = e.message;
-    }
-  }
-}
+onMounted(async () => {
+  secret = route.params.secret as string
+})
 
 const onPasswordInput = () => {
   try {
@@ -83,17 +71,6 @@ const onRepeatedPasswordInput = () => {
   }
 }
 
-const validateMail = () => {
-  if(!mail) {
-    throw new Error('Wypełnij mail.')
-  }
-  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if(!mailRegex.test(mail)) {
-    throw new Error('Nieprawidłowy mail.')
-  }
-  return mailRegex.test(mail)
-}
-
 const validatePassword = () => {
   if(!password) {
     throw new Error('Wypełnij hasło.')
@@ -112,15 +89,15 @@ const validateRepeatedPassword = () => {
   }
 }
 
-const onRegisterClick = async () => {
-  if(!mail || !password || !repeatedPassword) {
+const onSubmit = async () => {
+  if(!password || !repeatedPassword) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   if(Object.values(validateErrors).some(value => value)) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   isLoading = true
-  const response = await register(mail, password)
+  const response = await resetPassword(secret, password)
   if(!response.success && response?.errors) {
     isLoading = false
     return alert(response.errors[0])

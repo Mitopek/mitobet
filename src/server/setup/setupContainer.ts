@@ -49,6 +49,12 @@ import {FacebookLoginStrategy} from "../services/AuthService/strategies/Facebook
 import {LocalLoginStrategy} from "../services/AuthService/strategies/LocalLoginStrategy.js";
 import {LoginType} from "../services/AuthService/enum/LoginType.js";
 import {GoogleLoginStrategy} from "../services/AuthService/strategies/GoogleLoginStrategy.js";
+import {VerificationService} from "../services/VerificationService/VerificationService.js";
+import {IVerificationService} from "../services/VerificationService/types/IVerificationService.js";
+import {VerificationRepository} from "../repositories/VerificationRepository/VerificationRepository.js";
+import {IVerificationRepository} from "../repositories/VerificationRepository/types/IVerificationRepository.js";
+import {VerificationController} from "../controllers/VerificationController/VerificationController.js";
+import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
 
 
 export default async function setupContainer() {
@@ -65,6 +71,7 @@ export default async function setupContainer() {
   container.bind<ISportController>(InterfaceTypes.controllers.SportController).to(SportController)
   container.bind<ICountryController>(InterfaceTypes.controllers.CountryController).to(CountryController)
   container.bind<IFixtureController>(InterfaceTypes.controllers.FixtureController).to(FixtureController)
+  container.bind<IVerificationController>(InterfaceTypes.controllers.VerificationController).to(VerificationController)
 
   //REPOSITORIES
   container.bind<IUserRepository>(InterfaceTypes.repositories.UserRepository).to(UserRepository)
@@ -72,11 +79,13 @@ export default async function setupContainer() {
   container.bind<ICountryRepository>(InterfaceTypes.repositories.CountryRepository).to(CountryRepository)
   container.bind<ILeagueRepository>(InterfaceTypes.repositories.LeagueRepository).to(LeagueRepository)
   container.bind<IMatchRepository>(InterfaceTypes.repositories.MatchRepository).to(MatchRepository)
+  container.bind<IVerificationRepository>(InterfaceTypes.repositories.VerificationRepository).to(VerificationRepository)
 
   //SERVICES
   container.bind<IAuthService>(InterfaceTypes.services.AuthService).to(AuthService)
   container.bind<IPasswordService>(InterfaceTypes.services.PasswordService).to(PasswordService)
   container.bind<IMailService>(InterfaceTypes.services.MailService).to(MailService)
+  container.bind<IVerificationService>(InterfaceTypes.services.VerificationService).to(VerificationService)
   container.bind<IFootyStatsApiService>(InterfaceTypes.services.FootyStatsApiService).to(FootyStatsApiService)
   container.bind<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService).to(SyncFootyStatsToDatabaseService)
 

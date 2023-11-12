@@ -11,19 +11,19 @@
 
 <style scoped>
  @keyframes move{
-   0%, 30% {
+   0%, 60% {
      top: 0;
    }
    20% {
-     top: 20px;
+     top: 32px;
    }
  }
 
  .icon-wrapper{
    position: relative;
    animation-name: move;
-   animation-duration: 3s;
+   animation-duration: 2000ms;
    animation-iteration-count: infinite;
-   font-size: 68px;
+   font-size: 80px;
  }
 </style>

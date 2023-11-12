@@ -57,18 +57,20 @@ const onLogout = async () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
 
 .content-wrapper{
   width: 100%;
   overflow: auto;
   display: flex;
   justify-content: center;
+  background: map-get(variables.$colors, surface);
 }
 
 .main-container{
   height: 100%;
-  padding: 10px;
+  padding: 40px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -87,8 +89,7 @@ const onLogout = async () => {
 
 .left-panel{
   border-radius: 10px 0 0 10px;
-  background-color: #0000009e;
-  border-left: #040404e6 5px solid;
+  background-color: map-get(variables.$colors, surfaceLow);
   /*border-right: #040404e6 2px solid;*/
   display: flex;
   flex-direction: column;
@@ -99,10 +100,10 @@ const onLogout = async () => {
 .panel {
   box-sizing: border-box;
   border-radius: 15px;
-  border: 5px solid #040404e6;
+  border: 2px solid map-get(variables.$colors, surface);
   background-color: #0000009e;
   display: grid;
-  grid-template-columns: minmax(0, 15%) minmax(0, 77%);
+  grid-template-columns: 300px 1fr;
   width: 100%;
 }
 

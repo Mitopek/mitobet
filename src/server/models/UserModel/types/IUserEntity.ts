@@ -7,4 +7,5 @@ export interface IUserEntity extends IEntity{
   isAdmin: boolean,
   loginType: LoginType,
   subscriptionExpiresAt?: Date,
+  verificationId?: string,
 }

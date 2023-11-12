@@ -1,9 +1,4 @@
-import HomePage from "../components/pages/HomePage.vue";
 import * as VueRouter from 'vue-router'
-import RegisterPage from "../components/pages/RegisterPage.vue";
-import CouponsPage from "../components/pages/CouponsPage.vue";
-import MainView from "../components/views/MainView.vue";
-import NotificationsPage from "../components/pages/NotificationsPage.vue";
 import {RouterName} from "../enum/RouterName.js";
 
 //TODO When refresh page 0.1 sec image loaded on top and white body
@@ -23,6 +18,21 @@ const routes = [
     path: '/register',
     name: RouterName.Register,
     component: () => import('../components/pages/RegisterPage.vue'),
+  },
+  {
+    path: '/forgot-password',
+    name: RouterName.ForgotPassword,
+    component: () => import('../components/pages/ForgotPasswordPage.vue'),
+  },
+  {
+    path: '/reset-password/:secret',
+    name: RouterName.ResetPassword,
+    component: () => import('../components/pages/ResetPasswordPage.vue'),
+  },
+  {
+    path: '/verify/:secret',
+    name: RouterName.VerifyUser,
+    component: () => import('../components/pages/UserVerificationPage.vue'),
   },
   {
     path: '/me',
