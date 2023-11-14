@@ -31,7 +31,7 @@ import CouponCreator from "../CouponCreator.vue";
 import {ICouponEntity} from "../../../server/models/CouponModel/types/ICouponEntity.js";
 import {useRouter} from "vue-router";
 import {RouterName} from "../../enum/RouterName.js";
-import {$computed} from "vue/macros.js";
+import {$computed} from "vue/macros";
 
 const router = useRouter()
 let isAdmin = $ref(false)
