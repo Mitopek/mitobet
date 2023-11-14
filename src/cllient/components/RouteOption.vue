@@ -38,6 +38,7 @@ const additionalStyle = $computed(() => {
 </script>
 
 <style scoped lang="scss">
+
 .route-option{
   padding: 4px 10px;
   cursor: pointer;

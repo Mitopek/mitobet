@@ -98,7 +98,7 @@ const onLogout = async () => {
 
 .panel {
   box-sizing: border-box;
-  border: 2px solid map-get(variables.$colors, surface);
+  border: 1px solid map-get(variables.$colors, surface);
   background-color: #0000009e;
   display: grid;
   grid-template-columns: 300px 1fr;

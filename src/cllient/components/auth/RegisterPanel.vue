@@ -145,7 +145,6 @@ const onRegisterClick = async () => {
   .login-panel{
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 2px;
   }
 

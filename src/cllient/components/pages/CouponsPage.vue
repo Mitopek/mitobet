@@ -12,6 +12,12 @@
         />
       </div>
     </div>
+    <div v-else-if="isSubscriptionActive" class="text-wrapper">
+      Brak kuponów.
+    </div>
+    <div v-else class="text-wrapper">
+      Wymagana aktywna subskrypcja.
+    </div>
  </div>
 </template>
 
@@ -25,6 +31,7 @@ import CouponCreator from "../CouponCreator.vue";
 import {ICouponEntity} from "../../../server/models/CouponModel/types/ICouponEntity.js";
 import {useRouter} from "vue-router";
 import {RouterName} from "../../enum/RouterName.js";
+import {$computed} from "vue/macros.js";
 
 const router = useRouter()
 let isAdmin = $ref(false)
@@ -41,6 +48,10 @@ onMounted(async () => {
   isAdmin = cookies.get('is_admin') === 'true' || false
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
   await fetchCoupons()
+})
+
+const isSubscriptionActive = $computed(() => {
+  return !!subscriptionExpiresAt  && subscriptionExpiresAt > new Date()
 })
 
 const fetchCoupons = async () => {
@@ -60,6 +71,17 @@ const onDelete = async (couponId: string) => {
 
 .coupon-wrapper{
   margin: 15px 0;
+}
+
+.text-wrapper{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning {
+  color: #d34747;
 }
 
 </style>

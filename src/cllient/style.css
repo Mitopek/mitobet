@@ -58,6 +58,8 @@ h2{
   font-size: 28px;
   margin: 0;
   padding: 4px 0;
+  width: 100%;
+  text-align: center;
 }
 
 /*body{*/

@@ -1,8 +1,8 @@
 <template>
   <div class="subscription-time">
-    <i class="fa-solid fa-timer"></i>
-    <span v-if="!isActive" class="text-no-subscription"> Brak subskrybcji</span>
-    <span v-else> Wygaśnięcie subskrybcji:<br/><span  class="text-subscription">{{expiresTime}}</span></span>
+<!--    <i class="fa-regular fa-clock"></i>-->
+    <span v-if="!isActive" class="text-no-subscription"> Brak subskrypcji</span>
+    <span v-else> Wygaśnięcie subskrypcji:<br/><span  class="text-subscription">{{expiresTime}}</span></span>
   </div>
 </template>
 

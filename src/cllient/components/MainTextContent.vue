@@ -11,7 +11,7 @@
         <div class="list">
           &#x2022; doświadczeniem,<br/>
           &#x2022; odpowiednią analizą,<br/>
-          &#x2022; użyciem pomocnych narzędzi, w tym opartych na AI.
+          &#x2022; użyciem odpowiednich narzędzi.
         </div>
       </div>
     </div>
@@ -19,30 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import VipPriceComponent from "./SubscriptionComponent.vue";
-import {$ref} from "vue/macros";
-import {SubscriptionComponentType} from "../enum/SubscriptionComponentType";
-import SubcriptionItemFactory from "./factories/SubcriptionItemFactory.vue";
-
-const subscriptionItems = $ref([{
-    title: '1 miesiąc',
-    pricePerMonth: 119.99,
-    descriptions: ['Płatność każdego miesiąca.'],
-    type: SubscriptionComponentType.Normal
-  },
-  {
-    title: '12 miesięcy',
-    pricePerMonth: 79.99,
-    descriptions: ['Płatność jeden raz za wszystkie 12 miesięcy.', 'Dodatkowe 3 miesiące gratis.'],
-    type: SubscriptionComponentType.Extra
-  },
-  {
-    title: '6 miesięcy',
-    pricePerMonth: 99.99,
-    descriptions: ['Płatność jeden raz za wszystkie 6 miesięcy.'],
-    type: SubscriptionComponentType.Normal
-  },
-])
 </script>
 
 <style scoped>

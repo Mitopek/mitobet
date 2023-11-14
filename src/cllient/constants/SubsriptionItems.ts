@@ -12,8 +12,8 @@ export const subscriptionItems = [
     title: '12 miesięcy',
     pricePerMonth: 99.99,
     price: 1199.99,
-    descriptions: ['Płatność jeden raz za wszystkie 12 miesięcy.', 'Dodatkowe 3 miesiące gratis.'],
-    bonus: '+ 3 MIESIĄCE GRATIS',
+    descriptions: ['Płatność jeden raz za wszystkie 12 miesięcy.', 'Dodatkowe 2 miesiące gratis.'],
+    bonus: '+ 2 MIESIĄCE GRATIS',
     defaultType: SubscriptionComponentType.Extra
   },
   {

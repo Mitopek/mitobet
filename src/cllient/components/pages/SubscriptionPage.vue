@@ -17,7 +17,7 @@
         />
       </div>
     </div>
-    Kupując subskrypcję, zgadzasz się na <a href="/regulamin">regulamin</a> oraz <a href="/polityka-prywatnosci">politykę prywatności</a> serwisu. Wszystkie płatności są obsługiwane przez <a href="https://www.paypal.com/pl/home">HotPay</a>. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
+    Kupując subskrypcję, zgadzasz się na <a href="/regulamin">regulamin</a> oraz <a href="/polityka-prywatnosci">politykę prywatności</a> serwisu. Wszystkie płatności są obsługiwane przez HotPay. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
   </div>
 </template>
 
@@ -51,7 +51,18 @@ const onBuyClick = (index: number) => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
+
+a{
+  color: map-get(variables.$colors, primary);
+  text-decoration: underline;
+}
+
+h2{
+  text-align: left;
+}
+
 .notifications-page{
   padding: 40px;
 }

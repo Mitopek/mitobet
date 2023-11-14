@@ -5,7 +5,7 @@
     </div>
     <div class="descriptions-container">
       <div class="description" v-for="description in props.descriptions">
-        •{{description}}
+        • {{description}}
       </div>
     </div>
     <div class="price">
