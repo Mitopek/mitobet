@@ -2,7 +2,7 @@
   <div class="home-content">
     <div class="home-container">
       <div class="image-wrapper">
-        <img src="public/analysis.png" alt="" class="analysis-image"/>
+        <img src="/analysis.png" alt="" class="analysis-image"/>
       </div>
       <div class="text">
         <div class="title"><h2>Mitobet - obstawiaj inaczej</h2></div>
