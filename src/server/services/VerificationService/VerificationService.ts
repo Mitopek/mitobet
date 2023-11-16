@@ -27,7 +27,7 @@ export class VerificationService implements IVerificationService {
       verificationId: verification.id,
     })
     const user = await this.userRepository.findUserById(userId)
-    await this.mailService.sendMail(user.mail, 'Zweryfikuj swój e-mail', `Kliknij <a href="${process.env.CLIENT_HOST}verify/${verification.secret}">tutaj</a> aby zweryfikować swój e-mail.`)
+    await this.mailService.sendMail(user.mail, 'Zweryfikuj swój e-mail', `Kliknij <a href="${process.env.CLIENT_HOST}/verify/${verification.secret}">tutaj</a> aby zweryfikować swój e-mail.`)
   }
 
   async sendResetPasswordMail(userId: string): Promise<void> {
@@ -39,6 +39,6 @@ export class VerificationService implements IVerificationService {
       fulfilledAt: null,
     })
     const user = await this.userRepository.findUserById(userId)
-    await this.mailService.sendMail(user.mail, 'Zresetuj swoje hasło', `Kliknij <a href="${process.env.CLIENT_HOST}reset-password/${verification.secret}">tutaj</a> aby zresetować swoje hasło.`)
+    await this.mailService.sendMail(user.mail, 'Zresetuj swoje hasło', `Kliknij <a href="${process.env.CLIENT_HOST}/reset-password/${verification.secret}">tutaj</a> aby zresetować swoje hasło.`)
   }
 }
