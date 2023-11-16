@@ -21,7 +21,7 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   apiRouter.use(cookieParser())
   apiRouter.use(helmet());
   apiRouter.use(cors({
-    origin: [process.env.IP_CLIENT_HOST,process.env.CLIENT_HOST],
+    origin: [`${process.env.IP_CLIENT_HOST}/`,`process.env.CLIENT_HOST/`],
     credentials: true,
     // exposedHeaders: ['set-cookie'],
   }))
