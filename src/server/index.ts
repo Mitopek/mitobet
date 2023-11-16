@@ -9,7 +9,11 @@ dotenv.config()
 const app = express();
 const container = await setupContainer()
 
-setupRoutes(app, container)
+const apiRouter = express.Router()
+
+app.use('/api', apiRouter);
+
+setupRoutes(apiRouter, container)
 const port = process.env.API_PORT
 app.listen(port, () => console.info('listening', port))
 

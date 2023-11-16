@@ -2,7 +2,7 @@ import {AuthController} from "../controllers/AuthController/AuthController.js";
 import {InterfaceTypes} from "../types/InterfaceTypes.js";
 import {IAuthController} from "../controllers/AuthController/types/IAuthController.js";
 import {Container} from "inversify";
-import {Express} from "express";
+import {Express, Router} from "express";
 import {IResponseMiddleware} from "../middlewares/ResponseMiddleware/types/IResponseMiddleware.js";
 import {IAuthMiddleware} from "../middlewares/AuthMiddleware/types/IAuthMiddleware.js";
 import {ICouponController} from "../controllers/CouponController/types/ICouponController.js";
@@ -16,16 +16,16 @@ import {ICountryController} from "../controllers/CountryController/types/ICountr
 import {IFixtureController} from "../controllers/FixtureController/types/IFixtureController.js";
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
 
-export default function setupRoutes(app: Express, container: Container) {
+export default function setupRoutes(apiRouter: Router, container: Container) {
   //TODO DEV ONLY
-  app.use(cookieParser())
-  app.use(helmet());
-  app.use(cors({
-    origin: ['http://127.0.0.1:5173','http://localhost:5173'],
+  apiRouter.use(cookieParser())
+  apiRouter.use(helmet());
+  apiRouter.use(cors({
+    origin: [process.env.CLIENT_HOST],
     credentials: true,
     // exposedHeaders: ['set-cookie'],
   }))
-  app.use(bodyParser.json())
+  apiRouter.use(bodyParser.json())
   // app.options('*', cors({
   //   origin: '*',
   //   credentials: true,
@@ -34,28 +34,28 @@ export default function setupRoutes(app: Express, container: Container) {
 
   const apiResponseMiddleware = container.get<IResponseMiddleware>(InterfaceTypes.middlewares.ApiResponseMiddleware)
   const jwtAuthMiddleware = container.get<IAuthMiddleware>(InterfaceTypes.middlewares.JWTAuthMiddleware)
-  app.use(apiResponseMiddleware.handler.bind(apiResponseMiddleware))
+  apiRouter.use(apiResponseMiddleware.handler.bind(apiResponseMiddleware))
 
   //TODO: me route !!
   const authController = container.get<IAuthController>(InterfaceTypes.controllers.AuthController)
-  app.use('/change-password', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
-  app.post('/register', authController.register.bind(authController))
-  app.post('/change-password', authController.changePassword.bind(authController))
-  app.post('/forgot-password', authController.forgotPassword.bind(authController))
-  app.post('/reset-password', authController.resetPassword.bind(authController))
-  app.post('/login', authController.login.bind(authController))
-  app.post('/facebook-login', authController.login.bind(authController))
-  app.post('/logout', authController.logout.bind(authController))
+  apiRouter.use('/change-password', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  apiRouter.post('/register', authController.register.bind(authController))
+  apiRouter.post('/change-password', authController.changePassword.bind(authController))
+  apiRouter.post('/forgot-password', authController.forgotPassword.bind(authController))
+  apiRouter.post('/reset-password', authController.resetPassword.bind(authController))
+  apiRouter.post('/login', authController.login.bind(authController))
+  apiRouter.post('/facebook-login', authController.login.bind(authController))
+  apiRouter.post('/logout', authController.logout.bind(authController))
 
   const couponController = container.get<ICouponController>(InterfaceTypes.controllers.CouponController)
-  app.use('/coupons', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
-  app.use('/coupon', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
-  app.get('/coupons', couponController.getCoupons.bind(couponController))
-  app.post('/coupon', couponController.createCoupon.bind(couponController))
-  app.delete('/coupon/:couponId', couponController.deleteCoupon.bind(couponController))
+  apiRouter.use('/coupons', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  apiRouter.use('/coupon', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  apiRouter.get('/coupons', couponController.getCoupons.bind(couponController))
+  apiRouter.post('/coupon', couponController.createCoupon.bind(couponController))
+  apiRouter.delete('/coupon/:couponId', couponController.deleteCoupon.bind(couponController))
 
   const verificationController = container.get<IVerificationController>(InterfaceTypes.controllers.VerificationController)
-  app.post('/verification/fulfill', verificationController.fulfillVerification.bind(verificationController))
+  apiRouter.post('/verification/fulfill', verificationController.fulfillVerification.bind(verificationController))
 
   // const aiController = container.get<IAIController>(InterfaceTypes.controllers.AIController)
   // app.use('/ai', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
