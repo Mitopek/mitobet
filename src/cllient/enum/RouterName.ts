@@ -10,4 +10,6 @@ export enum RouterName {
   Settings = 'settings',
   Subscription = 'subscription',
   Events = 'events',
+  PrivatePolicy = 'private-policy',
+  Regulations = 'regulations',
 }

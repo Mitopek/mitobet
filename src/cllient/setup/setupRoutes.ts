@@ -20,6 +20,16 @@ const routes = [
     component: () => import('../components/pages/RegisterPage.vue'),
   },
   {
+    path: '/private-policy',
+    name: RouterName.PrivatePolicy,
+    component: () => import('../components/pages/PrivatePolicyPage.vue'),
+  },
+  {
+    path: '/regulations',
+    name: RouterName.Regulations,
+    component: () => import('../components/pages/RegulationsPage.vue'),
+  },
+  {
     path: '/forgot-password',
     name: RouterName.ForgotPassword,
     component: () => import('../components/pages/ForgotPasswordPage.vue'),

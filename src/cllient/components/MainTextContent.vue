@@ -62,7 +62,6 @@
 .analysis-image{
   width: 300px;
   border-radius: 50%;
-  border: #040404e6 1px solid;
 }
 
 </style>
