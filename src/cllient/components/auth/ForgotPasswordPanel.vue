@@ -115,4 +115,12 @@ const onSubmit = async () => {
     justify-content: center;
     gap: 8px;
   }
+
+
+  @media (max-width: 400px) {
+    .actions-buttons{
+      flex-direction: column-reverse;
+      gap: 5px;
+    }
+  }
 </style>

@@ -18,6 +18,7 @@ const props = defineProps<Props>()
 .checkbox-component{
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
   justify-content: center;
   width: 20px;
   height: 20px;

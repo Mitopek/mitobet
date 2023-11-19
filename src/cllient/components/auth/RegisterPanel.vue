@@ -11,8 +11,8 @@
       <FormItem title="Powtórz hasło:" :error="validateErrors.repeatedPassword">
         <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
-      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/>Zapoznałem się i akceptuję <span class="text"><a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
-      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/>Zapoznałem się i akceptuję <span class="text"><a href="/regulations">regulamin</a> serwisu.</span></div>
+      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/><span class="text">Zapoznałem się i akceptuję <a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
+      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/> <span class="text">Zapoznałem się i akceptuję <a href="/regulations">regulamin</a> serwisu.</span></div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
@@ -157,11 +157,13 @@ const onRegisterClick = async () => {
     gap: 2px;
   }
 .checkbox-wrapper{
+  align-items: flex-start;
   display: flex;
-  align-items: center;
   gap: 6px;
   width: 100%;
   font-size: 14px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
   .form {
@@ -172,7 +174,8 @@ const onRegisterClick = async () => {
 
   .actions-buttons{
     width: 100%;
-    padding: 20px 5px 10px 5px;
+    box-sizing: border-box;
+    padding: 20px 0 10px 0;
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -180,5 +183,12 @@ const onRegisterClick = async () => {
 a{
   color: map-get(variables.$colors, primary);
   text-decoration: underline;
+}
+
+@media (max-width: 400px) {
+  .actions-buttons{
+    flex-direction: column-reverse;
+    gap: 5px;
+  }
 }
 </style>

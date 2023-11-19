@@ -246,4 +246,14 @@ onMounted(async () => {
     gap: 8px;
     width: 100%;
   }
+
+@media (max-width: 400px) {
+  .bottom-panel{
+    flex-direction: column;
+    gap: 8px;
+  }
+  .forget-text-wrapper{
+    justify-content: flex-start;
+  }
+}
 </style>
