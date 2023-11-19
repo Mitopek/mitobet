@@ -87,6 +87,7 @@ const onArrowClick = () => {
 .main-items-container{
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -119,7 +120,7 @@ const onArrowClick = () => {
   }
   .content{
     width: 95%;
-    padding: 40px 12px;
+    padding: 40px 20px;
   }
 }
 
@@ -129,7 +130,7 @@ const onArrowClick = () => {
   }
   .content{
     width: 100%;
-    padding: 40px 12px;
+    padding: 40px 20px;
     border-radius: 0;
   }
   .main-items-container{
