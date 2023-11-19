@@ -43,6 +43,8 @@ export class FacebookLoginStrategy implements ILoginStrategy {
           password: null,
           isAdmin: false,
           loginType: LoginType.FACEBOOK,
+          acceptedRegulationsDate: null,
+          acceptedPrivatePolicyDate: null,
         })
       }
     } catch (e) {

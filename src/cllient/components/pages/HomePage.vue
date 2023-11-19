@@ -2,16 +2,14 @@
  <div class="main-page">
     <DefaultLayout showNavigationBar>
       <div class="main-items-container" ref="mainContainerRef">
-        <div class="login-panel-wrapper">
-          <Transition
-              name="item-transition"
-              appear
-          >
-            <ModalComponent>
-              <LoginPanel/>
-            </ModalComponent>
-          </Transition>
-        </div>
+        <Transition
+            name="item-transition"
+            appear
+        >
+          <ModalComponent>
+            <LoginPanel/>
+          </ModalComponent>
+        </Transition>
         <div class="arrow-wrapper">
           <AnimatedArrowButton @click="onArrowClick"/>
         </div>
@@ -72,7 +70,7 @@ const onArrowClick = () => {
 .content-wrapper{
   background: map-get(variables.$colors, surface);
   display: flex;
-  padding: 60px 40px;
+  padding: 60px 0;
   justify-content: center;
 }
 
@@ -93,17 +91,49 @@ const onArrowClick = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.login-panel-wrapper{
-  margin-top: 100px;
+  position: relative;
 }
 
 .arrow-wrapper {
-  margin: 40px 0 30px 0;
+  position: absolute;
+  bottom: 20px;
 }
 
 .main-page {
   width: 100%;
+}
+
+.login-panel-wrapper{
+  width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .content{
+    width: 85%;
+  }
+}
+
+@media (max-width: 1250px) {
+  .content-wrapper{
+    padding: 60px 8px;
+  }
+  .content{
+    width: 95%;
+    padding: 40px 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-wrapper{
+    padding: 60px 0;
+  }
+  .content{
+    width: 100%;
+    padding: 40px 12px;
+    border-radius: 0;
+  }
+  .main-items-container{
+    padding: 4px;
+  }
 }
 </style>

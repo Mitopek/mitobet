@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 
 <template>
   <div class="checkbox-component">
-    <i class="fa-solid fa-check"/>
+    <i class="fa-solid fa-check" v-if="props.value"/>
   </div>
 </template>
 

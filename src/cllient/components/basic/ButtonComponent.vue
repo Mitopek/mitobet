@@ -9,6 +9,12 @@ interface Props {
   type?: 'primary' | 'secondary' | 'danger'
 }
 
+interface Emits {
+  (e: 'click'): void
+}
+
+const emit = defineEmits<Emits>()
+
 const props = withDefaults(defineProps<Props>(), {
   iconClass: null,
   type: 'primary',
@@ -24,11 +30,17 @@ const textStyle = $computed(() => {
   }
 })
 
+const onClick = () => {
+  if(props.isDisabled) {
+    return
+  }
+  emit('click')
+}
 
 </script>
 
 <template>
-  <div :class="['button-component', {'is-primary': type === 'primary', 'is-secondary': type === 'secondary', 'is-disabled': props.isDisabled}]">
+  <div :class="['button-component', {'is-primary': type === 'primary', 'is-secondary': type === 'secondary', 'is-disabled': props.isDisabled}]" @click="onClick">
     <i v-if="props.iconClass" :class="props.iconClass"/>
     <div class="loading-wrapper" v-if="props.isLoading">
       <LoadingComponent/>
@@ -69,13 +81,17 @@ const textStyle = $computed(() => {
     color: #f9f9f9;
     &:hover {
       transition: all 0.2s ease-in-out;
-      background: map-get(variables.$colors, secondaryDark);
+      background: map-get(variables.$colors, secondaryLight);
     }
   }
   &.is-disabled{
     background: #ccc;
     color: #f9f9f9;
-    cursor: not-allowed;
+    cursor: default;
+    opacity: 0.6;
+    &:hover {
+      background: #ccc;
+    }
   }
 }
 

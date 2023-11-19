@@ -7,9 +7,14 @@
   </div>
 </template>
 
-<style scoped>
-.page {
+<style scoped lang="scss">
+@use './variables.scss' as variables;
 
+@media (max-width: 600px) {
+  body {
+
+    background: map-get(variables.$colors, surfaceLow);
+  }
 }
 
 /*.background-image{*/

@@ -17,8 +17,10 @@
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
       </ButtonComponent>
     </div>
-    <div class="descriptions" v-for="description in props.descriptions">
-      {{description}}
+    <div>
+      <div class="descriptions" v-for="description in props.descriptions">
+        {{description}}
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +74,8 @@ const emit = defineEmits<Emits>()
   grid-template-rows: 45px 75px 50px 30px 70px 30px auto;
   display: grid;
   height: 400px;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   box-sizing: border-box;
   justify-content: center;
   padding: 10px;

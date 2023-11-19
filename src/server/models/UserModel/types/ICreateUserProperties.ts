@@ -6,4 +6,6 @@ export interface ICreateUserProperties{
   isAdmin: boolean
   loginType: LoginType,
   subscriptionExpiresAt?: Date
+  acceptedRegulationsDate: Date,
+  acceptedPrivatePolicyDate: Date,
 }

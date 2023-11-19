@@ -18,9 +18,9 @@ export class AuthController implements IAuthController {
   ) {}
 
   async register(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {mail, password} = req.body
+    const {mail, password, hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
     try {
-      await this.authService.register(mail, password)
+      await this.authService.register(mail, password, hasAcceptedRegulations, hasAcceptedPrivatePolicy)
     } catch (e) {
       return res.sendFailResponse([e.message], 400)
     }
@@ -51,6 +51,23 @@ export class AuthController implements IAuthController {
     } catch (e) {
       return res.sendFailResponse([e.message], 400)
     }
+    return res.sendSuccessResponse(null)
+  }
+
+  async acceptConsents(req: IApiRequest, res: IApiResponse): Promise<Response> {
+    const userId = req.authenticationData.userId
+    const {hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
+    if(!hasAcceptedRegulations || !hasAcceptedPrivatePolicy) {
+      return res.sendFailResponse(['Musisz zaakceptować regulamin i politykę prywatności serwisu.'], 401)
+    }
+    const user = await this.userRepository.findUserById(userId)
+    if(user.acceptedPrivatePolicyDate && user.acceptedRegulationsDate) {
+      return res.sendFailResponse(['Regulamin i polityka prywatności zostały już zaakceptowane.'], 401)
+    }
+    await this.userRepository.updateUserById(userId, {
+      acceptedPrivatePolicyDate: new Date(),
+      acceptedRegulationsDate: new Date(),
+    })
     return res.sendSuccessResponse(null)
   }
 
@@ -91,6 +108,7 @@ export class AuthController implements IAuthController {
         mail: user.mail,
         subscriptionExpiresAt: user?.subscriptionExpiresAt || null,
         isAdmin: user.isAdmin,
+        hasAcceptedConsents: !!user.acceptedPrivatePolicyDate && !!user.acceptedRegulationsDate,
       }
     })
   }

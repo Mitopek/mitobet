@@ -9,4 +9,5 @@ export interface IAuthController {
   logout(req: IApiRequest, res: IApiResponse): Promise<Response>
   forgotPassword(req: IApiRequest, res: IApiResponse): Promise<Response>
   resetPassword(req: IApiRequest, res: IApiResponse): Promise<Response>
+  acceptConsents(req: IApiRequest, res: IApiResponse): Promise<Response>
 }

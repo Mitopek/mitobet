@@ -47,6 +47,8 @@ export class GoogleLoginStrategy implements ILoginStrategy {
           password: null,
           isAdmin: false,
           loginType: LoginType.GOOGLE,
+          acceptedRegulationsDate: null,
+          acceptedPrivatePolicyDate: null,
         })
       }
     } catch (e) {

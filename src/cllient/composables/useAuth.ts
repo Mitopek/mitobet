@@ -15,11 +15,13 @@ interface Response {
 }
 
 export function useAuth() {
-  const register = async (mail: string, password: string): Promise<Response> => {
+  const register = async (mail: string, password: string, hasAcceptedPrivatePolicy: boolean, hasAcceptedRegulations: boolean): Promise<Response> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/register`, {
         mail,
         password,
+        hasAcceptedPrivatePolicy,
+        hasAcceptedRegulations,
       })
       return response.data
     } catch (e) {
@@ -71,7 +73,7 @@ export function useAuth() {
 
   const changePassword = async (oldPassword: string, password: string): Promise<Response> => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/change-password`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/me/change-password`, {
         oldPassword,
         password,
       }, {withCredentials: true})
@@ -95,6 +97,7 @@ export function useAuth() {
       cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -113,6 +116,7 @@ export function useAuth() {
       cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -131,7 +135,21 @@ export function useAuth() {
       cookies.set('mail', response.data.payload.user.mail)
       cookies.set('is_admin', response.data.payload.user.isAdmin)
       cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
       return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        return e?.response?.data
+      }
+    }
+  }
+
+  const acceptConsents = async (hasAcceptedPrivatePolicy: boolean, hasAcceptedRegulations: boolean): Promise<Response> => {
+    try {
+      await axios.post(`${import.meta.env.VITE_API_HOST}/me/consents`, {
+        hasAcceptedPrivatePolicy,
+        hasAcceptedRegulations,
+      }, {withCredentials: true})
     } catch (e) {
       if(axios.isAxiosError(e)) {
         return e?.response?.data
@@ -142,11 +160,12 @@ export function useAuth() {
   //TODO types every where, and res.cookies flags
   const logout = async (): Promise<Response> => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/logout`,{},{withCredentials: true})
+      const response = await axios.post(`${import.meta.env.VITE_API_HOST}/me/logout`,{},{withCredentials: true})
       const cookies = new UniversalCookie()
       cookies.remove('mail')
       cookies.remove('is_admin')
       cookies.remove('subscription_expires_at')
+      cookies.remove('has_accepted_consents')
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -165,5 +184,6 @@ export function useAuth() {
     resetPassword,
     logout,
     verifyUser,
+    acceptConsents,
   })
 }

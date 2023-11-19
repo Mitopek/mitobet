@@ -5,7 +5,7 @@ import {ILoginPayloadMap} from "./ILoginPayloadMap";
 export interface IAuthService {
   generateToken(user: IUserEntity): string
   changePassword(userId: string, oldPassword: string, password: string): Promise<void>
-  register(mail: string, password: string): Promise<void>
+  register(mail: string, password: string, hasAcceptedRegulations: boolean, hasAcceptedPrivatePolicy: boolean): Promise<void>
   login(type: LoginType, payload: ILoginPayloadMap[LoginType]): Promise<IUserEntity>
   forgotPassword(mail: string): Promise<void>
   resetPassword(password: string, secret: string): Promise<void>

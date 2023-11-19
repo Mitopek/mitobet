@@ -2,6 +2,7 @@ export const InterfaceTypes = {
   middlewares: {
     ApiResponseMiddleware: Symbol.for('ApiResponseMiddleware'),
     JWTAuthMiddleware: Symbol.for('JWTAuthMiddleware'),
+    ConsentsMiddleware: Symbol.for('ConsentsMiddleware'),
   },
   repositories: {
     UserRepository: Symbol.for('UserRepository'),

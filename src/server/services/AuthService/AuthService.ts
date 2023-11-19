@@ -27,13 +27,21 @@ export class AuthService implements IAuthService {
   generateToken(user: IUserEntity): string {
     return jwt.sign({
       userId: user.id,
+      hasAcceptedRegulations: !!user.acceptedRegulationsDate,
+      hasAcceptedPrivatePolicy: !!user.acceptedPrivatePolicyDate,
       isAdmin: user.isAdmin,
     }, process.env.JWT_KEY, {
       expiresIn: '1h'
     })
   }
 
-  async register(mail: string, password: string): Promise<void> {
+  async register(mail: string, password: string, hasAcceptedRegulations: boolean, hasAcceptedPrivatePolicy: boolean): Promise<void> {
+    if(!hasAcceptedRegulations) {
+      throw new Error('Musisz zaakceptować regulamin i politykę prywatności serwisu.')
+    }
+    if(!hasAcceptedPrivatePolicy) {
+      throw new Error('Musisz zaakceptować regulamin i politykę prywatności serwisu.')
+    }
     if(!this.mailService.validateMail(mail)) {
       throw new Error('Nieprawidłowy mail.')
     }
@@ -50,6 +58,8 @@ export class AuthService implements IAuthService {
       password: hashedPassword,
       isAdmin: false,
       loginType: LoginType.LOCAL,
+      acceptedRegulationsDate: new Date(),
+      acceptedPrivatePolicyDate: new Date(),
     })
     await this.verificationService.sendVerificationMail(createdUser.id)
   }

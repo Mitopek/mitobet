@@ -2,26 +2,24 @@
  <div class="register-page">
     <DefaultLayout showNavigationBar>
       <div class="main-items-container">
-        <div class="register-panel-wrapper">
-          <Transition
-              name="item-transition"
-              appear
-              v-if="!isFinished"
-          >
-            <ModalComponent>
-              <ResetPasswordPanel @submit="isFinished=true"/>
-            </ModalComponent>
-          </Transition>
-          <Transition
-              name="item-transition"
-              appear
-              v-else
-          >
-            <ModalComponent>
-              <ResetPasswordMessage/>
-            </ModalComponent>
-          </Transition>
-        </div>
+        <Transition
+            name="item-transition"
+            appear
+            v-if="!isFinished"
+        >
+          <ModalComponent>
+            <ResetPasswordPanel @submit="isFinished=true"/>
+          </ModalComponent>
+        </Transition>
+        <Transition
+            name="item-transition"
+            appear
+            v-else
+        >
+          <ModalComponent>
+            <ResetPasswordMessage/>
+          </ModalComponent>
+        </Transition>
       </div>
     </DefaultLayout>
  </div>

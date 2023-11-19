@@ -20,6 +20,11 @@
         </div>
       </div>
     </DefaultLayout>
+   <div class="modal-container" v-if="showConsentsModal">
+     <ModalComponent>
+       <ConsentsPanel @accept="onConsentsAccept"/>
+     </ModalComponent>
+   </div>
  </div>
 </template>
 
@@ -32,12 +37,14 @@ import SubscriptionTime from "../SubscriptionTime.vue";
 import {useRouter} from "vue-router";
 import {useAuth} from "../../composables/useAuth.js";
 import PanelOptions from "../PanelOptions.vue";
+import ModalComponent from "../basic/ModalComponent.vue";
+import ConsentsPanel from "../ConsentsPanel.vue";
 
 const router = useRouter()
 let userMail = $ref(null)
-const {logout} = $(useAuth())
+const {logout, acceptConsents} = $(useAuth())
 let subscriptionExpiresAt = $ref<Date | null>(null)
-
+let showConsentsModal = $ref(false)
 //TODO map responses, _id
 onMounted(async () => {
   const cookies = new UniversalCookie()
@@ -46,6 +53,7 @@ onMounted(async () => {
     await router.push({path: '/'})
   }
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
+  showConsentsModal = cookies.get('has_accepted_consents') === 'false'
 })
 
 const onLogout = async () => {
@@ -54,6 +62,13 @@ const onLogout = async () => {
   if(!cookies.get('mail')) {
     await router.push({path: '/'})
   }
+}
+
+const onConsentsAccept = async () => {
+  const cookies = new UniversalCookie()
+  cookies.set('has_accepted_consents', true)
+  showConsentsModal = false
+  await acceptConsents(true, true)
 }
 </script>
 
@@ -74,6 +89,19 @@ const onLogout = async () => {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+}
+
+.modal-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
 }
 
 .info-wrapper{

@@ -24,5 +24,13 @@ export const UserSchema = new Schema<IUserEntity>({
   verificationId: {
     type: Schema.Types.String,
     required: false,
+  },
+  acceptedRegulationsDate: {
+    type: Schema.Types.Date,
+    required: false,
+  },
+  acceptedPrivatePolicyDate: {
+    type: Schema.Types.Date,
+    required: false,
   }
 })

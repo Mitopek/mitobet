@@ -2,16 +2,14 @@
  <div class="register-page">
     <DefaultLayout showNavigationBar>
       <div class="main-items-container">
-        <div class="register-panel-wrapper">
-          <Transition
-              name="item-transition"
-              appear
-          >
-            <ModalComponent>
-              <UserVerificationPanel/>
-            </ModalComponent>
-          </Transition>
-        </div>
+        <Transition
+            name="item-transition"
+            appear
+        >
+          <ModalComponent>
+            <UserVerificationPanel/>
+          </ModalComponent>
+        </Transition>
       </div>
     </DefaultLayout>
  </div>
@@ -53,12 +51,6 @@ import UserVerificationPanel from "../auth/UserVerificationPanel.vue";
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.register-panel-wrapper{
-  position: absolute;
-  top: 150px;
-  margin-top: 50px;
 }
 
 .register-page {

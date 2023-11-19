@@ -55,6 +55,8 @@ import {VerificationRepository} from "../repositories/VerificationRepository/Ver
 import {IVerificationRepository} from "../repositories/VerificationRepository/types/IVerificationRepository.js";
 import {VerificationController} from "../controllers/VerificationController/VerificationController.js";
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
+import {IConsentsMiddleware} from "../middlewares/ConsentsMiddleware/types/IConsentsMiddleware.js";
+import {ConsentsMiddleware} from "../middlewares/ConsentsMiddleware/ConsentsMiddleware.js";
 
 
 export default async function setupContainer() {
@@ -63,6 +65,7 @@ export default async function setupContainer() {
   //MIDDLEWARES
   container.bind<IAuthMiddleware>(InterfaceTypes.middlewares.JWTAuthMiddleware).to(JWTAuthMiddleware)
   container.bind<ApiResponseMiddleware>(InterfaceTypes.middlewares.ApiResponseMiddleware).to(ApiResponseMiddleware)
+  container.bind<IConsentsMiddleware>(InterfaceTypes.middlewares.ConsentsMiddleware).to(ConsentsMiddleware)
 
   //CONTROLLERS
   container.bind<IAuthController>(InterfaceTypes.controllers.AuthController).to(AuthController)

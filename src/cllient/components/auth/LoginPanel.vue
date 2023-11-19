@@ -216,6 +216,7 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    width: 100%;
   }
 
   .form {

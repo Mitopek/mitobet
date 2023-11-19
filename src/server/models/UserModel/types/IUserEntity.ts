@@ -8,4 +8,6 @@ export interface IUserEntity extends IEntity{
   loginType: LoginType,
   subscriptionExpiresAt?: Date,
   verificationId?: string,
+  acceptedRegulationsDate: Date,
+  acceptedPrivatePolicyDate: Date,
 }

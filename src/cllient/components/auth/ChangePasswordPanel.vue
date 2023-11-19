@@ -10,7 +10,7 @@
       <FormItem title="Hasło:" :error="validateErrors.password">
         <InputComponent type="password" v-model="password" @change="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
-      <FormItem title="Potwórz hasło:" :error="validateErrors.repeatedPassword">
+      <FormItem title="Powtórz hasło:" :error="validateErrors.repeatedPassword">
         <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <div class="actions-buttons">

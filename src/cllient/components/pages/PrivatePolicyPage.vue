@@ -5,7 +5,7 @@
         <div class="content">
           <h2>Polityka prywatności opisuje zasady przetwarzania przez nas informacji na Twój temat, w tym danych osobowych oraz ciasteczek, czyli tzw. cookies.</h2>
           <h3>1. Informacje ogólne</h3>
-          Niniejsza polityka dotyczy Serwisu www, funkcjonującego pod adresem url: mitobet.pl
+          Niniejsza polityka dotyczy Serwisu www, funkcjonującego pod adresem url: www.mitobet.pl
           Operatorem serwisu oraz Administratorem danych osobowych jest: Mitobet jarzębinowa 15-793 Białystok
           Adres kontaktowy poczty elektronicznej operatora: kontakt@mitobet.pl
           Operator jest Administratorem Twoich danych osobowych w odniesieniu do danych podanych dobrowolnie w Serwisie.

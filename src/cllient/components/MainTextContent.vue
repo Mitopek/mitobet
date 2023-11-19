@@ -25,6 +25,7 @@
 
 .list{
   line-height: 200%;
+  text-align: left;
 }
 
 .text{
@@ -37,7 +38,6 @@
 }
 
 .image-wrapper{
-  flex: 1;
 }
 
 .title{
@@ -53,15 +53,20 @@
   justify-content: center;
 }
 
-@media all and(max-width: 600px) {
-  .home-container{
-    flex-flow: column;
-  }
+.analysis-image{
+  max-width: 300px;
+  border-radius: 50%;
+  width: 300px;
 }
 
-.analysis-image{
-  width: 300px;
-  border-radius: 50%;
+@media (max-width: 850px) {
+  .home-container{
+    flex-wrap: wrap;
+    flex-flow: wrap-reverse;
+  }
+  .analysis-image{
+    width: 100%;
+  }
 }
 
 </style>

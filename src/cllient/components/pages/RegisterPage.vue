@@ -1,27 +1,25 @@
 <template>
  <div class="register-page">
     <DefaultLayout showNavigationBar>
-      <div class="main-items-container">
-        <div class="register-panel-wrapper">
-          <Transition
-              name="item-transition"
-              appear
-              v-if="!isRegisterFinished"
-          >
-            <ModalComponent>
-              <RegisterPanel @submit="isRegisterFinished=true"/>
-            </ModalComponent>
-          </Transition>
-          <Transition
-              name="item-transition"
-              appear
-              v-else
-          >
-            <ModalComponent>
-              <RegisterMessage/>
-            </ModalComponent>
-          </Transition>
-        </div>
+    <div class="main-items-container">
+        <Transition
+            name="item-transition"
+            appear
+            v-if="!isRegisterFinished"
+        >
+          <ModalComponent>
+            <RegisterPanel @submit="isRegisterFinished=true"/>
+          </ModalComponent>
+        </Transition>
+        <Transition
+            name="item-transition"
+            appear
+            v-else
+        >
+          <ModalComponent>
+            <RegisterMessage/>
+          </ModalComponent>
+        </Transition>
       </div>
     </DefaultLayout>
  </div>
@@ -65,12 +63,6 @@ const isRegisterFinished = $ref(false)
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.register-panel-wrapper{
-  position: absolute;
-  top: 150px;
-  margin-top: 50px;
 }
 
 .register-page {

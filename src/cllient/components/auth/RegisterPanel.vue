@@ -8,9 +8,11 @@
       <FormItem title="Hasło:" :error="validateErrors.password">
         <InputComponent type="password" v-model="password" @input="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
-      <FormItem title="Potwórz hasło:" :error="validateErrors.repeatedPassword">
+      <FormItem title="Powtórz hasło:" :error="validateErrors.repeatedPassword">
         <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
+      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/>Zapoznałem się i akceptuję <span class="text"><a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
+      <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/>Zapoznałem się i akceptuję <span class="text"><a href="/regulations">regulamin</a> serwisu.</span></div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
@@ -30,6 +32,7 @@ import ButtonComponent from "../basic/ButtonComponent.vue";
 import {$ref, $} from "vue/macros";
 import {useAuth} from "../../composables/useAuth.js";
 import {useRouter} from "vue-router";
+import CheckboxComponent from "../basic/CheckboxComponent.vue";
 const {register} = $(useAuth())
 
 interface Emits {
@@ -48,6 +51,8 @@ const validateErrors = $ref({
   repeatedPassword: '',
 })
 let isLoading = $ref(false)
+let hasAcceptedPrivatePolicy = $ref(false)
+let hasAcceptedRegulations = $ref(false)
 
 const onMailInput = () => {
   try {
@@ -113,6 +118,9 @@ const validateRepeatedPassword = () => {
 }
 
 const onRegisterClick = async () => {
+  if(!hasAcceptedPrivatePolicy || !hasAcceptedRegulations) {
+    return alert('Musisz zaakceptować regulamin i politykę prywatności.')
+  }
   if(!mail || !password || !repeatedPassword) {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
@@ -120,7 +128,7 @@ const onRegisterClick = async () => {
     return alert('Wypełnij poprawnie wymagane pola.')
   }
   isLoading = true
-  const response = await register(mail, password)
+  const response = await register(mail, password, hasAcceptedPrivatePolicy, hasAcceptedRegulations)
   if(!response.success && response?.errors) {
     isLoading = false
     return alert(response.errors[0])
@@ -131,7 +139,8 @@ const onRegisterClick = async () => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
 .description{
   font-size: 14px;
   font-weight: 400;
@@ -147,6 +156,13 @@ const onRegisterClick = async () => {
     flex-direction: column;
     gap: 2px;
   }
+.checkbox-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  font-size: 14px;
+}
 
   .form {
     display: flex;
@@ -156,9 +172,13 @@ const onRegisterClick = async () => {
 
   .actions-buttons{
     width: 100%;
-    padding: 10px 5px;
+    padding: 20px 5px 10px 5px;
     display: flex;
     justify-content: center;
     gap: 8px;
   }
+a{
+  color: map-get(variables.$colors, primary);
+  text-decoration: underline;
+}
 </style>

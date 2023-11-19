@@ -1,7 +1,10 @@
 <template>
   <div class="default-layout">
-    <div class="navigation-bar-wrapper" v-if="props.showNavigationBar">
+    <div class="navigation-bar-wrapper bigger" v-if="props.showNavigationBar">
       <NavigationBar/>
+    </div>
+    <div class="navigation-bar-wrapper smaller" v-if="props.showNavigationBar">
+      <SmallerNavigationBar/>
     </div>
     <slot/>
   </div>
@@ -9,6 +12,7 @@
 
 <script setup lang="ts">
 import NavigationBar from "./NavigationBar.vue";
+import SmallerNavigationBar from "./SmallerNavigationBar.vue";
 
 interface Props {
   showNavigationBar?: boolean
@@ -28,12 +32,24 @@ const props = withDefaults(defineProps<Props>(), {
   height: 60px;
   z-index: 100;
   top: 0;
+}
 
+.smaller{
+  display: none;
 }
 
 .default-layout{
   width: 100%;
   height: 100vh;
+}
+
+@media (max-width: 1100px) {
+  .bigger{
+    display: none;
+  }
+  .smaller{
+    display: flex;
+  }
 }
 
 </style>

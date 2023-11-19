@@ -15,6 +15,7 @@ import {ISportController} from "../controllers/SportController/types/ISportContr
 import {ICountryController} from "../controllers/CountryController/types/ICountryController.js";
 import {IFixtureController} from "../controllers/FixtureController/types/IFixtureController.js";
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
+import {IConsentsMiddleware} from "../middlewares/ConsentsMiddleware/types/IConsentsMiddleware.js";
 
 export default function setupRoutes(apiRouter: Router, container: Container) {
   //TODO DEV ONLY
@@ -34,21 +35,24 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
 
   const apiResponseMiddleware = container.get<IResponseMiddleware>(InterfaceTypes.middlewares.ApiResponseMiddleware)
   const jwtAuthMiddleware = container.get<IAuthMiddleware>(InterfaceTypes.middlewares.JWTAuthMiddleware)
+  const consentsMiddleware = container.get<IConsentsMiddleware>(InterfaceTypes.middlewares.ConsentsMiddleware)
   apiRouter.use(apiResponseMiddleware.handler.bind(apiResponseMiddleware))
 
   //TODO: me route !!
+  //TODO jwt check
   const authController = container.get<IAuthController>(InterfaceTypes.controllers.AuthController)
-  apiRouter.use('/change-password', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
-  apiRouter.post('/register', authController.register.bind(authController))
-  apiRouter.post('/change-password', authController.changePassword.bind(authController))
+  apiRouter.use('/me', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   apiRouter.post('/forgot-password', authController.forgotPassword.bind(authController))
   apiRouter.post('/reset-password', authController.resetPassword.bind(authController))
+  apiRouter.post('/register', authController.register.bind(authController))
   apiRouter.post('/login', authController.login.bind(authController))
-  apiRouter.post('/facebook-login', authController.login.bind(authController))
-  apiRouter.post('/logout', authController.logout.bind(authController))
+  apiRouter.post('/me/consents', authController.acceptConsents.bind(authController))
+  apiRouter.post('/me/change-password', authController.changePassword.bind(authController))
+  apiRouter.post('/me/logout', authController.logout.bind(authController))
 
   const couponController = container.get<ICouponController>(InterfaceTypes.controllers.CouponController)
   apiRouter.use('/coupons', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  apiRouter.use('/coupons', consentsMiddleware.checkConsents.bind(consentsMiddleware))
   apiRouter.use('/coupon', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   apiRouter.get('/coupons', couponController.getCoupons.bind(couponController))
   apiRouter.post('/coupon', couponController.createCoupon.bind(couponController))

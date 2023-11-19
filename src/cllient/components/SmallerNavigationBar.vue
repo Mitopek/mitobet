@@ -1,18 +1,17 @@
+
 <template>
   <div class="navigation-bar">
-    <div class="left-panel">
-      <div class="navigation-item" v-for="route in routes" @click="router.push(route.path)">
-        <i :class="route.iconClass"></i>
-        <span>{{route.title}}</span>
-      </div>
+<!--    <div class="left-panel">-->
+<!--      <div class="navigation-item" v-for="route in routes" @click="router.push(route.path)">-->
+<!--        <i :class="route.iconClass"></i>-->
+<!--        <span>{{route.title}}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="menu-button-wrapper">
+      <i class="fa-solid fa-bars fa-2x"/>
     </div>
     <div class="logo-container">
       <img src="/logo-big.png" alt="logo" class="logo"/>
-    </div>
-    <div class="right-panel">
-      <div class="profile-container">
-        <i class="fa-solid fa-user option-icon fa-sm"/> Użytkownik niezalogowany
-      </div>
     </div>
   </div>
 </template>
@@ -45,6 +44,7 @@ const routes = [
 .logo-container {
   max-width: 90%;
   max-height: 60px;
+  justify-self: center;
 }
 
 .profile-container{
@@ -53,11 +53,16 @@ const routes = [
   align-items: center;
 }
 
+.menu-button-wrapper{
+  padding: 4px;
+  align-self: center;
+}
+
 .logo {
-  margin-top: 10px;
   height: 100px;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #0000009e;
+  margin-top: 10px;
 }
 
 .left-panel{
@@ -77,17 +82,16 @@ const routes = [
 .navigation-bar{
   padding: 0 20px;
   color: #f9f9f9;
-  width: 80%;
+  width: 100%;
   font-size: 14px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
   box-shadow: 0 0 64px rgba(0,0,0,.3);
   background: map-get(variables.$colors, surface);
   border-bottom: 1px solid #0000009e;
   border-left: 1px solid #0000009e;
   border-right: 1px solid #0000009e;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
 }
 
 .navigation-item{
