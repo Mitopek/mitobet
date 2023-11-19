@@ -181,7 +181,7 @@ onMounted(async () => {
   align-items: center;
   gap: 10px;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .register-text-wrapper{
@@ -194,6 +194,8 @@ onMounted(async () => {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .register-text{
@@ -246,14 +248,4 @@ onMounted(async () => {
     gap: 8px;
     width: 100%;
   }
-
-@media (max-width: 400px) {
-  .bottom-panel{
-    flex-direction: column;
-    gap: 8px;
-  }
-  .forget-text-wrapper{
-    justify-content: flex-start;
-  }
-}
 </style>

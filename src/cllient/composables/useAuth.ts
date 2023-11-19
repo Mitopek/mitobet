@@ -162,15 +162,17 @@ export function useAuth() {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/me/logout`,{},{withCredentials: true})
       const cookies = new UniversalCookie()
-      cookies.remove('mail')
-      cookies.remove('is_admin')
-      cookies.remove('subscription_expires_at')
-      cookies.remove('has_accepted_consents')
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
         return e?.response?.data
       }
+    } finally {
+      const cookies = new UniversalCookie()
+      cookies.remove('mail')
+      cookies.remove('is_admin')
+      cookies.remove('subscription_expires_at')
+      cookies.remove('has_accepted_consents')
     }
   }
 

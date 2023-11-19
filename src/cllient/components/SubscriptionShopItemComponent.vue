@@ -83,7 +83,8 @@ const emit = defineEmits<Emits>()
     grid-template-rows: 75px 120px 40px 24px 28px auto;
     display: grid;
     height: 364px;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     box-sizing: border-box;
     justify-content: center;
     padding: 16px 8px;

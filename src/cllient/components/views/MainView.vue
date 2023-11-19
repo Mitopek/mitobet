@@ -79,13 +79,14 @@ const onConsentsAccept = async () => {
   width: 100%;
   overflow: auto;
   display: flex;
+  padding: 40px;
+  box-sizing: border-box;
   justify-content: center;
   background: map-get(variables.$colors, surface);
 }
 
 .main-container{
   height: 100%;
-  padding: 40px 7%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -133,19 +134,18 @@ const onConsentsAccept = async () => {
   width: 100%;
 }
 
-@media screen and (max-width: 800px) {
-  .panel {
-    margin: 0;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 600px) {
+@media (max-width: 850px) {
   .left-panel {
     display: none;
   }
   .panel {
     grid-template-columns: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .content-wrapper{
+    padding: 20px 8px;
   }
 }
 

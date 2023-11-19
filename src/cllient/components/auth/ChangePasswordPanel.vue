@@ -1,5 +1,5 @@
 <template>
-  <div class="login-panel">
+  <div class="change-password-panel">
     <div class="header-wrapper">
       <h2>Zmień hasło</h2>
     </div>
@@ -107,10 +107,12 @@ const onSubmit = async () => {
     width: 100%;
     text-align: center;
   }
-  .login-panel{
+  .change-password-panel{
     display: flex;
     flex-direction: column;
     gap: 2px;
+    max-width: 500px;
+    width: 100%;
   }
 
   .form {

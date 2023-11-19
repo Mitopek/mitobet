@@ -126,4 +126,20 @@ h3{
 .main-page {
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  .content-wrapper{
+    padding: 0;
+  }
+  .content {
+    padding: 20px;
+    width: 100%;
+  }
+  ol{
+    padding-left: 10px;
+  }
+  ul{
+    padding-left: 10px;
+  }
+}
 </style>

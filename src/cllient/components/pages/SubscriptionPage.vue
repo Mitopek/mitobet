@@ -5,17 +5,17 @@
       Twoja subskrypcja: <SubscriptionTime expires-at="subscriptionExpiresAt"/>
     </div>
     <div class="subscriptions-container">
-      <div v-for="(subscription, index) in items" :key="subscription.title" class="subscription-wrapper">
-        <SubcriptionItemFactory
-            :title="subscription.title"
-            :pricePerMonth="subscription.pricePerMonth"
-            :descriptions="subscription.descriptions"
-            :bonus="subscription?.bonus"
-            :price="subscription.price"
-            :type="SubscriptionComponentType.ShopItem"
-            @click="onBuyClick(index)"
-        />
-      </div>
+      <SubcriptionItemFactory
+          v-for="(subscription, index) in items"
+          :key="subscription.title"
+          :title="subscription.title"
+          :pricePerMonth="subscription.pricePerMonth"
+          :descriptions="subscription.descriptions"
+          :bonus="subscription?.bonus"
+          :price="subscription.price"
+          :type="SubscriptionComponentType.ShopItem"
+          @click="onBuyClick(index)"
+      />
     </div>
     Kupując subskrypcję, zgadzasz się na <a href="/regulamin">regulamin</a> oraz <a href="/polityka-prywatnosci">politykę prywatności</a> serwisu. Wszystkie płatności są obsługiwane przez HotPay. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
   </div>
@@ -63,26 +63,18 @@ h2{
   text-align: left;
 }
 
-.notifications-page{
-  padding: 40px;
-}
-
 .subscriptions-container{
-  margin: 20px 0;
   flex-flow: row wrap;
   display: flex;
   align-content: baseline;
-  gap: 5px;
+  padding: 20px 4px;
+  gap: 20px;
 }
 
 .subscription-time-wrapper{
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.subscription-wrapper{
-  padding: 16px;
 }
 
 </style>

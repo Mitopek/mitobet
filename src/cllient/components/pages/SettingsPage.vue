@@ -1,7 +1,5 @@
 <template>
-  <div class="settings-page">
     <ChangePasswordPanel/>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -13,7 +11,8 @@ import ChangePasswordPanel from "../auth/ChangePasswordPanel.vue";
 <style scoped>
 .settings-page{
   padding: 15px;
-  width: 40%;
+  width: 100%;
+  display: flex;
 }
 
 

@@ -23,4 +23,10 @@
     padding: 20px 20px;
   }
 }
+
+@media (max-width:360px) {
+  .modal-component{
+    padding: 20px 8px;
+  }
+}
 </style>
