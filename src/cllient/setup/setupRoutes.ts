@@ -7,13 +7,13 @@ const routes = [
   {
     path: '/',
     name: RouterName.Home,
-    component: import('../components/pages/HomePage.vue'),
+    component: () => import('../components/pages/HomePage.vue'),
   },
-  {
-    path: '/events',
-    name: RouterName.Events,
-    component: () => import('../components/pages/EventsPage.vue'),
-  },
+  // {
+  //   path: '/events',
+  //   name: RouterName.Events,
+  //   component: () => import('../components/pages/EventsPage.vue'),
+  // },
   {
     path: '/register',
     name: RouterName.Register,
@@ -54,7 +54,7 @@ const routes = [
         component: () => import('../components/pages/AIPage.vue'),
       },
       {
-        path: '/coupons',
+        path: 'coupons',
         name: RouterName.Coupons,
         component: () => import('../components/pages/CouponsPage.vue'),
       },

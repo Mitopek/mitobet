@@ -15,6 +15,14 @@ interface Response {
 }
 
 export function useAuth() {
+  const removeCookies = () => {
+    const cookies = new UniversalCookie()
+    cookies.remove('mail', {path: '/'})
+    cookies.remove('is_admin', {path: '/'})
+    cookies.remove('subscription_expires_at', {path: '/'})
+    cookies.remove('has_accepted_consents', {path: '/'})
+  }
+
   const register = async (mail: string, password: string, hasAcceptedPrivatePolicy: boolean, hasAcceptedRegulations: boolean): Promise<Response> => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/register`, {
@@ -93,11 +101,10 @@ export function useAuth() {
         type: LoginType.LOCAL
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
-      console.info(cookies.get('access_token'))
-      cookies.set('mail', response.data.payload.user.mail)
-      cookies.set('is_admin', response.data.payload.user.isAdmin)
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
+      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
+      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -113,10 +120,10 @@ export function useAuth() {
         type: LoginType.FACEBOOK
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
-      cookies.set('mail', response.data.payload.user.mail)
-      cookies.set('is_admin', response.data.payload.user.isAdmin)
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
+      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
+      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -132,10 +139,10 @@ export function useAuth() {
         type: LoginType.GOOGLE
       }, {withCredentials: true})
       const cookies = new UniversalCookie()
-      cookies.set('mail', response.data.payload.user.mail)
-      cookies.set('is_admin', response.data.payload.user.isAdmin)
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt)
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents)
+      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
+      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
+      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
+      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -159,20 +166,14 @@ export function useAuth() {
 
   //TODO types every where, and res.cookies flags
   const logout = async (): Promise<Response> => {
+    removeCookies()
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/me/logout`,{},{withCredentials: true})
-      const cookies = new UniversalCookie()
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
         return e?.response?.data
       }
-    } finally {
-      const cookies = new UniversalCookie()
-      cookies.remove('mail')
-      cookies.remove('is_admin')
-      cookies.remove('subscription_expires_at')
-      cookies.remove('has_accepted_consents')
     }
   }
 

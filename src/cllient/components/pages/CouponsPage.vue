@@ -16,7 +16,7 @@
       Brak kuponów.
     </div>
     <div v-else class="text-wrapper">
-      Wymagana aktywna subskrypcja.
+      Wymagana aktywna <a href="/me/subscription">subskrypcja</a>.
     </div>
  </div>
 </template>
@@ -64,7 +64,14 @@ const onDelete = async (couponId: string) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
+
+a{
+  color: map-get(variables.$colors, primary);
+  text-decoration: underline;
+}
+
 .coupons-container{
   max-width: 490px;
 }
@@ -76,6 +83,7 @@ const onDelete = async (couponId: string) => {
 .text-wrapper{
   height: 100%;
   display: flex;
+  gap: 4px;
   justify-content: center;
   align-items: center;
 }

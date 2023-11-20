@@ -56,4 +56,11 @@ import UserVerificationPanel from "../auth/UserVerificationPanel.vue";
 .register-page {
   width: 100%;
 }
+
+@media(max-height: 670px) {
+  .main-items-container{
+    padding-top: 100px;
+    justify-content: unset;
+  }
+}
 </style>

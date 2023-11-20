@@ -3,8 +3,8 @@
       <h2>Zaakceptuj zgody, by móc w pełni korzystać z serwisu</h2>
     <div class="form">
       <div class="checkbox-container">
-        <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/>Zapoznałem się i akceptuję <span class="text"><a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
-        <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/>Zapoznałem się i akceptuję <span class="text"><a href="/regulations">regulamin</a> serwisu.</span></div>
+        <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/><span class="text">Zapoznałem się i akceptuję <a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
+        <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/> <span class="text">Zapoznałem się i akceptuję <a href="/regulations">regulamin</a> serwisu.</span></div>
       </div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
@@ -64,11 +64,13 @@ a{
 }
 
 .checkbox-wrapper{
+  align-items: flex-start;
   display: flex;
-  align-items: center;
   gap: 6px;
   width: 100%;
   font-size: 14px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .actions-buttons{
@@ -77,6 +79,13 @@ a{
   display: flex;
   justify-content: center;
   gap: 8px;
+}
+
+@media (max-width: 400px) {
+  .actions-buttons{
+    flex-direction: column-reverse;
+    gap: 5px;
+  }
 }
 
 </style>

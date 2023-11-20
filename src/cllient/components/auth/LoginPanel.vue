@@ -187,6 +187,7 @@ onMounted(async () => {
 .register-text-wrapper{
   gap: 4px;
   display: flex;
+  justify-content: center;
 }
 
 .forget-text-wrapper{
@@ -248,4 +249,11 @@ onMounted(async () => {
     gap: 8px;
     width: 100%;
   }
+
+@media (max-width: 400px) {
+  .actions-buttons{
+    width: 100%;
+    align-items: unset;
+  }
+}
 </style>

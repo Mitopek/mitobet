@@ -16,7 +16,6 @@ export function useAI() {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/ai`, {
         content
       }, {withCredentials: true})
-      console.info(response.data)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {

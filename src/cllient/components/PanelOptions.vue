@@ -1,10 +1,10 @@
 <template>
   <div class="coupons-options">
-    <RouteOption :to="RouterName.Coupons" icon-class="fa-solid fa-rectangle-list" title="Najbliższe kupony"/>
-    <RouteOption :to="RouterName.Notifications" icon-class="fa-solid fa-bell" title="Powiadomienia"/>
+    <RouteOption :to="RouterName.Coupons" icon-class="fa-solid fa-rectangle-list" title="Najbliższe kupony" @click="emit('click')"/>
+    <RouteOption :to="RouterName.Notifications" icon-class="fa-solid fa-bell" title="Powiadomienia" @click="emit('click')"/>
     <div class="separator"/>
-    <RouteOption :to="RouterName.Subscription" icon-class="fa-solid fa-crown" title="Subskrypcja" color="#3aab15"/>
-    <RouteOption :to="RouterName.Settings" icon-class="fa-solid fa-user" title="Konto"/>
+    <RouteOption :to="RouterName.Subscription" icon-class="fa-solid fa-crown" title="Subskrypcja" color="#3aab15" @click="emit('click')"/>
+    <RouteOption :to="RouterName.Settings" icon-class="fa-solid fa-user" title="Konto" @click="emit('click')"/>
     <div class="separator"/>
     <div class="logout" @click="emit('logout')"><div class="icon-wrapper"><i class="fa-solid fa-right-from-bracket"/></div> Wyloguj</div>
   </div>
@@ -16,6 +16,7 @@ import {RouterName} from "../enum/RouterName.js";
 
 interface Emits {
   (e: 'logout'): void
+  (e: 'click'): void
 }
 
 const emit = defineEmits<Emits>()
@@ -27,7 +28,7 @@ const emit = defineEmits<Emits>()
   flex-flow: column;
   gap: 4px;
   box-sizing: border-box;
-  padding: 10px 5px;
+  padding: 10px 0;
   width: 100%;
 }
 .option-icon{
@@ -45,7 +46,7 @@ const emit = defineEmits<Emits>()
   color: #d34747;
   &:hover {
     font-weight: 500;
-    background-color: hsla(0, 0%, 18%, 0.5);
+    background-color: hsla(0, 0%, 20%, 0.5);
   }
 }
 

@@ -24,8 +24,6 @@ export class AIController implements IAIController {
       apiKey: process.env.GPT_KEY,
     });
     const openai = new OpenAIApi(configuration);
-    console.info(process.env.GPT_KEY)
-
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",

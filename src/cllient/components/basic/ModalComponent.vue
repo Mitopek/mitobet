@@ -18,7 +18,7 @@
     min-width: 0;
   }
 
-@media (max-width:800px) {
+@media (max-width:600px) {
   .modal-component{
     padding: 20px 20px;
   }

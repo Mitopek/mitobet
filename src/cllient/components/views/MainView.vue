@@ -1,6 +1,9 @@
 <template>
  <div class="main-view">
     <DefaultLayout>
+      <div class="small-navigation-bar-wrapper">
+        <SmallNavigationPanelBar/>
+      </div>
       <div class="main-container">
         <div class="panel">
           <div class="left-panel">
@@ -10,6 +13,11 @@
             </div>
             <div class="options">
               <PanelOptions @logout="onLogout"/>
+            </div>
+            <div class="bottom-panel">
+              <div class="logo-container">
+                <img src="/logo-big.png" alt="logo" class="logo"/>
+              </div>
             </div>
           </div>
           <div class="content-wrapper">
@@ -39,6 +47,8 @@ import {useAuth} from "../../composables/useAuth.js";
 import PanelOptions from "../PanelOptions.vue";
 import ModalComponent from "../basic/ModalComponent.vue";
 import ConsentsPanel from "../ConsentsPanel.vue";
+import SmallerNavigationBar from "../SmallerNavigationBar.vue";
+import SmallNavigationPanelBar from "../SmallNavigationPanelBar.vue";
 
 const router = useRouter()
 let userMail = $ref(null)
@@ -82,7 +92,7 @@ const onConsentsAccept = async () => {
   padding: 40px;
   box-sizing: border-box;
   justify-content: center;
-  background: map-get(variables.$colors, surface);
+  background: map-get(variables.$colors, surfaceLow);
 }
 
 .main-container{
@@ -112,12 +122,22 @@ const onConsentsAccept = async () => {
   gap: 5px;
 }
 
-.options{
+.small-navigation-bar-wrapper{
+  position: fixed;
+  justify-content: center;
+  width: 100vw;
+  height: 60px;
+  z-index: 100;
+  top: 0;
+  display: none;
+}
 
+.options{
+  padding: 4px;
 }
 
 .left-panel{
-  background-color: map-get(variables.$colors, surfaceLow);
+  background-color: map-get(variables.$colors, surface);
   /*border-right: #040404e6 2px solid;*/
   display: flex;
   flex-direction: column;
@@ -134,18 +154,42 @@ const onConsentsAccept = async () => {
   width: 100%;
 }
 
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-height: 160px;
+  padding: 12px 0 20px 0;
+  background: map-get(variables.$colors, surfaceMediumHigh);
+}
+.logo {
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #0000009e;
+  margin-top: 10px;
+}
+
+.bottom-panel{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  flex: 1;
+}
+
 @media (max-width: 850px) {
   .left-panel {
     display: none;
   }
+  .small-navigation-bar-wrapper{
+    display: flex;
+  }
   .panel {
     grid-template-columns: auto;
   }
-}
-
-@media (max-width: 500px) {
   .content-wrapper{
-    padding: 20px 8px;
+    padding: 120px 12px 40px 12px;
   }
 }
 

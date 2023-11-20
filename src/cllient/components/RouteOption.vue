@@ -47,12 +47,13 @@ const additionalStyle = $computed(() => {
   grid-template-columns: 30px 1fr;
   align-items: center;
   transition: background-color .3s ease;
+  border-radius: 4px;
   &.is-current {
     background-color: hsla(0, 0%, 20%, 0.5);
   }
   &:hover {
      font-weight: 500;
-     background-color: hsla(0, 0%, 14%, 0.5);
+      background-color: hsla(0, 0%, 20%, 0.5);
   }
 }
 

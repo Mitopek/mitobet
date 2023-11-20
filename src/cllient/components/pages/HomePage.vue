@@ -86,13 +86,14 @@ const onArrowClick = () => {
 
 .main-items-container{
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  padding: 20px;
 }
 
 .arrow-wrapper {
@@ -135,6 +136,16 @@ const onArrowClick = () => {
   }
   .main-items-container{
     padding: 4px;
+  }
+}
+
+@media(max-height: 670px) {
+  .main-items-container{
+    padding-top: 100px;
+    justify-content: unset;
+  }
+  .arrow-wrapper{
+    display: none;
   }
 }
 </style>

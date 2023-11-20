@@ -8,9 +8,7 @@
           <div class="top-panel">
             <i class="fa-solid fa-times fa-2x" @click="isMenuToggled=!isMenuToggled"/>
           </div>
-          <div :class="['navigation-item', {'is-active': router.currentRoute.value.name === route.name}]" v-for="route in routes" @click="router.push(route.path)">
-            <span>{{route.title}}</span>
-          </div>
+          <PanelOptions @logout="onLogout" @click="isMenuToggled=false"/>
         </div>
       </Transition>
     </div>
@@ -24,26 +22,19 @@
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
 import {$computed, $ref} from "vue/macros";
-import {RouterName} from "../enum/RouterName.js";
+import PanelOptions from "./PanelOptions.vue";
+import UniversalCookie from "universal-cookie";
+import {$} from "vue/macros";
+import {useAuth} from "../composables/useAuth.js";
 const router = useRouter()
-const routes = [
-   {
-     path: '/',
-     title: 'Strona głowna',
-     name: RouterName.Home,
-   },
-   {
-     path: '/register',
-     title: 'Rejestracja',
-     name: RouterName.Register,
-
-   },
-   {
-     path: '/',
-     title: 'Zadaj pytanie',
-      name: null,
-   },
- ]
+const {logout} = $(useAuth())
+const onLogout = async () => {
+  await logout()
+  const cookies = new UniversalCookie()
+  if(!cookies.get('mail')) {
+    await router.push({path: '/'})
+  }
+}
 
 const isMenuToggled = $ref(false)
 
@@ -168,7 +159,7 @@ const isMenuToggled = $ref(false)
   width: 200px;
   height: 100vh;
   background: map-get(variables.$colors, surfaceMediumHigh);
-  padding: 8px 16px;
+  padding: 8px;
   z-index: 1000;
   font-size: 16px;
 }

@@ -351,17 +351,17 @@ h3{
 
 @media (max-width: 600px) {
   .content-wrapper{
-    padding: 0;
+    padding: 120px 0;
   }
   .content {
     padding: 20px;
     width: 100%;
   }
   ol{
-    padding-left: 10px;
+    padding-left: 16px;
   }
   ul{
-    padding-left: 10px;
+    padding-left: 16px;
   }
 }
 </style>

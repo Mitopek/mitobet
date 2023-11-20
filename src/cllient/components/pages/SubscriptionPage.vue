@@ -1,6 +1,6 @@
 <template>
-  <div class="notifications-page">
-    <h2>Dokup czas subskrypcji</h2>
+  <div class="subscription-page">
+    <h3>Dokup czas subskrypcji</h3>
     <div class="subscription-time-wrapper">
       Twoja subskrypcja: <SubscriptionTime expires-at="subscriptionExpiresAt"/>
     </div>
@@ -16,8 +16,8 @@
           :type="SubscriptionComponentType.ShopItem"
           @click="onBuyClick(index)"
       />
+      Wszystkie płatności są obsługiwane przez HotPay. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
     </div>
-    Kupując subskrypcję, zgadzasz się na <a href="/regulamin">regulamin</a> oraz <a href="/polityka-prywatnosci">politykę prywatności</a> serwisu. Wszystkie płatności są obsługiwane przez HotPay. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
   </div>
 </template>
 
@@ -59,7 +59,7 @@ a{
   text-decoration: underline;
 }
 
-h2{
+h3{
   text-align: left;
 }
 
@@ -67,14 +67,20 @@ h2{
   flex-flow: row wrap;
   display: flex;
   align-content: baseline;
+  justify-content: center;
   padding: 20px 4px;
   gap: 20px;
+  width: 100%;
 }
 
 .subscription-time-wrapper{
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.subscription-page{
+  width: 100%;
 }
 
 </style>

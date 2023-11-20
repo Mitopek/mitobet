@@ -9,7 +9,6 @@ import {injectable} from "inversify";
 export class JWTAuthMiddleware implements IAuthMiddleware {
   async authenticate(req: IApiRequest, res: IApiResponse, next: NextFunction): Promise<void> {
     const {access_token: accessToken} = req.cookies
-    console.info(req.cookies)
     if(!accessToken) {
       res.sendFailResponse(['Authenticated failed'], 401)
       return
