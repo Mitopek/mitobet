@@ -14,13 +14,24 @@ interface Response {
   }
 }
 
+const cookiePath = '/'
+const cookieMaxAge = 1000 * 3600 * 12
+
 export function useAuth() {
   const removeCookies = () => {
     const cookies = new UniversalCookie()
-    cookies.remove('mail', {path: '/'})
-    cookies.remove('is_admin', {path: '/'})
-    cookies.remove('subscription_expires_at', {path: '/'})
-    cookies.remove('has_accepted_consents', {path: '/'})
+    cookies.remove('mail', {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.remove('is_admin', {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.remove('subscription_expires_at', {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.remove('has_accepted_consents', {path: cookiePath, maxAge: cookieMaxAge })
+  }
+
+  const setCookies = (mail: string, isAdmin: boolean, subscriptionExpiresAt: string, hasAcceptedConsents: boolean) => {
+    const cookies = new UniversalCookie()
+    cookies.set('mail', mail, {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.set('is_admin', isAdmin, {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.set('subscription_expires_at', subscriptionExpiresAt, {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.set('has_accepted_consents', hasAcceptedConsents, {path: cookiePath, maxAge: cookieMaxAge })
   }
 
   const register = async (mail: string, password: string, hasAcceptedPrivatePolicy: boolean, hasAcceptedRegulations: boolean): Promise<Response> => {
@@ -100,11 +111,8 @@ export function useAuth() {
         password,
         type: LoginType.LOCAL
       }, {withCredentials: true})
-      const cookies = new UniversalCookie()
-      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
-      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -119,11 +127,8 @@ export function useAuth() {
         facebookCode: code,
         type: LoginType.FACEBOOK
       }, {withCredentials: true})
-      const cookies = new UniversalCookie()
-      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
-      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -138,11 +143,8 @@ export function useAuth() {
         googleCode: code,
         type: LoginType.GOOGLE
       }, {withCredentials: true})
-      const cookies = new UniversalCookie()
-      cookies.set('mail', response.data.payload.user.mail, {path: '/'})
-      cookies.set('is_admin', response.data.payload.user.isAdmin, {path: '/'})
-      cookies.set('subscription_expires_at', response.data.payload.user.subscriptionExpiresAt, {path: '/'})
-      cookies.set('has_accepted_consents', response.data.payload.user.hasAcceptedConsents, {path: '/'})
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -166,7 +168,6 @@ export function useAuth() {
 
   //TODO types every where, and res.cookies flags
   const logout = async (): Promise<Response> => {
-    removeCookies()
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_HOST}/me/logout`,{},{withCredentials: true})
       return response.data
@@ -174,6 +175,8 @@ export function useAuth() {
       if(axios.isAxiosError(e)) {
         return e?.response?.data
       }
+    } finally {
+      removeCookies()
     }
   }
 

@@ -67,7 +67,6 @@ h3{
   flex-flow: row wrap;
   display: flex;
   align-content: baseline;
-  justify-content: center;
   padding: 20px 4px;
   gap: 20px;
   width: 100%;
@@ -81,6 +80,12 @@ h3{
 
 .subscription-page{
   width: 100%;
+}
+
+@media (max-width: 700px) {
+  .subscriptions-container{
+    justify-content: center;
+  }
 }
 
 </style>

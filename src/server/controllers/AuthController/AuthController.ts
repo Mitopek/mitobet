@@ -99,7 +99,7 @@ export class AuthController implements IAuthController {
     //TODO flags itp
     res.cookie('access_token', token, {
       httpOnly: false,
-      maxAge: 1000 * 3600,
+      maxAge: 1000 * 3600 * 12,
       secure: true,
       sameSite: 'none',
     })
@@ -116,7 +116,7 @@ export class AuthController implements IAuthController {
   async logout(req: IApiRequest, res: IApiResponse): Promise<Response> {
     res.clearCookie('access_token', {
       httpOnly: false,
-      maxAge: 1000 * 3600,
+      maxAge: 1000 * 3600 * 12,
       secure: true,
       sameSite: 'none',
     })

@@ -1,4 +1,4 @@
-@import url('https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@44659d9/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500i,500,900,900i');
 
 :root {
@@ -91,7 +91,7 @@ h4{
   padding: 2em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   body {
     background: #2b2b2b;
   }

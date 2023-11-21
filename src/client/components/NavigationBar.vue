@@ -9,11 +9,7 @@
     <div class="logo-container">
       <img src="/logo-big.png" alt="logo" class="logo"/>
     </div>
-    <div class="right-panel">
-      <div class="profile-container">
-        <i class="fa-solid fa-user option-icon fa-sm"/> Użytkownik niezalogowany
-      </div>
-    </div>
+    <div class="right-panel"/>
   </div>
 </template>
 

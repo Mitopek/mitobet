@@ -1,5 +1,6 @@
 import * as VueRouter from 'vue-router'
 import {RouterName} from "../enum/RouterName.js";
+import {RouteRecordRaw} from "vue-router";
 
 //TODO When refresh page 0.1 sec image loaded on top and white body
 
@@ -79,5 +80,5 @@ const routes = [
 
 export const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
-  routes, // short for `routes: routes`
+  routes: routes as RouteRecordRaw[], // short for `routes: routes`
 })
