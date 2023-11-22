@@ -2,9 +2,9 @@
   <div class="login-panel">
     <h2>Zaloguj się</h2>
     <div class="application-buttons">
-      <a :href="facebookLink">
-        <ButtonComponent iconClass="fa-brands fa-facebook" type="secondary">Facebook</ButtonComponent>
-      </a>
+<!--      <a :href="facebookLink">-->
+<!--        <ButtonComponent iconClass="fa-brands fa-facebook" type="secondary">Facebook</ButtonComponent>-->
+<!--      </a>-->
       <a :href="googleLink">
         <ButtonComponent iconClass="fa-brands fa-google" type="secondary">Google</ButtonComponent>
       </a>
@@ -45,8 +45,6 @@ import FormItem from "../FormItem.vue";
 import ButtonComponent from "../basic/ButtonComponent.vue";
 import {useRoute, useRouter} from "vue-router";
 import {$ref, $, $computed} from "vue/macros";
-import FacebookButton from "../basic/FacebookButton.vue";
-import GoogleButton from "../basic/GoogleButton.vue";
 import {useAuth} from "../../composables/useAuth.js";
 import {RouterName} from "../../enum/RouterName.js";
 import axios from "axios";
