@@ -21,8 +21,9 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   //TODO DEV ONLY
   apiRouter.use(cookieParser())
   apiRouter.use(helmet());
+  const corsArray = ['https://www.mitobet.pl', 'https://www.mitobet.pl']
   apiRouter.use(cors({
-    origin: [`${process.env.IP_CLIENT_HOST}`,`${process.env.CLIENT_HOST}`,`${process.env.API_HOST}/,${process.env.IP_API_HOST}/`],
+    origin: [`${process.env.IP_CLIENT_HOST}`,`${process.env.CLIENT_HOST}`,`${process.env.API_HOST}/,${process.env.IP_API_HOST}/`, ...corsArray],
     credentials: true,
     // exposedHeaders: ['set-cookie'],
   }))
