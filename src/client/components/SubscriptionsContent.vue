@@ -5,11 +5,11 @@
     Nabywając subskrypcję, zyskujesz pełen dostęp do naszych najnowszych typów dotyczących bieżących wydarzeń sportowych. Nasze przewidywania są podzielone na kategorie, oparte na kursach zdarzeń oferowanych przez najpopularniejszych bukmacherów:
     <br/>
     <ul>
-      <li><b>Na podwojenie</b>: To propozycje kuponów z kursem oscylującym między 2.0 a 2.3.</li>
+      <li><b>Na podwojenie</b>: To propozycje kuponów z kursem ok 2.0 - 3.0.</li>
 
-      <li><b>Średni kurs</b>: Obejmuje typy o łącznym kursie do 10.0, pozwalając na różnorodność zakładów o umiarkowanej stawce.</li>
+      <li><b>Średni kurs</b>: Obejmuje typy o łącznym kursie do 15.0, pozwalając na różnorodność zakładów o umiarkowanej stawce.</li>
 
-      <li><b>Większy kurs</b>: Ten rodzaj obejmuje typy o kursie przekraczającym 10, oferując możliwość uzyskania większych wygranych przy wyższym ryzyku.</li>
+      <li><b>Większy kurs</b>: Typy o kursie większym niż 15.0, oferując możliwość uzyskania większych wygranych przy wyższym ryzyku.</li>
     </ul>
     <div class="subscriptions-container">
         <SubcriptionItemFactory

@@ -6,9 +6,9 @@
       </div>
       <div class="text">
         <div class="title"><h1>Mitobet - obstawiaj inaczej</h1></div>
-        Według danych statystycznych, szacuje się, że około 6 milionów Polaków obstawia u bukmachera, co stanowi aż 20% liczby dorosłych obywateli. Firmy bukmacherskie z pewnością z tego powodu nie ubolewają. Kursy, które proponują, są zawsze delikatnie zaniżone. Przykładem może być tu chociażby mecz siatkówki, w którym nie ma faworyta. Kursy nie wynoszą wtedy 2.0 vs 2.0, tylko bardziej 1.9 vs 1.9. Dzięki temu, przy ogromnej ilości klientów z matematycznego punktu widzenia, bukmacherzy mają większą szansę na zarobek niż gracze.
+        Według danych statystycznych, szacuje się, że około 6 milionów Polaków obstawia u bukmachera, co stanowi aż 20% liczby dorosłych obywateli. Firmy bukmacherskie z pewnością z tego powodu nie ubolewają. Kursy, które proponują, są zawsze delikatnie zaniżone. Dzięki temu, przy ogromnej ilości klientów z matematycznego punktu widzenia, bukmacherzy mają większą szansę na zarobek niż gracze. Przykładem może być tu chociażby mecz siatkówki, w którym nie ma faworyta. Kursy nie wynoszą wtedy 2.0 vs 2.0, tylko bardziej 1.9 vs 1.9.
         <br/><br/>
-        Jednak mimo że strategie bukmacherskie są skuteczne dla szerokiej grupy graczy, to nie zawsze sprawdzają się dla jednostek. Przykładem tego może być chociażby głośne wydarzenie z "zbanowaniem" dr. Marcina Krzywkowskiego przez firmy bukmacherskie za korzystanie z ich usług. Szło mu zbyt dobrze, żeby mógł być dalej ich klientem. Takich przypadków było o wiele więcej. Bukmacherzy, jak większość firm, wolą zarabiać na swoim biznesie niż wychodzić na minus.
+        Jednak mimo że strategie bukmacherskie są skuteczne dla szerokiej grupy graczy, to nie zawsze sprawdzają się dla jednostek. Przykładem tego może być chociażby głośne wydarzenie z "zbanowaniem" dr. Marcina Krzywkowskiego przez firmy bukmacherskie na korzystanie z ich usług. Szło mu zbyt dobrze, żeby mógł być dalej ich klientem. Takich przypadków było o wiele więcej. Bukmacherzy, jak wszystkie firmy, wolą zarabiać na swoim biznesie niż wychodzić w nim na minus.
         <br/><br/>
       </div>
     </div>

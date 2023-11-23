@@ -18,9 +18,11 @@
       </ButtonComponent>
     </div>
     <div>
-      <div class="descriptions" v-for="description in props.descriptions">
-        {{description}}
-      </div>
+      <ul>
+        <li v-for="description in props.descriptions">
+          {{description}}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -49,6 +51,10 @@ const emit = defineEmits<Emits>()
 <style scoped lang="scss">
 @use '../variables.scss' as variables;
 
+ul {
+  text-align: left;
+}
+
 .price{
   word-spacing: -4px;
   font-size: 2.2rem;
@@ -58,6 +64,7 @@ const emit = defineEmits<Emits>()
 }
 
 .duration {
+  align-self: center;
   font-size: 2.4rem;
 }
 
@@ -71,7 +78,7 @@ const emit = defineEmits<Emits>()
 
 .vip-price-component{
   text-align: center;
-  grid-template-rows: 45px 75px 50px 30px 70px 30px auto;
+  grid-template-rows: 45px 70px 30px 40px 60px 30px auto;
   display: grid;
   height: 400px;
   max-width: 400px;

@@ -14,8 +14,12 @@
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
       </ButtonComponent>
     </div>
-    <div class="descriptions" v-for="description in props.descriptions">
-      {{description}}
+    <div>
+      <ul>
+        <li v-for="description in props.descriptions">
+          {{description}}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -40,6 +44,10 @@ const emit = defineEmits<Emits>()
 
 <style scoped lang="scss">
 @use '../variables.scss' as variables;
+
+ul{
+  text-align: left;
+}
   .price{
     word-spacing: -4px;
     font-size: 1.8rem;
@@ -48,6 +56,7 @@ const emit = defineEmits<Emits>()
   .duration {
     font-weight: 500;
     font-size: 2.2rem;
+    align-self: center;
   }
 
   .button-wrapper{
@@ -57,7 +66,7 @@ const emit = defineEmits<Emits>()
 
   .vip-price-component{
     text-align: center;
-    grid-template-rows: 75px 40px 30px 65px auto;
+    grid-template-rows: 75px 30px 40px 50px auto;
     display: grid;
     height: 300px;
     max-width: 300px;
