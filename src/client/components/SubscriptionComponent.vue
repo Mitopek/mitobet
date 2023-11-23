@@ -14,13 +14,11 @@
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
       </ButtonComponent>
     </div>
-    <div>
       <ul>
         <li v-for="description in props.descriptions">
           {{description}}
         </li>
       </ul>
-    </div>
   </div>
 </template>
 
