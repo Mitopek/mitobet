@@ -82,6 +82,8 @@ const onArrowClick = () => {
   padding: 40px;
   border-radius: 8px;
   background: map-get(variables.$colors, surfaceLow);
+  line-height: 200%;
+  word-spacing: 2px;
 }
 
 .main-items-container{

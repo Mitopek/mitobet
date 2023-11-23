@@ -4,7 +4,7 @@ import setupRoutes from "./setup/setupRoutes.js";
 import * as dotenv from 'dotenv'
 import setupContainer from "./setup/setupContainer.js";
 import executeOnStartupTasks from "./setup/executeOnStartupTasks.js";
-dotenv.config()
+dotenv.config({path: './.env.node'})
 
 const app = express();
 const container = await setupContainer()

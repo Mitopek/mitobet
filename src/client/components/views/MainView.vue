@@ -32,6 +32,7 @@
      <ModalComponent>
        <ConsentsPanel @accept="onConsentsAccept"/>
      </ModalComponent>
+     <div class="overlay"/>
    </div>
  </div>
 </template>
@@ -108,11 +109,22 @@ const onConsentsAccept = async () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999999;
+}
+
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  background: black;
+  opacity: 0.3;
+  z-index: -1;
 }
 
 .info-wrapper{

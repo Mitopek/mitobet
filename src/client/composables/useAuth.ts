@@ -26,12 +26,13 @@ export function useAuth() {
     cookies.remove('has_accepted_consents', {path: cookiePath, maxAge: cookieMaxAge })
   }
 
-  const setCookies = (mail: string, isAdmin: boolean, subscriptionExpiresAt: string, hasAcceptedConsents: boolean) => {
+  const setCookies = (mail: string, isAdmin: boolean, subscriptionExpiresAt: string, hasAcceptedConsents: boolean, type: LoginType) => {
     const cookies = new UniversalCookie()
     cookies.set('mail', mail, {path: cookiePath, maxAge: cookieMaxAge })
     cookies.set('is_admin', isAdmin, {path: cookiePath, maxAge: cookieMaxAge })
     cookies.set('subscription_expires_at', subscriptionExpiresAt, {path: cookiePath, maxAge: cookieMaxAge })
     cookies.set('has_accepted_consents', hasAcceptedConsents, {path: cookiePath, maxAge: cookieMaxAge })
+    cookies.set('type', type, {path: cookiePath, maxAge: cookieMaxAge })
   }
 
   const register = async (mail: string, password: string, hasAcceptedPrivatePolicy: boolean, hasAcceptedRegulations: boolean): Promise<Response> => {
@@ -111,8 +112,8 @@ export function useAuth() {
         password,
         type: LoginType.LOCAL
       }, {withCredentials: true})
-      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents} = response.data.payload.user
-      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, type} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents, type)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -127,8 +128,8 @@ export function useAuth() {
         facebookCode: code,
         type: LoginType.FACEBOOK
       }, {withCredentials: true})
-      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail} = response.data.payload.user
-      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail, type} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents, type)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
@@ -143,8 +144,8 @@ export function useAuth() {
         googleCode: code,
         type: LoginType.GOOGLE
       }, {withCredentials: true})
-      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail} = response.data.payload.user
-      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents)
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail, type} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents, type)
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {

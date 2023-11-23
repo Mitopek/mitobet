@@ -13,6 +13,9 @@
       </FormItem>
       <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedPrivatePolicy" @click="hasAcceptedPrivatePolicy = !hasAcceptedPrivatePolicy"/><span class="text">Zapoznałem się i akceptuję <a href="/private-policy">politykę prywatności</a> serwisu.</span></div>
       <div class="checkbox-wrapper"><CheckboxComponent :value="hasAcceptedRegulations" @click="hasAcceptedRegulations = !hasAcceptedRegulations"/> <span class="text">Zapoznałem się i akceptuję <a href="/regulations">regulamin</a> serwisu.</span></div>
+      <div class="error" v-if="error">
+        {{error}}
+      </div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
@@ -50,6 +53,7 @@ const validateErrors = $ref({
   password: '',
   repeatedPassword: '',
 })
+let error = $ref('')
 let isLoading = $ref(false)
 let hasAcceptedPrivatePolicy = $ref(false)
 let hasAcceptedRegulations = $ref(false)
@@ -119,19 +123,19 @@ const validateRepeatedPassword = () => {
 
 const onRegisterClick = async () => {
   if(!hasAcceptedPrivatePolicy || !hasAcceptedRegulations) {
-    return alert('Musisz zaakceptować regulamin i politykę prywatności.')
+    return error = 'Musisz zaakceptować regulamin i politykę prywatności.'
   }
   if(!mail || !password || !repeatedPassword) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   if(Object.values(validateErrors).some(value => value)) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   isLoading = true
   const response = await register(mail, password, hasAcceptedPrivatePolicy, hasAcceptedRegulations)
   if(!response.success && response?.errors) {
     isLoading = false
-    return alert(response.errors[0])
+    return error = response.errors[0]
   }
   isLoading = false
   emit('submit')
@@ -145,6 +149,12 @@ const onRegisterClick = async () => {
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 10px;
+}
+.error{
+  color: #c7c412;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 0;
 }
   .title {
     text-align: center;
@@ -162,6 +172,7 @@ const onRegisterClick = async () => {
   gap: 6px;
   width: 100%;
   font-size: 14px;
+  padding: 4px 0;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }

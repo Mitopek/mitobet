@@ -8,6 +8,9 @@
       <FormItem title="Mail:" :error="validateErrors.mail">
         <InputComponent type="text" v-model="mail" @change="onMailInput" iconClass="fa-solid fa-user"/>
       </FormItem>
+      <div class="error" v-if="error">
+        {{error}}
+      </div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')" type="secondary">
           Wróć do strony głownej
@@ -39,6 +42,7 @@ const mail = $ref<string>('')
 const validateErrors = $ref({
   mail: '',
 })
+let error = $ref('')
 const {forgotPassword} = $(useAuth())
 let isLoading = $ref(false)
 
@@ -67,16 +71,16 @@ const validateMail = () => {
 
 const onSubmit = async () => {
   if(!mail) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   if(Object.values(validateErrors).some(value => value)) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   isLoading = true
   const response = await forgotPassword(mail)
   if(!response.success && response?.errors) {
     isLoading = false
-    return alert(response.errors[0])
+    return error = response.errors[0]
   }
   isLoading = false
   emit('submit')
@@ -89,6 +93,12 @@ const onSubmit = async () => {
     text-align: center;
     font-size: 32px;
     font-weight: 700;
+  }
+  .error{
+    color: #c7c412;
+    font-size: 13px;
+    text-align: center;
+    padding: 4px 0;
   }
   .description{
     font-size: 14px;

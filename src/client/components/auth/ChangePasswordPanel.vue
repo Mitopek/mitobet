@@ -8,11 +8,14 @@
         <InputComponent type="password" v-model="oldPassword" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <FormItem title="Hasło:" :error="validateErrors.password">
-        <InputComponent type="password" v-model="password" @change="onPasswordInput" iconClass="fa-solid fa-lock"/>
+        <InputComponent type="password" v-model="password" @input="onPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <FormItem title="Powtórz hasło:" :error="validateErrors.repeatedPassword">
-        <InputComponent type="password" v-model="repeatedPassword" @change="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
+        <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
+      <div class="error" v-if="error">
+        {{error}}
+      </div>
       <div class="actions-buttons">
         <ButtonComponent @click="onSubmit">
           Zmień hasło
@@ -33,7 +36,7 @@ import {useRouter} from "vue-router";
 const {changePassword} = $(useAuth())
 
 const router = useRouter()
-
+let error = $ref('')
 const oldPassword = $ref<string>('')
 const password = $ref<string>('')
 const repeatedPassword = $ref<string>('')
@@ -88,21 +91,28 @@ const validateRepeatedPassword = () => {
 
 const onSubmit = async () => {
   if(!oldPassword || !password || !repeatedPassword) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   if(Object.values(validateErrors).some(value => value)) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   const response = await changePassword(oldPassword, password)
   if(!response.success && response?.errors) {
-    return alert(response.errors[0])
+    return error = response.errors[0]
   }
   isSuccess = true
 }
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../../variables.scss' as variables;
+.error{
+  color: #c7c412;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 0;
+}
   .header-wrapper {
     width: 100%;
     text-align: center;
@@ -132,6 +142,6 @@ const onSubmit = async () => {
   .success-wrapper{
     width: 100%;
     text-align: center;
-    color: #038f03;
+    color: map-get(variables.$colors, primary);
   }
 </style>

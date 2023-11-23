@@ -1,9 +1,16 @@
 <template>
   <div class="prices-content">
-    <h2>Subskrypcja</h2>
-    <div class="text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </div>
+    <h1>Subskrypcja</h1>
+
+    Nabywając subskrypcję, zyskujesz pełen dostęp do naszych najnowszych typów dotyczących bieżących wydarzeń sportowych. Nasze przewidywania są podzielone na kategorie, oparte na kursach zdarzeń oferowanych przez najpopularniejszych bukmacherów:
+    <br/>
+    <ul>
+      <li><b>Na podwojenie</b>: To propozycje kuponów z kursem oscylującym między 2.0 a 2.3.</li>
+
+      <li><b>Średni kurs</b>: Obejmuje typy o łącznym kursie do 10.0, pozwalając na różnorodność zakładów o umiarkowanej stawce.</li>
+
+      <li><b>Większy kurs</b>: Ten rodzaj obejmuje typy o kursie przekraczającym 10, oferując możliwość uzyskania większych wygranych przy wyższym ryzyku.</li>
+    </ul>
     <div class="subscriptions-container">
         <SubcriptionItemFactory
             v-for="subscription in subscriptionItems"
@@ -32,6 +39,11 @@ const emit = defineEmits<Emits>()
 </script>
 
 <style scoped>
+h1{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .prices-content{
   margin-top: 20px;
   text-align: left;
@@ -42,18 +54,20 @@ const emit = defineEmits<Emits>()
 }
 
 .subscriptions-container{
-  margin-top: 10px;
+  padding-top: 20px;
   gap: 20px;
   display: flex;
   align-items: center;
   align-content: baseline;
   justify-content: center;
+  line-height: 150%;
+  word-spacing: 0;
 }
 
 @media (max-width: 1050px) {
   .subscriptions-container{
     flex-direction: column;
-    padding: 20px 0;
+    padding: 40px 0;
   }
 }
 </style>

@@ -22,13 +22,16 @@
         <InputComponent type="password" v-model="password" @keydown.enter="onLoginClick" iconClass="fa-solid fa-lock"/>
       </FormItem>
       <div class="bottom-panel">
-        <div class="checkbox-wrapper"><CheckboxComponent :value="true"/> <span class="text">Zapamiętaj mnie</span></div>
+        <div class="checkbox-wrapper"><CheckboxComponent :value="false"/> <span class="text">Zapamiętaj mnie</span></div>
         <div class="forget-text-wrapper">
           <span class="register-text" @click="onPasswordForgotClick">Nie pamietasz hasla?</span>
         </div>
       </div>
+      <div class="error" v-if="error">
+        {{error}}
+      </div>
       <div class="actions-buttons">
-        <ButtonComponent @click="onLoginClick" :is-loading="isLoading" class="">
+        <ButtonComponent @click="onLoginClick" :is-loading="isLoading">
           Zaloguj się
         </ButtonComponent>
         <div class="register-text-wrapper"><span class="text">Nie masz konta?</span>
@@ -59,6 +62,7 @@ const route = useRoute()
 const mail = $ref<string>('')
 const password = $ref<string>('')
 let isLoading = $ref<boolean>(false)
+let error = $ref('')
 const onRegisterClick = () => {
   router.push({path: '/register'})
 }
@@ -68,11 +72,14 @@ const onPasswordForgotClick = () => {
 }
 
 const onLoginClick = async () => {
+  if(!mail || !password) {
+    return error = 'Wypełnij wszystkie pola.'
+  }
   isLoading = true
   const response = await login(mail, password)
   if(!response.success && response?.errors) {
     isLoading = false
-    return alert(response.errors[0])
+    return error = response.errors[0]
   }
   await router.push({name: RouterName.Coupons})
 }
@@ -131,16 +138,18 @@ onMounted(async () => {
   if(code && state) {
     isLoading = true
     const response = await loginByGoogle(code as string)
+    isLoading = false
     if(!response.success && response?.errors) {
-      return alert(response.errors[0])
+      return error = response.errors[0]
     }
     await router.push({name: RouterName.Coupons})
   }
   else if(code) {
     isLoading = true
     const response = await loginByFacebook(code as string)
+    isLoading = false
     if(!response.success && response?.errors) {
-      return alert(response.errors[0])
+      return error = response.errors[0]
     }
     await router.push({name: RouterName.Coupons})
   }
@@ -150,6 +159,13 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @use '../../variables.scss' as variables;
+
+.error{
+  color: #c7c412;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 0;
+}
 
 .separator{
   display: flex;

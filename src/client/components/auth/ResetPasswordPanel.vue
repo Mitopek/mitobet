@@ -8,6 +8,9 @@
       <FormItem title="Powtórz hasło:" :error="validateErrors.repeatedPassword">
         <InputComponent type="password" v-model="repeatedPassword" @input="onRepeatedPasswordInput" iconClass="fa-solid fa-lock"/>
       </FormItem>
+      <div class="error" v-if="error">
+        {{error}}
+      </div>
       <div class="actions-buttons">
         <ButtonComponent @click="onSubmit" :isLoading="isLoading">
           Zresetuj hasło
@@ -43,6 +46,7 @@ const validateErrors = $ref({
 })
 let isLoading = $ref(false)
 let secret = $ref('')
+let error = $ref('')
 
 onMounted(async () => {
   secret = route.params.secret as string
@@ -91,16 +95,16 @@ const validateRepeatedPassword = () => {
 
 const onSubmit = async () => {
   if(!password || !repeatedPassword) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   if(Object.values(validateErrors).some(value => value)) {
-    return alert('Wypełnij poprawnie wymagane pola.')
+    return error = 'Wypełnij poprawnie wymagane pola.'
   }
   isLoading = true
   const response = await resetPassword(secret, password)
   if(!response.success && response?.errors) {
     isLoading = false
-    return alert(response.errors[0])
+    return error = response.errors[0]
   }
   isLoading = false
   emit('submit')
@@ -113,6 +117,12 @@ const onSubmit = async () => {
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 10px;
+}
+.error{
+  color: #c7c412;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 0;
 }
   .title {
     text-align: center;

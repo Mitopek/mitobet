@@ -27,6 +27,7 @@ export class AuthService implements IAuthService {
   generateToken(user: IUserEntity): string {
     return jwt.sign({
       userId: user.id,
+      type: user.loginType,
       hasAcceptedRegulations: !!user.acceptedRegulationsDate,
       hasAcceptedPrivatePolicy: !!user.acceptedPrivatePolicyDate,
       isAdmin: user.isAdmin,
@@ -66,6 +67,9 @@ export class AuthService implements IAuthService {
 
   async changePassword(userId: string, oldPassword: string, password: string): Promise<void> {
     const user = await this.userRepository.findUserById(userId)
+    if(!user || user.loginType !== LoginType.LOCAL) {
+      throw new Error('Nie jesteś lokalnym użytkownikiem.')
+    }
     const isPasswordValid = await this.passwordService.comparePassword(oldPassword, user.password)
     if(!isPasswordValid) {
       throw new Error('Nieprawidłowe dane logowania.')

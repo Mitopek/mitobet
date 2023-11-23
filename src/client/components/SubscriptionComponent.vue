@@ -64,7 +64,7 @@ const emit = defineEmits<Emits>()
     width: 100%;
     box-sizing: border-box;
     justify-content: center;
-    padding: 10px;
+    padding: 16px;
     border-radius: 1.6rem;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;

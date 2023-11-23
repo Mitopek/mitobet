@@ -67,6 +67,7 @@ a{
   align-items: flex-start;
   display: flex;
   gap: 6px;
+  padding: 4px 0;
   width: 100%;
   font-size: 14px;
   overflow-wrap: break-word;
