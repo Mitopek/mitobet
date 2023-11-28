@@ -9,6 +9,7 @@
             <i class="fa-solid fa-times fa-2x" @click="isMenuToggled=!isMenuToggled"/>
           </div>
           <div :class="['navigation-item', {'is-active': router.currentRoute.value.name === route.name}]" v-for="route in routes" @click="router.push(route.path)">
+            <i :class="route.iconClass"></i>
             <span>{{route.title}}</span>
           </div>
         </div>
@@ -23,25 +24,29 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
-import {$computed, $ref} from "vue/macros";
+import {$ref} from "vue/macros";
 import {RouterName} from "../enum/RouterName.js";
+
 const router = useRouter()
 const routes = [
    {
      path: '/',
      title: 'Strona głowna',
      name: RouterName.Home,
+     iconClass: 'fa-solid fa-house'
    },
    {
      path: '/register',
      title: 'Rejestracja',
      name: RouterName.Register,
+     iconClass: 'fa-solid fa-key'
 
    },
    {
-     path: '/',
+     path: '/question',
      title: 'Zadaj pytanie',
-      name: null,
+     iconClass: 'fa-solid fa-message',
+     name: RouterName.Question,
    },
  ]
 
@@ -148,7 +153,7 @@ const isMenuToggled = $ref(false)
 
 .navigation-item{
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
   cursor: pointer;
   padding: 12px 0;

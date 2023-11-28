@@ -17,6 +17,7 @@ export const InterfaceTypes = {
     CouponController: Symbol.for('CouponController'),
     AIController: Symbol.for('AIController'),
     SportController: Symbol.for('SportController'),
+    MessageController: Symbol.for('MessageController'),
     CountryController: Symbol.for('CountryController'),
     VerificationController: Symbol.for('VerificationController'),
     LeagueController: Symbol.for('LeagueController'),

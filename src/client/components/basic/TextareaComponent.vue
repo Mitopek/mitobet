@@ -1,17 +1,19 @@
 <template>
-  <textarea :value="props.modelValue" @input="emit('update:modelValue', $event.target.value)" :rows="props.rows"/>
+  <textarea :value="props.modelValue" @input="emit('update:modelValue', $event.target.value)" :rows="props.rows" :placeholder="props.placeholder"/>
 </template>
 
 <script setup lang="ts">
 interface IProps {
   modelValue: unknown,
   rows?: number
+  placeholder?: string
 }
 interface IEmits {
   (e: 'update:modelValue', value: unknown): void
 }
 const props = withDefaults(defineProps<IProps>(), {
-  rows: 5
+  rows: 5,
+  placeholder: ''
 })
 const emit = defineEmits<IEmits>()
 </script>

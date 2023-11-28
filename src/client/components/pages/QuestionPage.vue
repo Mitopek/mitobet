@@ -8,7 +8,7 @@
             v-if="!isFinished"
         >
           <ModalComponent>
-            <ForgotPasswordPanel @submit="isFinished=true"/>
+            <QuestionPanel @submit="isFinished=true"/>
           </ModalComponent>
         </Transition>
         <Transition
@@ -17,7 +17,7 @@
             v-else
         >
           <ModalComponent>
-            <ForgotPasswordMessage/>
+            <QuestionMessage/>
           </ModalComponent>
         </Transition>
       </div>
@@ -31,6 +31,8 @@ import ModalComponent from "../basic/ModalComponent.vue";
 import ForgotPasswordPanel from "../auth/ForgotPasswordPanel.vue";
 import {$ref} from "vue/macros";
 import ForgotPasswordMessage from "../auth/ForgotPasswordMessage.vue";
+import QuestionPanel from "../basic/QuestionPanel.vue";
+import QuestionMessage from "../basic/QuestionMessage.vue";
 
 const isFinished = $ref(false)
 </script>

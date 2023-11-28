@@ -8,38 +8,29 @@ import {IDiscordService} from "../services/DiscordService/types/IDiscordService.
 import {DiscordMessageType} from "../services/DiscordService/enum/DiscordMessageType.js";
 
 export default async function executeOnStartupTasks(container: Container) {
-  const syncFootyStatsToDatabaseService = container.get<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService)
-  const discordService = container.get<IDiscordService>(InterfaceTypes.services.DiscordService)
-  await discordService.createInteraction()
-  if(process.env.NODE_ENV !== 'development') {
-    new CronJob(
-    '0 6,12,18,0 * * *',
-      async function() {
-        await discordService.sendMessage(DiscordMessageType.DAY_SUMMARY, null)
-      },
-      null,
-      null,
-      'Europe/Warsaw'
-    )
-    new CronJob(
-      '*/10 * * * *',
-      async function() {
-        await discordService.sendMessage(DiscordMessageType.COUPONS_ERROR, null, true)
-      },
-      null,
-      null,
-      'Europe/Warsaw'
-    )
-  }
-  // new CronJob(
-  //   '*/3 * * * *',
-  //   async function() {
-  //     await discordService.sendMessage(DiscordMessageType.DAY_SUMMARY, null)
-  //   },
-  //   null,
-  //   null,
-  //   'Europe/Warsaw'
-  // )
+  // const syncFootyStatsToDatabaseService = container.get<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService)
+  // const discordService = container.get<IDiscordService>(InterfaceTypes.services.DiscordService)
+  // // await discordService.createInteraction()
+  // if(process.env.NODE_ENV !== 'development') {
+  //   new CronJob(
+  //   '0 6,12,18,0 * * *',
+  //     async function() {
+  //       await discordService.sendMessage(DiscordMessageType.DAY_SUMMARY, null)
+  //     },
+  //     null,
+  //     null,
+  //     'Europe/Warsaw'
+  //   )
+  //   new CronJob(
+  //     '*/10 * * * *',
+  //     async function() {
+  //       await discordService.sendMessage(DiscordMessageType.COUPONS_ERROR, null, true)
+  //     },
+  //     null,
+  //     null,
+  //     'Europe/Warsaw'
+  //   )
+  // }
 
 }
 

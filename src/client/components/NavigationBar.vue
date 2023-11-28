@@ -28,7 +28,7 @@ const routes = [
      iconClass: 'fa-solid fa-key'
    },
    {
-     path: '/',
+     path: '/question',
      title: 'Zadaj pytanie',
      iconClass: 'fa-solid fa-message'
    },
@@ -85,7 +85,7 @@ const routes = [
 
 .navigation-item{
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
   cursor: pointer;
   padding: 4px 8px;

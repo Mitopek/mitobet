@@ -11,5 +11,6 @@ export enum RouterName {
   Subscription = 'subscription',
   Events = 'events',
   PrivatePolicy = 'private-policy',
+  Question = 'question',
   Regulations = 'regulations',
 }

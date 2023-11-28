@@ -41,6 +41,11 @@ const routes = [
     component: () => import('../components/pages/ResetPasswordPage.vue'),
   },
   {
+    path: '/question',
+    name: RouterName.Question,
+    component: () => import('../components/pages/QuestionPage.vue'),
+  },
+  {
     path: '/verify/:secret',
     name: RouterName.VerifyUser,
     component: () => import('../components/pages/UserVerificationPage.vue'),

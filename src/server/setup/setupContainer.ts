@@ -67,6 +67,8 @@ import {DiscordMessageType} from "../services/DiscordService/enum/DiscordMessage
 import {
   DiscordCouponsAlertMessageStrategy
 } from "../services/DiscordService/strategies/DiscordCouponsAlertMessageStrategy.js";
+import {IMessageController} from "../controllers/MessageController/types/IMessageController.js";
+import {MessageController} from "../controllers/MessageController/MessageController.js";
 
 
 export default async function setupContainer() {
@@ -82,6 +84,7 @@ export default async function setupContainer() {
   container.bind<ICouponController>(InterfaceTypes.controllers.CouponController).to(CouponController)
   container.bind<IAIController>(InterfaceTypes.controllers.AIController).to(AIController)
   container.bind<ISportController>(InterfaceTypes.controllers.SportController).to(SportController)
+  container.bind<IMessageController>(InterfaceTypes.controllers.MessageController).to(MessageController)
   container.bind<ICountryController>(InterfaceTypes.controllers.CountryController).to(CountryController)
   container.bind<IFixtureController>(InterfaceTypes.controllers.FixtureController).to(FixtureController)
   container.bind<IVerificationController>(InterfaceTypes.controllers.VerificationController).to(VerificationController)

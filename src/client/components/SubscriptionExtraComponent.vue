@@ -4,7 +4,7 @@
       {{props.title}}
     </div>
     <div class="extra-time" v-if="bonus">
-      {{ bonus }}
+      {{ bonus }} <span class="santa-wrapper">🎅</span>
     </div>
     <div class="price">
       {{props.pricePerMonth}} zł
@@ -78,7 +78,8 @@ ul {
 
 .extra-time{
   border-radius: 15px;
-  background-color: map-get(variables.$colors, primaryDarknest);
+  background-color: #353535;
+  color:  map-get(variables.$colors, primary);
   padding: 5px 15px;
   justify-self: center;
   align-self: flex-end;
@@ -103,6 +104,10 @@ ul {
   &:hover {
     transform: scale(1.05);
   }
+}
+
+.santa-wrapper{
+  font-size: 20px;
 }
 
 .descriptions-container{

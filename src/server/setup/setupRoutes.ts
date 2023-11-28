@@ -16,6 +16,7 @@ import {ICountryController} from "../controllers/CountryController/types/ICountr
 import {IFixtureController} from "../controllers/FixtureController/types/IFixtureController.js";
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
 import {IConsentsMiddleware} from "../middlewares/ConsentsMiddleware/types/IConsentsMiddleware.js";
+import {IMessageController} from "../controllers/MessageController/types/IMessageController.js";
 
 export default function setupRoutes(apiRouter: Router, container: Container) {
   //TODO DEV ONLY
@@ -58,6 +59,9 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   apiRouter.get('/coupons', couponController.getCoupons.bind(couponController))
   apiRouter.post('/coupon', couponController.createCoupon.bind(couponController))
   apiRouter.delete('/coupon/:couponId', couponController.deleteCoupon.bind(couponController))
+
+  const messageController = container.get<IMessageController>(InterfaceTypes.controllers.MessageController)
+  apiRouter.post('/question', messageController.sendQuestion.bind(messageController))
 
   const verificationController = container.get<IVerificationController>(InterfaceTypes.controllers.VerificationController)
   apiRouter.post('/verification/fulfill', verificationController.fulfillVerification.bind(verificationController))

@@ -14,11 +14,13 @@ import {
   TextChannel
 } from 'discord.js'
 import {IDiscordMessagePayloadMap} from "./types/IDiscordMessagePayloadMap.js";
+import {IMailService} from "../MailService/types/IMailService.js";
 
 @injectable()
 export class DiscordService implements IDiscordService {
   client: Client
   constructor(
+    @inject(InterfaceTypes.services.MailService) private mailService: IMailService,
     @inject(InterfaceTypes.factories.DiscordMessageStrategyFactory) private discordMessageStrategyFactory: (type: DiscordMessageType) => IDiscordMessageStrategy,
   ) {
     this.client = new Client({ intents: [
@@ -35,7 +37,6 @@ export class DiscordService implements IDiscordService {
     const url = isAlert ? process.env.DISCORD_ALERT_WEBHOOK_URL : process.env.DISCORD_WEBHOOK_URL
     const strategy = this.discordMessageStrategyFactory(type)
     const message = await strategy.getContent()
-    // console.info()
     if(!message) {
       return
     }
@@ -46,7 +47,7 @@ export class DiscordService implements IDiscordService {
     }
   }
 
-  public async createInteraction(): Promise<void> {
+  public async createQuestionInteraction(mail: string, question: string): Promise<void> {
     await this.client.login(process.env.DISCORD_BOT_TOKEN);
     const channelId = process.env.DISCORD_MESSAGE_CHANNEL_ID;
 
@@ -64,27 +65,24 @@ export class DiscordService implements IDiscordService {
       .addComponents(confirm);
 
     await channel.send({
-      content: `**mxsdcsdsd@elo.pl ** s shjd hjsdhj jshdhjsjh hjdsjh djhsjhdj hjsjhd hjsjdhj s`,
+      content: `**${mail} ** ${question}}`,
       components: [row],
     });
-
+    let currentUserReply: string = '';
     this.client.on('interactionCreate', async (interaction) => {
       if (!interaction.isButton()) return;
       if (interaction.customId === 'reply') {
         await interaction.reply({
           content: 'Wpisz odpowiedź:',
-          components: [], // Usuń przycisk "Odpowiedz" z poprzedniej wiadomości
+          components: [],
         });
 
         const filter = (response: any) => response.author.id === interaction.user.id;
         const collector = channel.createMessageCollector({ filter, time: 60000 });
-
         collector.on('collect', async (response) => {
-          // Zapisz odpowiedź i zakończ kolekcję
-          const userReply = response.content;
+          currentUserReply = response.content;
           collector.stop();
 
-          // Dodaj przyciski "Wyślij" i "Anuluj" do nowej wiadomości
           const confirmButton = new ButtonBuilder()
             .setCustomId('send')
             .setLabel('Wyślij')
@@ -99,19 +97,28 @@ export class DiscordService implements IDiscordService {
             .addComponents(confirmButton, cancelButton);
 
           await channel.send({
-            content: `Odpowiedź: ${userReply}`,
+            content: `Odpowiedź: ${currentUserReply}`,
             components: [row],
           });
         });
       } else if (interaction.customId === 'send') {
+        try {
+          await this.mailService.sendMail(mail, 'Odpowiedź na pytanie' ,currentUserReply)
+        } catch (e) {
+          console.error(e)
+          await interaction.reply({
+            content: 'Błąd wysyłania wiadomości.',
+            components: [],
+          });
+        }
         await interaction.reply({
           content: 'Wysłano odpowiedź.',
-          components: [], // Usuń przyciski "Wyślij" i "Anuluj" z poprzedniej wiadomości
+          components: [],
         });
       } else if (interaction.customId === 'cancel') {
         await interaction.reply({
           content: 'Anulowano.',
-          components: [], // Usuń przyciski "Wyślij" i "Anuluj" z poprzedniej wiadomości
+          components: [],
         });
       }
     });

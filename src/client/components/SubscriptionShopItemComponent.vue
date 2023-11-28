@@ -23,7 +23,7 @@
       </ButtonComponent>
     </div>
     <div class="bonus" v-if="bonus">
-      {{props.bonus}}
+      {{props.bonus}} <span class="santa-wrapper">🎅</span>
     </div>
   </div>
 </template>
@@ -57,6 +57,10 @@ const emit = defineEmits<Emits>()
     font-size: 1.8rem;
   }
 
+.santa-wrapper{
+  font-size: 20px;
+}
+
   .duration {
     font-weight: 500;
     font-size: 2.2rem;
@@ -64,12 +68,16 @@ const emit = defineEmits<Emits>()
 
   .bonus{
     border-radius: 15px;
-    background-color: map-get(variables.$colors, primaryDarknest);
+    background: #454545;
+    color: map-get(variables.$colors, primary);
     align-self: center;
     padding: 4px 12px;
     justify-self: center;
     position: absolute;
     top: -16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     right: -12px;
   }
 
