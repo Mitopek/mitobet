@@ -1,6 +1,6 @@
 export interface IEntity {
   id: string,
-  createdAt: Date,
-  updatedAt: Date | null,
-  deletedAt: Date | null,
+  createdAt?: Date,
+  updatedAt?: Date | null,
+  deletedAt?: Date | null,
 }

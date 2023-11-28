@@ -45,6 +45,6 @@ const expiresTime = $computed(() => {
 }
 
 .text-no-subscription{
-  color: #d34747;;
+  opacity: 0.4;
 }
 </style>

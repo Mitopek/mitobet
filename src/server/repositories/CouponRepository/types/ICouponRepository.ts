@@ -7,4 +7,5 @@ export interface ICouponRepository {
   createCoupon(coupon: ICreateCouponProperties): Promise<ICouponEntity>
   findFutureCoupons(): Promise<ICouponEntity[]>
   deleteCouponById(couponId: ICouponEntity['id']): Promise<void>
+  findCouponsByDateRange(from: Date, to: Date): Promise<ICouponEntity[]>
 }

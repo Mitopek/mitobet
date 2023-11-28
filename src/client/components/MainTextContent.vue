@@ -32,6 +32,8 @@
 
 h1{
   text-align: left;
+  font-family: Agbalumo, serif;
+  font-size: 3rem;
 }
 
 .text{

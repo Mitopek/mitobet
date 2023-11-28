@@ -8,4 +8,5 @@ export interface IUserRepository {
   findUserByMailAndLoginType(mail: IUserEntity['mail'], loginType: LoginType): Promise<IUserEntity>
   findUserById(id: IUserEntity['id']): Promise<IUserEntity>
   updateUserById(id: IUserEntity['id'], user: Partial<IUserEntity>): Promise<void>
+  findUsersByDateRange(from: Date, to: Date): Promise<IUserEntity[]>
 }

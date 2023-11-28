@@ -14,16 +14,14 @@
             <div class="options">
               <PanelOptions @logout="onLogout"/>
             </div>
-            <div class="bottom-panel">
-              <div class="logo-container">
-                <img src="/logo-big.png" alt="logo" class="logo"/>
-              </div>
-            </div>
           </div>
           <div class="content-wrapper">
             <RouterView v-slot="{Component}">
               <Component :is="Component"/>
             </RouterView>
+            <div class="background-image">
+              <div class="background"/>
+            </div>
           </div>
         </div>
       </div>
@@ -93,8 +91,29 @@ const onConsentsAccept = async () => {
   padding: 40px;
   box-sizing: border-box;
   justify-content: center;
-  background: map-get(variables.$colors, surfaceLow);
+  position: relative;
+  background: rgb(43 43 43 / 90%);
 }
+
+.background-image{
+  background-image: url('/phoneblack.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+//
+//.background{
+//  background: map-get(variables.$colors, surfaceLow);
+//  opacity: 0.95;
+//  width: 100%;
+//  height: 100%;
+//}
 
 .main-container{
   height: 100%;
@@ -128,10 +147,13 @@ const onConsentsAccept = async () => {
 }
 
 .info-wrapper{
-  padding: 15px 0 0 15px;
+  padding-left: 28px;
+  height: 100px;
   display: flex;
   flex-flow: column;
+  justify-content: center;
   gap: 5px;
+  background: map-get(variables.$colors, surfaceMediumHigh);
 }
 
 .small-navigation-bar-wrapper{
@@ -145,7 +167,7 @@ const onConsentsAccept = async () => {
 }
 
 .options{
-  padding: 4px;
+  padding: 20px;
 }
 
 .left-panel{
@@ -164,30 +186,6 @@ const onConsentsAccept = async () => {
   display: grid;
   grid-template-columns: 300px 1fr;
   width: 100%;
-}
-
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-height: 160px;
-  padding: 12px 0 20px 0;
-  background: map-get(variables.$colors, surfaceMediumHigh);
-}
-.logo {
-  height: 100px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px #0000009e;
-  margin-top: 10px;
-}
-
-.bottom-panel{
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 100%;
-  flex: 1;
 }
 
 @media (max-width: 850px) {

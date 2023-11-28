@@ -18,7 +18,7 @@ export class AuthService implements IAuthService {
     @inject(InterfaceTypes.services.MailService) private mailService: IMailService,
     @inject(InterfaceTypes.services.PasswordService) private passwordService: IPasswordService,
     @inject(InterfaceTypes.repositories.UserRepository) private userRepository: IUserRepository,
-    @inject(InterfaceTypes.factories.ILoginStrategyFactory) private loginStrategyFactory: (type: LoginType) => ILoginStrategy,
+    @inject(InterfaceTypes.factories.LoginStrategyFactory) private loginStrategyFactory: (type: LoginType) => ILoginStrategy,
     @inject(InterfaceTypes.services.VerificationService) private verificationService: IVerificationService,
     @inject(InterfaceTypes.repositories.VerificationRepository) private verificationRepository: IVerificationRepository,
   ) {

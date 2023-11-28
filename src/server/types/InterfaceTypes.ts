@@ -37,16 +37,19 @@ export const InterfaceTypes = {
     FootyStatsApiService: Symbol.for('FootyStatsApiService'),
     SyncFootyStatsToDatabaseService: Symbol.for('SyncFootyStatsToDatabaseService'),
     VerificationService: Symbol.for('VerificationService'),
+    DiscordService: Symbol.for('DiscordService'),
   },
   adapters: {
     FootyStatsApiAdapter: Symbol.for('FootyStatsApiAdapter'),
     MatchAdapter: Symbol.for('MatchAdapter'),
   },
   strategies: {
-    ILoginStrategy: Symbol.for('ILoginStrategy'),
+    LoginStrategy: Symbol.for('ILoginStrategy'),
+    DiscordMessageStrategy: Symbol.for('IDiscordMessageStrategy'),
   },
   factories: {
-    ILoginStrategyFactory: Symbol.for('ILoginStrategyFactory'),
+    LoginStrategyFactory: Symbol.for('ILoginStrategyFactory'),
+    DiscordMessageStrategyFactory: Symbol.for('IDiscordMessageStrategyFactory'),
   },
   databases: {
     Mongoose: Symbol.for('Mongoose'),

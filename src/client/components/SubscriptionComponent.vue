@@ -3,6 +3,7 @@
     <div class="duration">
       {{props.title}}
     </div>
+    <div/>
     <div class="price">
       {{props.pricePerMonth}} zł
     </div>
@@ -14,11 +15,13 @@
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
       </ButtonComponent>
     </div>
+    <div class="descriptions-container">
       <ul>
         <li v-for="description in props.descriptions">
           {{description}}
         </li>
       </ul>
+    </div>
   </div>
 </template>
 
@@ -48,14 +51,23 @@ ul{
 }
   .price{
     word-spacing: -4px;
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
-  .duration {
-    font-weight: 500;
-    font-size: 2.2rem;
-    align-self: center;
-  }
+.duration {
+  font-size: 2rem;
+  height: 100%;
+  background: #353535;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.price-description{
+  align-self: flex-start;
+}
+
+
 
   .button-wrapper{
     display: flex;
@@ -64,18 +76,34 @@ ul{
 
   .vip-price-component{
     text-align: center;
-    grid-template-rows: 75px 30px 40px 50px auto;
+    grid-template-rows: 3fr 2fr 2fr 1fr 4fr 4fr;
     display: grid;
     height: 300px;
     max-width: 300px;
     width: 100%;
     box-sizing: border-box;
-    justify-content: center;
-    padding: 16px;
+    overflow: hidden;
+    align-items: center;
     border-radius: 1.6rem;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;
     background-color:  map-get(variables.$colors, surfaceLowest);
     outline-offset: -2px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
+
+.descriptions-container{
+  width: 100%;
+  border-top: 1px solid #514d4d;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+li{
+  padding-right: 20px;
+}
 </style>

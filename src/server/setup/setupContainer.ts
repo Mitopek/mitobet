@@ -57,6 +57,16 @@ import {VerificationController} from "../controllers/VerificationController/Veri
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
 import {IConsentsMiddleware} from "../middlewares/ConsentsMiddleware/types/IConsentsMiddleware.js";
 import {ConsentsMiddleware} from "../middlewares/ConsentsMiddleware/ConsentsMiddleware.js";
+import {DiscordService} from "../services/DiscordService/DiscordService.js";
+import {IDiscordService} from "../services/DiscordService/types/IDiscordService.js";
+import {IDiscordMessageStrategy} from "../services/DiscordService/types/IDiscordMessageStrategy.js";
+import {
+  DiscordDaySummaryMessageStrategy
+} from "../services/DiscordService/strategies/DiscordDaySummaryMessageStrategy.js";
+import {DiscordMessageType} from "../services/DiscordService/enum/DiscordMessageType.js";
+import {
+  DiscordCouponsAlertMessageStrategy
+} from "../services/DiscordService/strategies/DiscordCouponsAlertMessageStrategy.js";
 
 
 export default async function setupContainer() {
@@ -87,6 +97,7 @@ export default async function setupContainer() {
   //SERVICES
   container.bind<IAuthService>(InterfaceTypes.services.AuthService).to(AuthService)
   container.bind<IPasswordService>(InterfaceTypes.services.PasswordService).to(PasswordService)
+  container.bind<IDiscordService>(InterfaceTypes.services.DiscordService).to(DiscordService)
   container.bind<IMailService>(InterfaceTypes.services.MailService).to(MailService)
   container.bind<IVerificationService>(InterfaceTypes.services.VerificationService).to(VerificationService)
   container.bind<IFootyStatsApiService>(InterfaceTypes.services.FootyStatsApiService).to(FootyStatsApiService)
@@ -97,15 +108,25 @@ export default async function setupContainer() {
   container.bind<IMatchAdapter>(InterfaceTypes.adapters.MatchAdapter).to(MatchAdapter)
 
   //STRATEGIES
-  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(LocalLoginStrategy).whenTargetNamed(LoginType.LOCAL)
-  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(FacebookLoginStrategy).whenTargetNamed(LoginType.FACEBOOK)
-  container.bind<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy).to(GoogleLoginStrategy).whenTargetNamed(LoginType.GOOGLE)
-
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.LoginStrategy).to(LocalLoginStrategy).whenTargetNamed(LoginType.LOCAL)
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.LoginStrategy).to(FacebookLoginStrategy).whenTargetNamed(LoginType.FACEBOOK)
+  container.bind<ILoginStrategy>(InterfaceTypes.strategies.LoginStrategy).to(GoogleLoginStrategy).whenTargetNamed(LoginType.GOOGLE)
+  container.bind<IDiscordMessageStrategy>(InterfaceTypes.strategies.DiscordMessageStrategy).to(DiscordDaySummaryMessageStrategy).whenTargetNamed(DiscordMessageType.DAY_SUMMARY)
+  container.bind<IDiscordMessageStrategy>(InterfaceTypes.strategies.DiscordMessageStrategy).to(DiscordCouponsAlertMessageStrategy).whenTargetNamed(DiscordMessageType.COUPONS_ERROR)
   //FACTORIES
-  container.bind<interfaces.Factory<ILoginStrategy>>(InterfaceTypes.factories.ILoginStrategyFactory).toFactory<ILoginStrategy>((context) => {
+  container.bind<interfaces.Factory<ILoginStrategy>>(InterfaceTypes.factories.LoginStrategyFactory).toFactory<ILoginStrategy>((context) => {
     return (type: LoginType) => {
-      if(context.container.isBoundNamed(InterfaceTypes.strategies.ILoginStrategy, type)) {
-        return context.container.getNamed<ILoginStrategy>(InterfaceTypes.strategies.ILoginStrategy, type)
+      if(context.container.isBoundNamed(InterfaceTypes.strategies.LoginStrategy, type)) {
+        return context.container.getNamed<ILoginStrategy>(InterfaceTypes.strategies.LoginStrategy, type)
+      }
+      return null
+    }
+  })
+
+  container.bind<interfaces.Factory<IDiscordMessageStrategy>>(InterfaceTypes.factories.DiscordMessageStrategyFactory).toFactory<IDiscordMessageStrategy>((context) => {
+    return (type: LoginType) => {
+      if(context.container.isBoundNamed(InterfaceTypes.strategies.DiscordMessageStrategy, type)) {
+        return context.container.getNamed<IDiscordMessageStrategy>(InterfaceTypes.strategies.DiscordMessageStrategy, type)
       }
       return null
     }

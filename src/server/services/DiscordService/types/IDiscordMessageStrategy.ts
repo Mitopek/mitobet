@@ -1,3 +1,3 @@
-// export interface IDiscordMessageStrategy {
-//   send(): Promise<void>
-// }
+export interface IDiscordMessageStrategy {
+  getContent(): Promise<any>
+}

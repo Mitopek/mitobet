@@ -37,6 +37,15 @@ export class UserRepository implements IUserRepository{
     })
   }
 
+  async findUsersByDateRange(from: Date, to: Date): Promise<IUserEntity[]> {
+    return this.userModel.find({
+      createdAt: {
+        $gte: from,
+        $lte: to,
+      },
+    })
+  }
+
   async updateUserById(id: IUserEntity['id'], user: Partial<IUserEntity>): Promise<void> {
     await this.userModel.updateOne({
       _id: id,

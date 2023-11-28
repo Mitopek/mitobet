@@ -32,5 +32,7 @@ export const UserSchema = new Schema<IUserEntity>({
   acceptedPrivatePolicyDate: {
     type: Schema.Types.Date,
     required: false,
-  }
+  },
+}, {
+  timestamps: true,
 })

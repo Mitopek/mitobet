@@ -17,4 +17,6 @@ export const VerificationSchema = new Schema<IVerificationEntity>({
     type: Schema.Types.Date,
     required: false,
   },
+}, {
+  timestamps: true,
 })

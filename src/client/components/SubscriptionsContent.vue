@@ -40,8 +40,10 @@ const emit = defineEmits<Emits>()
 
 <style scoped>
 h1{
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: left;
+  margin: 20px 0 24px 0;
+  font-family: Agbalumo, serif;
+  font-size: 3rem;
 }
 
 .prices-content{

@@ -30,4 +30,13 @@ export class CouponRepository implements ICouponRepository{
       }
     });
   }
+
+  async findCouponsByDateRange(from: Date, to: Date): Promise<ICouponEntity[]> {
+    return this.couponModel.find({
+      createdAt: {
+        $gte: from,
+        $lte: to,
+      },
+    })
+  }
 }
