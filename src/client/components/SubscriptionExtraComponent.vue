@@ -12,6 +12,9 @@
     <div class="price-description">
       za miesiąc
     </div>
+    <div class="full-price">
+      (razem {{props.price}} zł)
+    </div>
     <div class="button-wrapper">
       <ButtonComponent @click="emit('click')">
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
@@ -35,6 +38,7 @@ interface IProps{
   pricePerMonth: number,
   descriptions: string[]
   bonus?: string
+  price: number
 }
 const props = withDefaults(defineProps<IProps>(), {
   bonus: null
@@ -97,13 +101,19 @@ ul {
   border-radius: 1.6rem;
   box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  grid-template-rows: 2.5fr 2fr 2fr 2fr 3fr 5fr;
+  grid-template-rows: 2.5fr 2fr 2fr 16px 60px 2.5fr 5fr;
   background-color:  map-get(variables.$colors, surfaceLowest);
   transition: transform 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
   }
+}
+
+
+.full-price{
+  font-size: 14px;
+  color: #9db48b;
 }
 
 .santa-wrapper{

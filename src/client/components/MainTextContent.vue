@@ -32,7 +32,7 @@
 
 h1{
   text-align: left;
-  font-family: Agbalumo, serif;
+  font-family: Kanit, serif;
   font-size: 3rem;
   line-height: 100%;
 }

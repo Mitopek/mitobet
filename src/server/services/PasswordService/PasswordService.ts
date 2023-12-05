@@ -19,7 +19,7 @@ export class PasswordService implements IPasswordService{
     if(!password) {
       return false
     }
-    if(password.length < 8 && password.length <= 32) {
+    if(password.length < 8) {
       return false
     }
     return /\d/.test(password);

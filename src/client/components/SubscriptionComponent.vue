@@ -10,6 +10,9 @@
     <div class="price-description">
       za miesiąc
     </div>
+    <div class="full-price">
+      (razem {{props.price}} zł)
+    </div>
     <div class="button-wrapper">
       <ButtonComponent @click="emit('click')">
         <i class="fa-solid fa-cart-shopping"></i> Zaloguj się, aby kupić
@@ -31,6 +34,7 @@ import ButtonComponent from "./basic/ButtonComponent.vue";
 interface IProps{
   title: string,
   pricePerMonth: number,
+  price: number,
   descriptions: string[]
 }
 const props = defineProps<IProps>()
@@ -67,6 +71,10 @@ ul{
   align-self: flex-start;
 }
 
+.full-price{
+  font-size: 14px;
+  color: #9db48b;
+}
 
 
   .button-wrapper{
@@ -76,7 +84,7 @@ ul{
 
   .vip-price-component{
     text-align: center;
-    grid-template-rows: 3fr 2fr 2fr 1fr 4fr 4fr;
+    grid-template-rows: 3fr 2fr 2fr 1fr 1fr 4fr 4fr;
     display: grid;
     height: 300px;
     max-width: 300px;

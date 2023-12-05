@@ -75,8 +75,8 @@ const validatePassword = () => {
   if(!password) {
     throw new Error('Wypełnij hasło.')
   }
-  if(password.length < 8 && password.length <= 32) {
-    throw new Error('Hasło musi mieć od 8 do 32 znaków.')
+  if(password.length < 8) {
+    throw new Error('Hasło musi mieć co najmniej 8 znaków.')
   }
   if(!/\d/.test(password)) {
     throw new Error('Hasło musi zawierać co najmniej jedną cyfrę.')

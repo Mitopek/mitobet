@@ -16,7 +16,7 @@
           :type="SubscriptionComponentType.ShopItem"
           @click="onBuyClick(index)"
       />
-      Wszystkie płatności są obsługiwane przez HotPay. W przypadku problemów z płatnością, prosimy o kontakt z administracją.
+      Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
   </div>
 </template>

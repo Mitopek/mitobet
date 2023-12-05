@@ -74,7 +74,7 @@ const emit = defineEmits<Emits>()
     padding: 4px 12px;
     justify-self: center;
     position: absolute;
-    top: -16px;
+    top: -20px;
     display: flex;
     align-items: center;
     gap: 4px;

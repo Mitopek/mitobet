@@ -8,7 +8,9 @@
           <ol>
           <li>
             <p>Poniższy Regulamin określa i stanowi zasady funkcjonowania i korzystania przez Użytkowników z usług świadczonych drogą elektroniczną za pomocą serwisu internetowego dostępnego pod adresem
-              <a href="https://www.mitobet.pl/">https://www.mitobet.pl/</a> (dalej: „Serwis”), prowadzonego przez Michała Topóra, z siedzibą przy ul. jarzębinowej 14a w Białymstoku.</p>
+              <a href="https://www.mitobet.pl/">https://www.mitobet.pl/</a> (dalej: „Serwis”), prowadzonego przez Michała Topóra, z siedzibą przy ul. jarzębinowa 14a/54 Białystok 15-793. Adres ten
+            jest również adresem korespondencyjnym Usługodawcy. Wszelkie zapytania można kierować na adres e-mail kontakt@mitobet.pl oraz przez formularz kontaktowy dostępny w Serwisie pod zakładką "Zadaj pytanie".
+            </p>
           </li>
 
           <li>
@@ -121,7 +123,7 @@
           </li>
 
           <li>
-            <p>Dostarczenie Produktów polega na przyznaniu Użytkownikowi dostępu do zakupionych treści Serwisu.</p>
+            <p>Dostarczenie Produktów polega na przyznaniu Użytkownikowi dostępu do zakupionych treści Serwisu, co nastepuje automatycznie po potwierdzeniu płatności.</p>
           </li>
 
           <li>
@@ -146,6 +148,9 @@
 
           <li>
             <p>Usługodawca informuje, że warunki płatności, w tym związane z nimi opłaty i zakres przetwarzania danych osobowych, mogą być ustalane przez podmioty trzecie (banki, pośrednicy płatności), na których Usługodawca nie ma wpływu.</p>
+          </li>
+          <li>
+            <p>Płatności obsługiwane są przez platformę HotPay, która oferuje nastepujące formy płatności: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.</p>
           </li>
           </ol>
           <h3>6. Reklamacje</h3>
