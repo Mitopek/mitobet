@@ -16,6 +16,7 @@ import {VerificationSchema} from "../models/VerificationModel/VerificationSchema
 import {IVerificationEntity} from "../models/VerificationModel/types/IVerificationEntity.js";
 
 export default async function setupMongoose(container: Container) {
+  console.info(process.env.MONGO_URL)
   const mongooseClient = await mongoose.connect(process.env.MONGO_URL);
   container.bind<typeof mongoose>(InterfaceTypes.databases.Mongoose).toConstantValue(mongooseClient)
 
