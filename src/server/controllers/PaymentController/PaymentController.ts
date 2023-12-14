@@ -32,25 +32,13 @@ export class PaymentController implements IPaymentController {
   }
 
   async handlePayment(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const whiteListIp = process.env.HOTPAY_IP
     const password = process.env.HOTPAY_PASSWORD
     const secret = process.env.HOTPAY_SECRET
-    console.info(req.socket.remoteAddress)
-    console.info(req.socket.remoteAddress.replace(/^.*:/, ''))
-    console.info(req.body)
-    console.info(req.ip)
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
-    console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
     const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
     if(expectedHash !== HASH){
-      return res.sendSuccessResponse('Wypierdalaj')
+      return res.sendSuccessResponse('Nope')
     }
-    console.info('XDD preszlo')
-    if(req.ip !== whiteListIp){
-      return res.sendSuccessResponse('Wypierdalaj')
-    }
-    console.info('IP OK')
-    console.info('HASH OK')
     await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
     if(STATUS === PaymentStatus.SUCCESS){
       const payment = await this.paymentRepository.findPaymentById(ID_ZAMOWIENIA)
