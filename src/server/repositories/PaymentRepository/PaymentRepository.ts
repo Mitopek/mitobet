@@ -20,9 +20,9 @@ export class PaymentRepository implements IPaymentRepository{
     })
   }
 
-  async updatePaymentStatus(paymentId: number, status: PaymentStatus): Promise<void> {
+  async updatePaymentStatus(externalId: number, status: PaymentStatus): Promise<void> {
     await this.paymentModel.updateOne({
-      _id: paymentId,
+      externalId,
     }, {
       $set: {
         status,
