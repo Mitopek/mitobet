@@ -35,6 +35,8 @@ export class PaymentController implements IPaymentController {
     const whiteListIp = process.env.HOTPAY_IP
     const password = process.env.HOTPAY_PASSWORD
     const secret = process.env.HOTPAY_SECRET
+    console.info(req.body)
+    console.info(req.ip)
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
     console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
     if(req.ip !== whiteListIp){
