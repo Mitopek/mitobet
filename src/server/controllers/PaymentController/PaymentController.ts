@@ -35,18 +35,20 @@ export class PaymentController implements IPaymentController {
     const whiteListIp = process.env.HOTPAY_IP
     const password = process.env.HOTPAY_PASSWORD
     const secret = process.env.HOTPAY_SECRET
+    console.info(req.socket.remoteAddress)
+    console.info(req.socket.remoteAddress.replace(/^.*:/, ''))
     console.info(req.body)
     console.info(req.ip)
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
     console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
-    if(req.ip !== whiteListIp){
-      return res.sendSuccessResponse('Wypierdalaj')
-    }
-    console.info('IP OK')
     const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${SECURE};${secret}`)
     if(expectedHash !== HASH){
       return res.sendSuccessResponse('Wypierdalaj')
     }
+    if(req.ip !== whiteListIp){
+      return res.sendSuccessResponse('Wypierdalaj')
+    }
+    console.info('IP OK')
     console.info('HASH OK')
     await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
     if(STATUS === PaymentStatus.SUCCESS){
