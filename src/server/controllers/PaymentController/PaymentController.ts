@@ -41,10 +41,11 @@ export class PaymentController implements IPaymentController {
     console.info(req.ip)
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
     console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
-    const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${SECURE};${secret}`)
+    const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
     if(expectedHash !== HASH){
       return res.sendSuccessResponse('Wypierdalaj')
     }
+    console.info('XDD preszlo')
     if(req.ip !== whiteListIp){
       return res.sendSuccessResponse('Wypierdalaj')
     }
