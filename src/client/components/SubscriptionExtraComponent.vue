@@ -98,10 +98,10 @@ ul {
   width: 100%;
   box-sizing: border-box;
   /* padding: 16px; */
-  border-radius: 1.6rem;
+  border-radius: 16px;
   box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  grid-template-rows: 2.5fr 2fr 2fr 16px 60px 2.5fr 5fr;
+  grid-template-rows: 2.5fr 2fr 2fr 16px 50px 2.5fr 5fr;
   background-color:  map-get(variables.$colors, surfaceLowest);
   transition: transform 0.3s ease-in-out;
 

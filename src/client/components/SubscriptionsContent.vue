@@ -42,7 +42,7 @@ const emit = defineEmits<Emits>()
 h1{
   text-align: left;
   margin: 20px 0 24px 0;
-  font-family: Kanit, serif;
+  font-family: 'Bree Serif', sans-serif;
   font-size: 3rem;
 }
 

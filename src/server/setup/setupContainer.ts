@@ -69,6 +69,10 @@ import {
 } from "../services/DiscordService/strategies/DiscordCouponsAlertMessageStrategy.js";
 import {IMessageController} from "../controllers/MessageController/types/IMessageController.js";
 import {MessageController} from "../controllers/MessageController/MessageController.js";
+import {PaymentController} from "../controllers/PaymentController/PaymentController.js";
+import {IPaymentController} from "../controllers/PaymentController/types/IPaymentController.js";
+import {IPaymentRepository} from "../repositories/PaymentRepository/types/IPaymentRepository.js";
+import {PaymentRepository} from "../repositories/PaymentRepository/PaymentRepository.js";
 
 
 export default async function setupContainer() {
@@ -88,8 +92,10 @@ export default async function setupContainer() {
   container.bind<ICountryController>(InterfaceTypes.controllers.CountryController).to(CountryController)
   container.bind<IFixtureController>(InterfaceTypes.controllers.FixtureController).to(FixtureController)
   container.bind<IVerificationController>(InterfaceTypes.controllers.VerificationController).to(VerificationController)
+  container.bind<IPaymentController>(InterfaceTypes.controllers.PaymentController).to(PaymentController)
 
   //REPOSITORIES
+  container.bind<IPaymentRepository>(InterfaceTypes.repositories.PaymentRepository).to(PaymentRepository)
   container.bind<IUserRepository>(InterfaceTypes.repositories.UserRepository).to(UserRepository)
   container.bind<ICouponRepository>(InterfaceTypes.repositories.CouponRepository).to(CouponRepository)
   container.bind<ICountryRepository>(InterfaceTypes.repositories.CountryRepository).to(CountryRepository)

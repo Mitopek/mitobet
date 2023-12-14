@@ -32,7 +32,7 @@
 
 h1{
   text-align: left;
-  font-family: Kanit, serif;
+  font-family: 'Bree Serif', sans-serif;
   font-size: 3rem;
   line-height: 100%;
 }

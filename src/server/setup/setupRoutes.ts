@@ -17,6 +17,7 @@ import {IFixtureController} from "../controllers/FixtureController/types/IFixtur
 import {IVerificationController} from "../controllers/VerificationController/types/IVerificationController.js";
 import {IConsentsMiddleware} from "../middlewares/ConsentsMiddleware/types/IConsentsMiddleware.js";
 import {IMessageController} from "../controllers/MessageController/types/IMessageController.js";
+import {IPaymentController} from "../controllers/PaymentController/types/IPaymentController.js";
 
 export default function setupRoutes(apiRouter: Router, container: Container) {
   //TODO DEV ONLY
@@ -65,6 +66,11 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
 
   const verificationController = container.get<IVerificationController>(InterfaceTypes.controllers.VerificationController)
   apiRouter.post('/verification/fulfill', verificationController.fulfillVerification.bind(verificationController))
+
+  const paymentController = container.get<IPaymentController>(InterfaceTypes.controllers.PaymentController)
+  apiRouter.use('/payment', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
+  apiRouter.post('/payment', paymentController.createPayment.bind(paymentController))
+  apiRouter.post('/handle-payment', paymentController.handlePayment.bind(paymentController))
 
   // const aiController = container.get<IAIController>(InterfaceTypes.controllers.AIController)
   // app.use('/ai', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))

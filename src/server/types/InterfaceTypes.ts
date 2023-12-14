@@ -5,6 +5,7 @@ export const InterfaceTypes = {
     ConsentsMiddleware: Symbol.for('ConsentsMiddleware'),
   },
   repositories: {
+    PaymentRepository: Symbol.for('PaymentRepository'),
     UserRepository: Symbol.for('UserRepository'),
     CouponRepository: Symbol.for('CouponRepository'),
     CountryRepository: Symbol.for('CountryRepository'),
@@ -13,6 +14,7 @@ export const InterfaceTypes = {
     VerificationRepository: Symbol.for('VerificationRepository'),
   },
   controllers: {
+    PaymentController: Symbol.for('PaymentController'),
     AuthController: Symbol.for('AuthController'),
     CouponController: Symbol.for('CouponController'),
     AIController: Symbol.for('AIController'),
@@ -24,6 +26,7 @@ export const InterfaceTypes = {
     FixtureController: Symbol.for('FixtureController'),
   },
   models: {
+    PaymentModel: Symbol.for('PaymentModel'),
     UserModel: Symbol.for('UserModel'),
     CouponModal: Symbol.for('CouponModal'),
     CountryModel: Symbol.for('CountryModel'),

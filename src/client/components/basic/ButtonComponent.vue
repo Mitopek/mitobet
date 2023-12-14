@@ -59,13 +59,14 @@ const onClick = () => {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  border-radius: 4px;
   height: 36px;
   outline: none;
   border: none;
   padding: 3px 12px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   position: relative;
 
   &.is-primary{

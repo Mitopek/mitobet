@@ -92,7 +92,7 @@ ul{
     box-sizing: border-box;
     overflow: hidden;
     align-items: center;
-    border-radius: 1.6rem;
+    border-radius: 16px;
     box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.1);
     border: rgba(0,0,0,0.1) 1px solid ;
     background-color:  map-get(variables.$colors, surfaceLowest);

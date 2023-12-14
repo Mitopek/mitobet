@@ -14,15 +14,22 @@
           :bonus="subscription?.bonus"
           :price="subscription.price"
           :type="SubscriptionComponentType.ShopItem"
-          @click="onBuyClick(index)"
+          @click="onBuyClick(subscription.id)"
       />
       Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
+    <form action="https://platnosc.hotpay.pl/" method="post">
+      <input type="hidden" hidden name="SEKRET" :value="secret"/>
+      <input type="hidden" hidden name="KWOTA" :value="amount"/>
+      <input type="hidden" hidden name="NAZWA_USLUGI" :value="serviceName"/>
+      <input type="hidden" hidden name="ID_ZAMOWIENIA" :value="orderId"/>
+      <input type="hidden" hidden name="HASH" :value="hash"/>
+      <button type="submit" hidden ref="submitRef"/>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import SubscriptionsContent from "../SubscriptionsContent.vue";
 import SubcriptionItemFactory from "../factories/SubcriptionItemFactory.vue";
 import {subscriptionItems} from "../../constants/SubsriptionItems.js";
 import {SubscriptionComponentType} from "../../enum/SubscriptionComponentType.js";
@@ -30,12 +37,23 @@ import {$computed, $ref} from "vue/macros";
 import {onMounted} from "vue";
 import UniversalCookie from "universal-cookie";
 import SubscriptionTime from "../SubscriptionTime.vue";
+import {$} from "vue/macros.js";
+import {usePayments} from "../../composables/usePayments.js";
+
+const {createPayment} = $(usePayments())
 
 const items = $computed(() => {
   return [...subscriptionItems].sort((a, b) => {
-    return a.pricePerMonth - b.pricePerMonth
+    return a.pricePerMonth > b.pricePerMonth ? 1 : -1
   })
 })
+
+const submitRef = $ref<HTMLButtonElement>(null)
+const secret = $ref<string>('bHdCMlUwajdtRXRSeFF5cWxJeEIvZzRzMWhuUTdHMnFiVnhUL3V2VmhpTT0,')
+const amount = $ref<number>(1)
+const serviceName = $ref<string>('Subskrypcja')
+let orderId = $ref<string>(null)
+let hash = $ref<string>(null)
 
 let subscriptionExpiresAt = $ref<Date>(null)
 
@@ -44,9 +62,19 @@ onMounted(() => {
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
 })
 
-const onBuyClick = (index: number) => {
-  const item = items[index]
-  // window.open(`https://hotpay.pl/panel/kup?title=${item.title}&price=${item.price}&mail=${userMail.value}&type=subscription`)
+const onBuyClick = async (id: number) => {
+  const {payload} = await createPayment(id)
+  orderId = payload.id
+  hash = payload.hash
+  submitRef.click()
+}
+
+const generateSHA256 = async (data: string) => {
+  const encoder = new TextEncoder()
+  const dataEncoded = encoder.encode(data)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', dataEncoded)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('')
 }
 
 </script>
