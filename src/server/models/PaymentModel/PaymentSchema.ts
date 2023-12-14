@@ -13,7 +13,11 @@ export const PaymentSchema = new Schema<IPaymentEntity>({
   status: {
     type: Schema.Types.String,
     required: false,
-  }
+  },
+  externalId: {
+    type: Schema.Types.Number,
+    required: true,
+  },
 }, {
   timestamps: true,
 })

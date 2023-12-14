@@ -24,9 +24,10 @@ export class PaymentController implements IPaymentController {
     const notificationUrl = process.env.HOTPAY_NOTIFICATION_URL
     const {userId} = req.authenticationData
     const {subscriptionId} = req.body
-    const payment = await this.paymentRepository.createPayment(subscriptionId, userId)
+    const paymentsCount = (await this.paymentRepository.findPayments()).length
+    const payment = await this.paymentRepository.createPayment(subscriptionId, userId, paymentsCount)
     return res.sendSuccessResponse({
-      id: payment.id,
+      id: payment.externalId,
       hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
     })
   }
@@ -41,7 +42,7 @@ export class PaymentController implements IPaymentController {
     }
     await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
     if(STATUS === PaymentStatus.SUCCESS){
-      const payment = await this.paymentRepository.findPaymentById(ID_ZAMOWIENIA)
+      const payment = await this.paymentRepository.findPaymentByExternalId(ID_ZAMOWIENIA)
       const user = await this.userRepository.findUserById(payment.userId)
       const subscriptionExpiresAt = user.subscriptionExpiresAt || new Date()
       let subscriptionDays = 30

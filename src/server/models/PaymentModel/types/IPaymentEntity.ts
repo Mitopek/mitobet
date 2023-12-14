@@ -5,5 +5,5 @@ export interface IPaymentEntity extends IEntity{
   subscriptionId: number,
   userId: string,
   status?: PaymentStatus,
-
+  externalId: number,
 }

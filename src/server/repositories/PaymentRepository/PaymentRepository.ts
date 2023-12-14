@@ -12,10 +12,11 @@ export class PaymentRepository implements IPaymentRepository{
   ) {
   }
 
-  async createPayment(subscriptionId: number, userId: string): Promise<IPaymentEntity> {
+  async createPayment(subscriptionId: number, userId: string, externalId: number): Promise<IPaymentEntity> {
     return this.paymentModel.create({
       subscriptionId,
       userId,
+      externalId,
     })
   }
 
@@ -29,9 +30,13 @@ export class PaymentRepository implements IPaymentRepository{
     })
   }
 
-  async findPaymentById(id: IPaymentEntity['id']): Promise<IPaymentEntity> {
+  async findPaymentByExternalId(id: number): Promise<IPaymentEntity> {
     return this.paymentModel.findOne({
-      _id: id,
+      externalId: id,
     })
+  }
+
+  async findPayments(): Promise<IPaymentEntity[]> {
+    return this.paymentModel.find()
   }
 }
