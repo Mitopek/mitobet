@@ -40,10 +40,12 @@ export class PaymentController implements IPaymentController {
     if(req.ip !== whiteListIp){
       return res.sendSuccessResponse('Wypierdalaj')
     }
+    console.info('IP OK')
     const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${SECURE};${secret}`)
     if(expectedHash !== HASH){
       return res.sendSuccessResponse('Wypierdalaj')
     }
+    console.info('HASH OK')
     await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
     if(STATUS === PaymentStatus.SUCCESS){
       const payment = await this.paymentRepository.findPaymentById(ID_ZAMOWIENIA)

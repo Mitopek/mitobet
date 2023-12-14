@@ -30,6 +30,8 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
     // exposedHeaders: ['set-cookie'],
   }))
   apiRouter.use(bodyParser.json())
+  apiRouter.use(bodyParser.urlencoded({ extended: true }));
+
   // app.options('*', cors({
   //   origin: '*',
   //   credentials: true,
