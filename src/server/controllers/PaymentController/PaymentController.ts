@@ -7,6 +7,7 @@ import {IApiResponse} from "../../types/IApiResponse.js";
 import {IPaymentRepository} from "../../repositories/PaymentRepository/types/IPaymentRepository.js";
 import {Response} from "express";
 import {PaymentStatus} from "../../models/PaymentModel/enum/PaymentStatus.js";
+import * as crypto from "crypto";
 
 @injectable()
 export class PaymentController implements IPaymentController {
@@ -63,11 +64,9 @@ export class PaymentController implements IPaymentController {
     return res.sendSuccessResponse(null)
   }
 
-  private async generateSHA256(data: string) {
-    const encoder = new TextEncoder()
-    const dataEncoded = encoder.encode(data)
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataEncoded)
-    const hashArray = Array.from(new Uint8Array(hashBuffer))
-    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('')
+  private async generateSHA256(data: string): Promise<string> {
+    const hash = crypto.createHash('sha256');
+    hash.update(data);
+    return hash.digest('hex');
   }
 }

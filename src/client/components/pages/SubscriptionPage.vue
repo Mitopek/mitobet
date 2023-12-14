@@ -37,7 +37,7 @@ import {$computed, $ref} from "vue/macros";
 import {onMounted} from "vue";
 import UniversalCookie from "universal-cookie";
 import SubscriptionTime from "../SubscriptionTime.vue";
-import {$} from "vue/macros.js";
+import {$} from "vue/macros";
 import {usePayments} from "../../composables/usePayments.js";
 
 const {createPayment} = $(usePayments())
