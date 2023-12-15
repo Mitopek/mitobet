@@ -46,6 +46,7 @@ export class PaymentController implements IPaymentController {
       const user = await this.userRepository.findUserById(payment.userId)
       const subscriptionExpiresAt = user.subscriptionExpiresAt || new Date()
       let subscriptionDays = 30
+      console.info(payment)
       if(payment.subscriptionId === 2){
         subscriptionDays = 183
       }
