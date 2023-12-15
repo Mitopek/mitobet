@@ -22,7 +22,7 @@
       <input type="hidden" hidden name="SEKRET" :value="secret"/>
       <input type="hidden" hidden name="KWOTA" :value="amount"/>
       <input type="hidden" hidden name="NAZWA_USLUGI" :value="serviceName"/>
-      <input type="hidden" hidden name="ID_ZAMOWIENIA" :value="orderId"/>
+      <input type="hidden" hidden name="ID_ZAMOWIENIA" v-model="orderId"/>
       <input type="hidden" hidden name="HASH" :value="hash"/>
       <button type="submit" hidden ref="submitRef"/>
     </form>
