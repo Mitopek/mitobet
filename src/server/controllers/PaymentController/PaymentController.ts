@@ -28,7 +28,7 @@ export class PaymentController implements IPaymentController {
     const payment = await this.paymentRepository.createPayment(subscriptionId, userId, paymentsCount)
     console.info(payment)
     return res.sendSuccessResponse({
-      id: 'testhjehehe1',
+      id: payment.externalId,
       hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.externalId};${secret}`)
     })
   }

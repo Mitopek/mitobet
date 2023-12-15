@@ -64,7 +64,7 @@ onMounted(() => {
 
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)
-  orderId = String(payload.id)
+  orderId = payload.id
   console.info(payload.id)
   hash = payload.hash
   submitRef.click()
