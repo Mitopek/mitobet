@@ -34,7 +34,7 @@ import SubcriptionItemFactory from "../factories/SubcriptionItemFactory.vue";
 import {subscriptionItems} from "../../constants/SubsriptionItems.js";
 import {SubscriptionComponentType} from "../../enum/SubscriptionComponentType.js";
 import {$computed, $ref} from "vue/macros";
-import {onMounted} from "vue";
+import {nextTick, onMounted} from "vue";
 import UniversalCookie from "universal-cookie";
 import SubscriptionTime from "../SubscriptionTime.vue";
 import {$} from "vue/macros";
@@ -65,8 +65,11 @@ onMounted(() => {
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)
   orderId = String(payload.id)
+  console.info(payload.id)
   hash = payload.hash
-  submitRef.click()
+  await nextTick(() => {
+    submitRef.click()
+  })
 }
 
 </script>
