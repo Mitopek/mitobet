@@ -37,31 +37,27 @@ export class PaymentController implements IPaymentController {
     const password = process.env.HOTPAY_PASSWORD
     const secret = process.env.HOTPAY_SECRET
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
-    console.info(req.body)
-    console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
     const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
-    console.info(expectedHash, HASH)
     if(expectedHash !== HASH){
       return res.sendSuccessResponse('Nope')
     }
-    // await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
-    // if(STATUS === PaymentStatus.SUCCESS){
-    //   const payment = await this.paymentRepository.findPaymentByExternalId(ID_ZAMOWIENIA)
-    //   const user = await this.userRepository.findUserById(payment.userId)
-    //   const subscriptionExpiresAt = user.subscriptionExpiresAt || new Date()
-    //   let subscriptionDays = 30
-    //   console.info(payment)
-    //   if(payment.subscriptionId === 2){
-    //     subscriptionDays = 183
-    //   }
-    //   if(payment.subscriptionId === 3){
-    //     subscriptionDays = 366
-    //   }
-    //   const newSubscriptionExpiresAt = new Date(subscriptionExpiresAt.getTime() + subscriptionDays * 24 * 60 * 60 * 1000)
-    //   await this.userRepository.updateUserById(user.id, {
-    //     subscriptionExpiresAt: newSubscriptionExpiresAt
-    //   })
-    // }
+    await this.paymentRepository.updatePayment(ID_ZAMOWIENIA, STATUS, ID_PLATNOSCI)
+    if(STATUS === PaymentStatus.SUCCESS){
+      const payment = await this.paymentRepository.findPaymentById(ID_ZAMOWIENIA)
+      const user = await this.userRepository.findUserById(payment.userId)
+      const subscriptionExpiresAt = user.subscriptionExpiresAt || new Date()
+      let subscriptionDays = 30
+      if(payment.subscriptionId === 2){
+        subscriptionDays = 183
+      }
+      if(payment.subscriptionId === 3){
+        subscriptionDays = 366
+      }
+      const newSubscriptionExpiresAt = new Date(subscriptionExpiresAt.getTime() + subscriptionDays * 24 * 60 * 60 * 1000)
+      await this.userRepository.updateUserById(user.id, {
+        subscriptionExpiresAt: newSubscriptionExpiresAt
+      })
+    }
     return res.sendSuccessResponse(null)
   }
 
