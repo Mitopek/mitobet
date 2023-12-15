@@ -25,6 +25,8 @@ export class PaymentController implements IPaymentController {
     const {userId} = req.authenticationData
     const {subscriptionId} = req.body
     const payment = await this.paymentRepository.createPayment(subscriptionId, userId)
+    console.info(password, 1, serviceName, notificationUrl, payment.id, secret)
+
     return res.sendSuccessResponse({
       id: payment.id,
       hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
@@ -37,10 +39,11 @@ export class PaymentController implements IPaymentController {
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
     console.info(req.body)
     console.info(SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH)
-    // const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
-    // if(expectedHash !== HASH){
-    //   return res.sendSuccessResponse('Nope')
-    // }
+    const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
+    console.info(expectedHash, HASH)
+    if(expectedHash !== HASH){
+      return res.sendSuccessResponse('Nope')
+    }
     // await this.paymentRepository.updatePaymentStatus(ID_ZAMOWIENIA, STATUS)
     // if(STATUS === PaymentStatus.SUCCESS){
     //   const payment = await this.paymentRepository.findPaymentByExternalId(ID_ZAMOWIENIA)

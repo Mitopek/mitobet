@@ -19,11 +19,11 @@
       Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
     <form action="https://platnosc.hotpay.pl/" target="_blank" method="post">
-      <input type="hidden" name="SEKRET" :value="secret"/>
-      <input type="hidden" name="KWOTA" :value="amount"/>
-      <input type="hidden" name="ID_ZAMOWIENIA" :value="orderId"/>
-      <input type="hidden" name="NAZWA_USLUGI" :value="serviceName"/>
-      <input type="hidden" name="HASH" :value="hash"/>
+      <input type="text" name="SEKRET" :value="secret"/>
+      <input type="text" name="KWOTA" :value="amount"/>
+      <input type="text" name="NAZWA_USLUGI" :value="serviceName"/>
+      <input type="text" name="ID_ZAMOWIENIA" ref="orderIdRef"/>
+      <input type="text" name="HASH" ref="hashRef"/>
       <button type="submit" ref="submitRef"/>
     </form>
   </div>
@@ -34,7 +34,7 @@ import SubcriptionItemFactory from "../factories/SubcriptionItemFactory.vue";
 import {subscriptionItems} from "../../constants/SubsriptionItems.js";
 import {SubscriptionComponentType} from "../../enum/SubscriptionComponentType.js";
 import {$computed, $ref} from "vue/macros";
-import {onMounted} from "vue";
+import {nextTick, onMounted} from "vue";
 import UniversalCookie from "universal-cookie";
 import SubscriptionTime from "../SubscriptionTime.vue";
 import {$} from "vue/macros";
@@ -52,8 +52,8 @@ const submitRef = $ref<HTMLButtonElement>(null)
 const secret = $ref<string>('bHdCMlUwajdtRXRSeFF5cWxJeEIvZzRzMWhuUTdHMnFiVnhUL3V2VmhpTT0,')
 const amount = $ref<number>(1)
 const serviceName = $ref<string>('Subskrypcja')
-let orderId = $ref<string>(null)
-let hash = $ref<string>(null)
+let orderIdRef = $ref(null)
+let hashRef = $ref(null)
 
 let subscriptionExpiresAt = $ref<Date>(null)
 
@@ -64,9 +64,14 @@ onMounted(() => {
 
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)
-  orderId = payload.id
-  hash = payload.hash
-  submitRef.click()
+  orderIdRef.value = payload.id
+  // hashRef.value = payload.hash
+  console.info('orderIdRef', hashRef.value)
+  await nextTick(async () => {
+    await setTimeout(() => {
+      submitRef.click()
+    }, 1000)
+  })
 }
 
 </script>
