@@ -26,6 +26,7 @@ export class PaymentController implements IPaymentController {
     const {subscriptionId} = req.body
     const paymentsCount = (await this.paymentRepository.findPayments()).length
     const payment = await this.paymentRepository.createPayment(subscriptionId, userId, paymentsCount)
+    console.info(payment)
     return res.sendSuccessResponse({
       id: payment.externalId,
       hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
@@ -36,6 +37,7 @@ export class PaymentController implements IPaymentController {
     const password = process.env.HOTPAY_PASSWORD
     const secret = process.env.HOTPAY_SECRET
     const {SEKRET, KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, HASH} = req.body
+    console.info(ID_ZAMOWIENIA)
     const expectedHash = await this.generateSHA256(`${password};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${secret}`)
     if(expectedHash !== HASH){
       return res.sendSuccessResponse('Nope')

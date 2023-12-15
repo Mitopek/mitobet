@@ -69,14 +69,6 @@ const onBuyClick = async (id: number) => {
   submitRef.click()
 }
 
-const generateSHA256 = async (data: string) => {
-  const encoder = new TextEncoder()
-  const dataEncoded = encoder.encode(data)
-  const hashBuffer = await crypto.subtle.digest('SHA-256', dataEncoded)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('')
-}
-
 </script>
 
 <style scoped lang="scss">
