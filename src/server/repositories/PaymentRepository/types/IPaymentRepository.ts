@@ -3,7 +3,7 @@ import {PaymentStatus} from "../../../models/PaymentModel/enum/PaymentStatus.js"
 
 export interface IPaymentRepository{
   createPayment(subscriptionId: number, userId: string): Promise<IPaymentEntity>
-  updatePaymentStatus(id: string, status: PaymentStatus): Promise<void>
-  findPaymentByExternalId(id: string): Promise<IPaymentEntity>
+  updatePayment(id: number, status: PaymentStatus, externalId: string): Promise<void>
+  findPaymentById(id: string): Promise<IPaymentEntity>
   findPayments(): Promise<IPaymentEntity[]>
 }
