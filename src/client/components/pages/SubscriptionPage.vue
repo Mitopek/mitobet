@@ -18,7 +18,7 @@
       />
       Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
-    <form action="https://platnosc.hotpay.pl/" method="post">
+    <form action="https://platnosc.hotpay.pl/" target="_blank" method="post">
       <input type="hidden" hidden name="SEKRET" :value="secret"/>
       <input type="hidden" hidden name="KWOTA" :value="amount"/>
       <input type="hidden" hidden name="NAZWA_USLUGI" :value="serviceName"/>
