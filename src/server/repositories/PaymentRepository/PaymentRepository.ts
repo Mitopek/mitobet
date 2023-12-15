@@ -12,11 +12,10 @@ export class PaymentRepository implements IPaymentRepository{
   ) {
   }
 
-  async createPayment(subscriptionId: number, userId: string, externalId: number): Promise<IPaymentEntity> {
+  async createPayment(subscriptionId: number, userId: string): Promise<IPaymentEntity> {
     return this.paymentModel.create({
       subscriptionId,
       userId,
-      externalId,
     })
   }
 

@@ -24,12 +24,10 @@ export class PaymentController implements IPaymentController {
     const notificationUrl = process.env.HOTPAY_NOTIFICATION_URL
     const {userId} = req.authenticationData
     const {subscriptionId} = req.body
-    const paymentsCount = (await this.paymentRepository.findPayments()).length
-    const payment = await this.paymentRepository.createPayment(subscriptionId, userId, paymentsCount)
-    console.info(payment)
+    const payment = await this.paymentRepository.createPayment(subscriptionId, userId)
     return res.sendSuccessResponse({
-      id: payment.externalId,
-      hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.externalId};${secret}`)
+      id: payment.id,
+      hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
     })
   }
 

@@ -19,12 +19,12 @@
       Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
     <form action="https://platnosc.hotpay.pl/" target="_blank" method="post">
-      <input type="hidden" hidden name="SEKRET" :value="secret"/>
-      <input type="hidden" hidden name="KWOTA" :value="amount"/>
-      <input type="hidden" hidden name="NAZWA_USLUGI" :value="serviceName"/>
-      <input type="hidden" hidden name="ID_ZAMOWIENIA" :value="orderId"/>
-      <input type="hidden" hidden name="HASH" :value="hash"/>
-      <button type="submit" hidden ref="submitRef"/>
+      <input type="hidden" name="SEKRET" :value="secret"/>
+      <input type="hidden" name="KWOTA" :value="amount"/>
+      <input type="hidden" name="ID_ZAMOWIENIA" :value="orderId"/>
+      <input type="hidden" name="NAZWA_USLUGI" :value="serviceName"/>
+      <input type="hidden" name="HASH" :value="hash"/>
+      <button type="submit" ref="submitRef"/>
     </form>
   </div>
 </template>
@@ -65,7 +65,6 @@ onMounted(() => {
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)
   orderId = payload.id
-  console.info(payload.id)
   hash = payload.hash
   submitRef.click()
 }

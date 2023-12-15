@@ -2,8 +2,8 @@ import {IPaymentEntity} from "../../../models/PaymentModel/types/IPaymentEntity.
 import {PaymentStatus} from "../../../models/PaymentModel/enum/PaymentStatus.js";
 
 export interface IPaymentRepository{
-  createPayment(subscriptionId: number, userId: string, externalId: number): Promise<IPaymentEntity>
-  updatePaymentStatus(externalId: number, status: PaymentStatus): Promise<void>
-  findPaymentByExternalId(id: number): Promise<IPaymentEntity>
+  createPayment(subscriptionId: number, userId: string): Promise<IPaymentEntity>
+  updatePaymentStatus(id: string, status: PaymentStatus): Promise<void>
+  findPaymentByExternalId(id: string): Promise<IPaymentEntity>
   findPayments(): Promise<IPaymentEntity[]>
 }
