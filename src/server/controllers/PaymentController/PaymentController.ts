@@ -29,7 +29,7 @@ export class PaymentController implements IPaymentController {
     console.info(payment)
     return res.sendSuccessResponse({
       id: 'testhjehehe1',
-      hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
+      hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.externalId};${secret}`)
     })
   }
 

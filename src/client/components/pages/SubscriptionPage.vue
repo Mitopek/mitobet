@@ -22,7 +22,7 @@
       <input type="hidden" hidden name="SEKRET" :value="secret"/>
       <input type="hidden" hidden name="KWOTA" :value="amount"/>
       <input type="hidden" hidden name="NAZWA_USLUGI" :value="serviceName"/>
-      <input type="hidden" hidden name="ID_ZAMOWIENIA" v-model="orderId"/>
+      <input type="hidden" hidden name="ID_ZAMOWIENIA" :value="orderId"/>
       <input type="hidden" hidden name="HASH" :value="hash"/>
       <button type="submit" hidden ref="submitRef"/>
     </form>
@@ -34,7 +34,7 @@ import SubcriptionItemFactory from "../factories/SubcriptionItemFactory.vue";
 import {subscriptionItems} from "../../constants/SubsriptionItems.js";
 import {SubscriptionComponentType} from "../../enum/SubscriptionComponentType.js";
 import {$computed, $ref} from "vue/macros";
-import {nextTick, onMounted} from "vue";
+import {onMounted} from "vue";
 import UniversalCookie from "universal-cookie";
 import SubscriptionTime from "../SubscriptionTime.vue";
 import {$} from "vue/macros";
@@ -67,9 +67,7 @@ const onBuyClick = async (id: number) => {
   orderId = String(payload.id)
   console.info(payload.id)
   hash = payload.hash
-  await nextTick(() => {
-    submitRef.click()
-  })
+  submitRef.click()
 }
 
 </script>
