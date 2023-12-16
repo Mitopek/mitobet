@@ -51,7 +51,7 @@ import SmallNavigationPanelBar from "../SmallNavigationPanelBar.vue";
 
 const router = useRouter()
 let userMail = $ref(null)
-const {logout, acceptConsents} = $(useAuth())
+const {logout, acceptConsents, refreshUser} = $(useAuth())
 let subscriptionExpiresAt = $ref<Date | null>(null)
 let showConsentsModal = $ref(false)
 //TODO map responses, _id
@@ -64,6 +64,12 @@ onMounted(async () => {
   subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
   showConsentsModal = cookies.get('has_accepted_consents') === 'false'
 })
+
+setInterval(async () => {
+  await refreshUser()
+  const cookies = new UniversalCookie()
+  subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
+}, 30000)
 
 const onLogout = async () => {
   await logout()

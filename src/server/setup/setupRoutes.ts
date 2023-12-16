@@ -51,6 +51,7 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   apiRouter.post('/reset-password', authController.resetPassword.bind(authController))
   apiRouter.post('/register', authController.register.bind(authController))
   apiRouter.post('/login', authController.login.bind(authController))
+  apiRouter.get('/me', authController.getMe.bind(authController))
   apiRouter.post('/me/consents', authController.acceptConsents.bind(authController))
   apiRouter.post('/me/change-password', authController.changePassword.bind(authController))
   apiRouter.post('/me/logout', authController.logout.bind(authController))

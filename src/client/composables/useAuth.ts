@@ -167,6 +167,20 @@ export function useAuth() {
     }
   }
 
+  const refreshUser = async (): Promise<Response> => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_HOST}/me`, {withCredentials: true})
+      const {isAdmin, subscriptionExpiresAt, hasAcceptedConsents, mail, type} = response.data.payload.user
+      setCookies(mail, isAdmin, subscriptionExpiresAt, hasAcceptedConsents, type)
+      return response.data
+    } catch (e) {
+      if(axios.isAxiosError(e)) {
+        removeCookies()
+        return e?.response?.data
+      }
+    }
+  }
+
   //TODO types every where, and res.cookies flags
   const logout = async (): Promise<Response> => {
     try {
@@ -192,5 +206,6 @@ export function useAuth() {
     logout,
     verifyUser,
     acceptConsents,
+    refreshUser,
   })
 }

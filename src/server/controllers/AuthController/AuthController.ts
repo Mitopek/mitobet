@@ -113,6 +113,19 @@ export class AuthController implements IAuthController {
     })
   }
 
+  async getMe(req: IApiRequest, res: IApiResponse): Promise<Response> {
+    const userId = req.authenticationData.userId
+    const user = await this.userRepository.findUserById(userId)
+    return res.sendSuccessResponse({
+      user: {
+        mail: user.mail,
+        subscriptionExpiresAt: user?.subscriptionExpiresAt || null,
+        isAdmin: user.isAdmin,
+        hasAcceptedConsents: !!user.acceptedPrivatePolicyDate && !!user.acceptedRegulationsDate,
+      }
+    })
+  }
+
   async logout(req: IApiRequest, res: IApiResponse): Promise<Response> {
     res.clearCookie('access_token', {
       httpOnly: false,

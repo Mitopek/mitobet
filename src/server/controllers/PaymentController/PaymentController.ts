@@ -8,12 +8,14 @@ import {IPaymentRepository} from "../../repositories/PaymentRepository/types/IPa
 import {Response} from "express";
 import {PaymentStatus} from "../../models/PaymentModel/enum/PaymentStatus.js";
 import * as crypto from "crypto";
+import {IMailService} from "../../services/MailService/types/IMailService.js";
 
 @injectable()
 export class PaymentController implements IPaymentController {
   constructor(
     @inject(InterfaceTypes.repositories.UserRepository) private userRepository: IUserRepository,
     @inject(InterfaceTypes.repositories.PaymentRepository) private paymentRepository: IPaymentRepository,
+    @inject(InterfaceTypes.services.MailService) private mailService: IMailService,
   ){
 
   }
@@ -25,8 +27,6 @@ export class PaymentController implements IPaymentController {
     const {userId} = req.authenticationData
     const {subscriptionId} = req.body
     const payment = await this.paymentRepository.createPayment(subscriptionId, userId)
-    console.info(password, 1, serviceName, notificationUrl, payment.id, secret)
-
     return res.sendSuccessResponse({
       id: payment.id,
       hash: await this.generateSHA256(`${password};${1};${serviceName};${notificationUrl};${payment.id};${secret}`)
@@ -57,6 +57,7 @@ export class PaymentController implements IPaymentController {
       await this.userRepository.updateUserById(user.id, {
         subscriptionExpiresAt: newSubscriptionExpiresAt
       })
+      await this.mailService.sendMail(user.mail, 'Subskrypcja', `Twoja subskrypcja jest już aktywna.`)
     }
     return res.sendSuccessResponse(null)
   }

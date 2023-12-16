@@ -19,12 +19,12 @@
       Wszystkie płatności są obsługiwane przez platformę HotPay, która oferuje formy płatności takie jak: Przelewy ekspresowe, Blik, Karty płatnicze, Paysafecard, Paysafecash, Direct Carrier Billing, SMS Premium.
     </div>
     <form action="https://platnosc.hotpay.pl/" target="_blank" method="post">
-      <input type="text" name="SEKRET" :value="secret"/>
-      <input type="text" name="KWOTA" :value="amount"/>
-      <input type="text" name="NAZWA_USLUGI" :value="serviceName"/>
-      <input type="text" name="ID_ZAMOWIENIA" ref="orderIdRef"/>
-      <input type="text" name="HASH" ref="hashRef"/>
-      <button type="submit" ref="submitRef"/>
+      <input type="hidden" name="SEKRET" :value="secret"/>
+      <input type="hidden" name="KWOTA" ref="priceRef"/>
+      <input type="hidden" name="NAZWA_USLUGI" :value="serviceName"/>
+      <input type="hidden" name="ID_ZAMOWIENIA" ref="orderIdRef"/>
+      <input type="hidden" name="HASH" ref="hashRef"/>
+      <button type="submit" ref="submitRef" hidden/>
     </form>
   </div>
 </template>
@@ -54,6 +54,7 @@ const amount = $ref<number>(1)
 const serviceName = $ref<string>('Subskrypcja')
 let orderIdRef = $ref(null)
 let hashRef = $ref(null)
+let priceRef = $ref(null)
 
 let subscriptionExpiresAt = $ref<Date>(null)
 
@@ -64,8 +65,8 @@ onMounted(() => {
 
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)
+  priceRef.value = subscriptionItems.find(item => item.id === id)?.fullPrice
   orderIdRef.value = payload.id
-  // hashRef.value = payload.hash
   console.info('orderIdRef', hashRef.value)
   await nextTick(async () => {
     await setTimeout(() => {
