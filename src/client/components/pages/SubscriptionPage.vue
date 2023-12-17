@@ -2,7 +2,6 @@
   <div class="subscription-page">
     <h3>Dokup czas subskrypcji</h3>
     <div class="subscription-time-wrapper">
-      Twoja subskrypcja: <SubscriptionTime expires-at="subscriptionExpiresAt"/>
     </div>
     <div class="subscriptions-container">
       <SubcriptionItemFactory
@@ -56,12 +55,6 @@ let orderIdRef = $ref(null)
 let hashRef = $ref(null)
 let priceRef = $ref(null)
 
-let subscriptionExpiresAt = $ref<Date>(null)
-
-onMounted(() => {
-  const cookies = new UniversalCookie()
-  subscriptionExpiresAt = new Date(cookies.get('subscription_expires_at' || null))
-})
 
 const onBuyClick = async (id: number) => {
   const {payload} = await createPayment(id)

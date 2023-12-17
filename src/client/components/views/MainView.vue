@@ -2,7 +2,7 @@
  <div class="main-view">
     <DefaultLayout>
       <div class="small-navigation-bar-wrapper">
-        <SmallNavigationPanelBar/>
+        <SmallNavigationPanelBar :subscriptionExpiresAt="subscriptionExpiresAt"/>
       </div>
       <div class="main-container">
         <div class="panel">

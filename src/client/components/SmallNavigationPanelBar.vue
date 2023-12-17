@@ -6,6 +6,7 @@
       <Transition name="item-transition" appear>
         <div v-if="isMenuToggled" class="menu-container">
           <div class="top-panel">
+            <SubscriptionTime :expiresAt="subscriptionExpiresAt"/>
             <i class="fa-solid fa-times fa-2x" @click="isMenuToggled=!isMenuToggled"/>
           </div>
           <PanelOptions @logout="onLogout" @click="isMenuToggled=false"/>
@@ -26,8 +27,18 @@ import PanelOptions from "./PanelOptions.vue";
 import UniversalCookie from "universal-cookie";
 import {$} from "vue/macros";
 import {useAuth} from "../composables/useAuth.js";
+import SubscriptionTime from "./SubscriptionTime.vue";
 const router = useRouter()
 const {logout} = $(useAuth())
+
+interface Props {
+  subscriptionExpiresAt: Date | null
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  subscriptionExpiresAt: null
+})
+
 const onLogout = async () => {
   await logout()
   const cookies = new UniversalCookie()
@@ -180,7 +191,7 @@ const isMenuToggled = $ref(false)
 
 .top-panel{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 8px 0 16px 0;
   gap: 8px;
   border-bottom: 1px solid #a0a0a0;
