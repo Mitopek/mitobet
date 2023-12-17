@@ -18,8 +18,8 @@ export class AuthController implements IAuthController {
   ) {}
 
   async register(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {mail, password, hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
     try {
+      const {mail, password, hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
       await this.authService.register(mail, password, hasAcceptedRegulations, hasAcceptedPrivatePolicy)
     } catch (e) {
       return res.sendFailResponse([e.message], 400)
@@ -28,9 +28,9 @@ export class AuthController implements IAuthController {
   }
 
   async changePassword(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {oldPassword, password} = req.body
-    const userId = req.authenticationData.userId
     try {
+      const {oldPassword, password} = req.body
+      const userId = req.authenticationData.userId
       await this.authService.changePassword(userId, oldPassword, password)
     } catch (e) {
       return res.sendFailResponse([e.message], 400)
@@ -39,14 +39,18 @@ export class AuthController implements IAuthController {
   }
 
   async forgotPassword(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {mail} = req.body
-    await this.authService.forgotPassword(mail)
+    try {
+      const {mail} = req.body
+      await this.authService.forgotPassword(mail)
+    } catch (e) {
+      console.log(e)
+    }
     return res.sendSuccessResponse(null)
   }
 
   async resetPassword(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {password, secret} = req.body
     try {
+      const {password, secret} = req.body
       await this.authService.resetPassword(password, secret)
     } catch (e) {
       return res.sendFailResponse([e.message], 400)
@@ -55,26 +59,30 @@ export class AuthController implements IAuthController {
   }
 
   async acceptConsents(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const userId = req.authenticationData.userId
-    const {hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
-    if(!hasAcceptedRegulations || !hasAcceptedPrivatePolicy) {
-      return res.sendFailResponse(['Musisz zaakceptować regulamin i politykę prywatności serwisu.'], 401)
+    try {
+      const userId = req.authenticationData.userId
+      const {hasAcceptedRegulations, hasAcceptedPrivatePolicy} = req.body
+      if (!hasAcceptedRegulations || !hasAcceptedPrivatePolicy) {
+        return res.sendFailResponse(['Musisz zaakceptować regulamin i politykę prywatności serwisu.'], 401)
+      }
+      const user = await this.userRepository.findUserById(userId)
+      if (user.acceptedPrivatePolicyDate && user.acceptedRegulationsDate) {
+        return res.sendFailResponse(['Regulamin i polityka prywatności zostały już zaakceptowane.'], 401)
+      }
+      await this.userRepository.updateUserById(userId, {
+        acceptedPrivatePolicyDate: new Date(),
+        acceptedRegulationsDate: new Date(),
+      })
+    } catch (e) {
+      return res.sendFailResponse([e.message], 400)
     }
-    const user = await this.userRepository.findUserById(userId)
-    if(user.acceptedPrivatePolicyDate && user.acceptedRegulationsDate) {
-      return res.sendFailResponse(['Regulamin i polityka prywatności zostały już zaakceptowane.'], 401)
-    }
-    await this.userRepository.updateUserById(userId, {
-      acceptedPrivatePolicyDate: new Date(),
-      acceptedRegulationsDate: new Date(),
-    })
     return res.sendSuccessResponse(null)
   }
 
   async login(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const {mail, password, facebookCode, googleCode, type} = req.body
     let user = null
     try {
+      const {mail, password, facebookCode, googleCode, type} = req.body
       if(type === LoginType.LOCAL) {
         user = await this.authService.login(type, {
           mail,
@@ -114,16 +122,20 @@ export class AuthController implements IAuthController {
   }
 
   async getMe(req: IApiRequest, res: IApiResponse): Promise<Response> {
-    const userId = req.authenticationData.userId
-    const user = await this.userRepository.findUserById(userId)
-    return res.sendSuccessResponse({
-      user: {
-        mail: user.mail,
-        subscriptionExpiresAt: user?.subscriptionExpiresAt || null,
-        isAdmin: user.isAdmin,
-        hasAcceptedConsents: !!user.acceptedPrivatePolicyDate && !!user.acceptedRegulationsDate,
-      }
-    })
+    try {
+      const userId = req.authenticationData.userId
+      const user = await this.userRepository.findUserById(userId)
+      return res.sendSuccessResponse({
+        user: {
+          mail: user.mail,
+          subscriptionExpiresAt: user?.subscriptionExpiresAt || null,
+          isAdmin: user.isAdmin,
+          hasAcceptedConsents: !!user.acceptedPrivatePolicyDate && !!user.acceptedRegulationsDate,
+        }
+      })
+    } catch (e) {
+      return res.sendFailResponse(null, 401)
+    }
   }
 
   async logout(req: IApiRequest, res: IApiResponse): Promise<Response> {

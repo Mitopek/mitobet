@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .js,.vue,.ts"
   },
   "dependencies": {
+    "@types/method-override": "^0.0.35",
     "axios": "^1.3.4",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
@@ -24,10 +25,12 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.54.0",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "global": "^4.4.0",
     "helmet": "^6.0.1",
     "inversify": "^6.0.1",
     "jsonwebtoken": "^9.0.0",
+    "method-override": "^3.0.0",
     "mongoose": "^7.0.0",
     "nodemailer": "^6.9.7",
     "openai": "^3.2.1",

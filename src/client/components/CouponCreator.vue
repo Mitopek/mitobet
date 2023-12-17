@@ -3,14 +3,16 @@
     <h2>Dodaj kupon</h2>
     <div v-if="!isPreviewing" class="form">
       Czas rozpoczęcia:
-      <InputComponent v-model="startDate" type="date"/>
+      <InputComponent value="startDate" @change="onDateChange" type="datetime-local"/>
       Adres url zdjęcia:
       <InputComponent v-model="imageUrl"/>
+      Ryzyko:
+      <RiskComponent :value="risk" :is-editable="true" @change="risk = $event"/>
       Opis (opcjonalne):
       <TextareaComponent v-model="description"/>
     </div>
     <div v-else>
-      <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description" :canDelete="false"/>
+      <CouponComponent :imageUrl="imageUrl" :startDate="startDate" :description="description" :canDelete="false" :risk="risk"/>
     </div>
     <div class="buttons-container">
       <ButtonComponent @click="isPreviewing=true" v-if="!isPreviewing">Przejdź do podglądu</ButtonComponent>
@@ -27,6 +29,8 @@ import CouponComponent from "./CouponComponent.vue";
 import ButtonComponent from "./basic/ButtonComponent.vue";
 import {useCoupons} from "../composables/useCoupons.js";
 import TextareaComponent from "./basic/TextareaComponent.vue";
+import RiskComponent from "./RiskComponent.vue";
+import {format} from "date-fns";
 
 interface Emits {
   (e: 'created'): void
@@ -36,24 +40,30 @@ const emit = defineEmits<Emits>()
 
 const {createCoupon} = $(useCoupons())
 
-let startDate = $ref(new Date())
+let startDate = $ref(null)
 let imageUrl = $ref('')
 let description = $ref('')
+let risk = $ref(1)
 
 let isPreviewing = $ref(false)
 
 const clearData = () => {
   isPreviewing = false
-  startDate = new Date()
+  startDate = null
+  risk = 1
   imageUrl = ''
   description = ''
 }
 
+const onDateChange = (value: string) => {
+  startDate = format(new Date(value), 'yyyy-MM-dd HH:mm')
+}
+
 const onSave = async () => {
   if(!imageUrl || !startDate) {
-    return
+    return alert('Wypełnij wszystkie pola ziomek')
   }
-  await createCoupon(imageUrl, startDate, description)
+  await createCoupon(imageUrl, new Date(startDate), risk, description)
   clearData()
   emit('created')
 }

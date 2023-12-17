@@ -4,8 +4,9 @@
     <div v-if="coupons" class="coupons-container">
       <div class="coupon-wrapper" v-for="coupon in coupons">
         <CouponComponent
-          :startDate="coupon.startDate"
+          :startDate="format(new Date(coupon.startDate), 'yyyy-MM-dd HH:mm')"
           :description="coupon.description"
+          :risk="coupon.risk"
           :imageUrl="coupon.imageUrl"
           :canDelete="isAdmin"
           @delete="onDelete(coupon._id)"
@@ -32,6 +33,7 @@ import {ICouponEntity} from "../../../server/models/CouponModel/types/ICouponEnt
 import {useRouter} from "vue-router";
 import {RouterName} from "../../enum/RouterName.js";
 import {$computed} from "vue/macros";
+import {format} from "date-fns";
 
 const router = useRouter()
 let isAdmin = $ref(false)

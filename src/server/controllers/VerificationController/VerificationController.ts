@@ -14,6 +14,7 @@ export class VerificationController implements IVerificationController {
   }
 
   async fulfillVerification(req: IApiRequest, res: IApiResponse): Promise<Response> {
+    try {
     const {secret} = req.body
     const verification = await this.verificationRepository.findVerificationBySecret(secret)
     if(!verification || verification.fulfilledAt) {
@@ -23,5 +24,8 @@ export class VerificationController implements IVerificationController {
       fulfilledAt: new Date(),
     })
     return res.sendSuccessResponse(null)
+    } catch (e) {
+      return res.sendFailResponse(null, 500)
+    }
   }
 }

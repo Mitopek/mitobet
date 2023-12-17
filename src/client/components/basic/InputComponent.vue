@@ -71,5 +71,7 @@ input{
   background: map-get(variables.$colors, surfaceHigh);
   color: white;
 }
-
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 </style>

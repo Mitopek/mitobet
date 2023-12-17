@@ -65,7 +65,7 @@ const onClick = () => {
   border: none;
   padding: 3px 12px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   position: relative;
 

@@ -1,6 +1,7 @@
 <template>
   <div class="coupon-component">
-    <div>Rozpoczęcie: <span class="start-date">{{props.startDate}}</span></div>
+    <div>Start: <span class="start-date">{{props.startDate}}</span></div>
+    <div class="risk-wrapper">Ryzyko: <RiskComponent :value="props.risk"/></div>
     <div class="image-wrapper">
       <img :src="props.imageUrl" alt="" class="img"/>
     </div>
@@ -19,10 +20,12 @@
 
 import ButtonComponent from "./basic/ButtonComponent.vue";
 import {$ref} from "vue/macros";
+import RiskComponent from "./RiskComponent.vue";
 
 interface Props {
   imageUrl: string
-  startDate: Date
+  startDate: string
+  risk: number
   description?: string
   canDelete?: boolean
 }
@@ -42,10 +45,11 @@ const emit = defineEmits<Emits>()
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../variables.scss' as variables;
 
 .coupon-component{
-  background-color: #0000009e;
+  background: map-get(variables.$colors, surfaceMediumLow);
   border-radius: 10px;
   padding: 15px;
   display: flex;
@@ -57,6 +61,13 @@ const emit = defineEmits<Emits>()
 
 .image-wrapper{
 
+}
+
+.risk-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 4px;
 }
 
 .start-date{

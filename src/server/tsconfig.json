@@ -18,6 +18,7 @@
       "@types/cron",
       "@types/randomstring",
       "@types/nodemailer",
+      "@types/method-override",
       "discord-api-types",
     ],
     "experimentalDecorators": true,

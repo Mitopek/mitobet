@@ -2,14 +2,14 @@
   <div class="prices-content">
     <h1>Subskrypcja</h1>
 
-    Nabywając subskrypcję, zyskujesz pełen dostęp do naszych najnowszych typów dotyczących bieżących wydarzeń sportowych. Nasze przewidywania są podzielone na kategorie, oparte na kursach zdarzeń oferowanych przez najpopularniejszych bukmacherów:
+    Nabywając subskrypcję, zyskujesz pełen dostęp do naszych typów dotyczących bieżących wydarzeń sportowych. Nasze przewidywania są podzielone na kategorie, oparte na szacowanym ryzku niepowodzenia.
     <br/>
     <ul>
-      <li><b>Na podwojenie</b>: To propozycje kuponów z kursem ok 2.0 - 3.0.</li>
+      <li><div class="category-list-item"><RiskComponent :value="1"/>  <div>Nasze najczęstsze typy. Kursy zazwyczaj ok 2.0 - 3.0.</div></div></li>
 
-      <li><b>Średni kurs</b>: Obejmuje typy o łącznym kursie do 15.0, pozwalając na różnorodność zakładów o umiarkowanej stawce.</li>
+      <li><div class="category-list-item"><RiskComponent :value="2"/>  <div>Szukanie "perełek" do obstawiania, których łączny kurs nie przekracza 10.</div></div></li>
 
-      <li><b>Większy kurs</b>: Typy o kursie większym niż 15.0, oferując możliwość uzyskania większych wygranych przy wyższym ryzyku.</li>
+      <li><div class="category-list-item"><RiskComponent :value="3"/>  <div>Jest ryzyko, jest zabawa! 🙂 </div></div></li>
     </ul>
     <div class="subscriptions-container">
         <SubcriptionItemFactory
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import SubcriptionItemFactory from "./factories/SubcriptionItemFactory.vue";
 import {subscriptionItems} from "../constants/SubsriptionItems.js";
+import RiskComponent from "./RiskComponent.vue";
 
 interface Emits {
   (e: 'click'): void
@@ -49,6 +50,12 @@ h1{
 .prices-content{
   margin-top: 20px;
   text-align: left;
+}
+
+.category-list-item{
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .text{

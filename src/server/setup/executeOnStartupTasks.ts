@@ -9,28 +9,36 @@ import {DiscordMessageType} from "../services/DiscordService/enum/DiscordMessage
 
 export default async function executeOnStartupTasks(container: Container) {
   // const syncFootyStatsToDatabaseService = container.get<ISyncFootyStatsToDatabaseService>(InterfaceTypes.services.SyncFootyStatsToDatabaseService)
-  // const discordService = container.get<IDiscordService>(InterfaceTypes.services.DiscordService)
+  const discordService = container.get<IDiscordService>(InterfaceTypes.services.DiscordService)
   // // await discordService.createInteraction()
-  // if(process.env.NODE_ENV !== 'development') {
-  //   new CronJob(
-  //   '0 6,12,18,0 * * *',
-  //     async function() {
-  //       await discordService.sendMessage(DiscordMessageType.DAY_SUMMARY, null)
-  //     },
-  //     null,
-  //     null,
-  //     'Europe/Warsaw'
-  //   )
-  //   new CronJob(
-  //     '*/10 * * * *',
-  //     async function() {
-  //       await discordService.sendMessage(DiscordMessageType.COUPONS_ERROR, null, true)
-  //     },
-  //     null,
-  //     null,
-  //     'Europe/Warsaw'
-  //   )
-  // }
+  if(process.env.NODE_ENV !== 'development') {
+    new CronJob(
+    '0 6,12,18,0 * * *',
+      async function() {
+        try {
+          await discordService.sendMessage(DiscordMessageType.DAY_SUMMARY, null)
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      null,
+      null,
+      'Europe/Warsaw'
+    )
+    new CronJob(
+      '*/10 * * * *',
+      async function() {
+        try {
+          await discordService.sendMessage(DiscordMessageType.COUPONS_ERROR, null, true)
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      null,
+      null,
+      'Europe/Warsaw'
+    )
+  }
 
 }
 

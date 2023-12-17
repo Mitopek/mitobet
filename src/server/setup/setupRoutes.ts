@@ -10,6 +10,7 @@ import cors from "cors";
 import helmet from "helmet";
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
+import methodOverride from 'method-override'
 import {IAIController} from "../controllers/AIController/types/IAIController.js";
 import {ISportController} from "../controllers/SportController/types/ISportController.js";
 import {ICountryController} from "../controllers/CountryController/types/ICountryController.js";
@@ -30,6 +31,7 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
     // exposedHeaders: ['set-cookie'],
   }))
   apiRouter.use(bodyParser.json())
+  apiRouter.use(methodOverride())
   apiRouter.use(bodyParser.urlencoded({ extended: true }));
 
   // app.options('*', cors({
@@ -43,8 +45,6 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   const consentsMiddleware = container.get<IConsentsMiddleware>(InterfaceTypes.middlewares.ConsentsMiddleware)
   apiRouter.use(apiResponseMiddleware.handler.bind(apiResponseMiddleware))
 
-  //TODO: me route !!
-  //TODO jwt check
   const authController = container.get<IAuthController>(InterfaceTypes.controllers.AuthController)
   apiRouter.use('/me', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   apiRouter.post('/forgot-password', authController.forgotPassword.bind(authController))
@@ -74,6 +74,11 @@ export default function setupRoutes(apiRouter: Router, container: Container) {
   apiRouter.use('/payment', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))
   apiRouter.post('/payment', paymentController.createPayment.bind(paymentController))
   apiRouter.post('/handle-payment', paymentController.handlePayment.bind(paymentController))
+
+  apiRouter.use(function(err: any, req:any, res:any, next:any) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
 
   // const aiController = container.get<IAIController>(InterfaceTypes.controllers.AIController)
   // app.use('/ai', jwtAuthMiddleware.authenticate.bind(jwtAuthMiddleware))

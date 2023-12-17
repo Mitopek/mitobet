@@ -14,6 +14,9 @@ export const CouponSchema = new Schema<ICouponEntity>({
     type: Schema.Types.Date,
     required: false,
   },
+  risk: {
+    type: Schema.Types.Number,
+  }
 }, {
   timestamps: true,
 })

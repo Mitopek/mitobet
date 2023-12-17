@@ -14,10 +14,11 @@ export function useCoupons() {
     return res.data.payload.coupons
   }
 
-  const createCoupon = async (imageUrl: string, startDate: Date, description: string): Promise<void> => {
+  const createCoupon = async (imageUrl: string, startDate: Date, risk: number, description: string): Promise<void> => {
     await axios.post(`${import.meta.env.VITE_API_HOST}/coupon`, {
       imageUrl,
       startDate,
+      risk,
       description,
     },{withCredentials : true} )
   }
