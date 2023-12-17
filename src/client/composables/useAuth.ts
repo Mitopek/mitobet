@@ -175,7 +175,6 @@ export function useAuth() {
       return response.data
     } catch (e) {
       if(axios.isAxiosError(e)) {
-        removeCookies()
         return e?.response?.data
       }
     }
