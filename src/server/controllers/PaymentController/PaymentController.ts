@@ -56,7 +56,7 @@ export class PaymentController implements IPaymentController {
           subscriptionDays = 183
         }
         if (payment.subscriptionId === 3) {
-          subscriptionDays = 366
+          subscriptionDays = 426
         }
         const newSubscriptionExpiresAt = new Date(subscriptionExpiresAt.getTime() + subscriptionDays * 24 * 60 * 60 * 1000)
         await this.userRepository.updateUserById(user.id, {

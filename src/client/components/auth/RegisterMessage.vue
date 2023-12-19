@@ -3,7 +3,7 @@
     <h2>Rejestracja</h2>
     <div class="form">
       <div class="description">
-        Twoje konto zostało utworzone. Na podany adres mailowy został wysłany link aktywacyjny. Kliknij w link aby aktywować konto.
+        Twoje konto zostało utworzone. Na podany adres mailowy został wysłany link aktywacyjny. Kliknij w link aby aktywować konto. <b> Sprawdź folder spam.</b>
       </div>
       <div class="actions-buttons">
         <ButtonComponent @click="router.push('/')">
